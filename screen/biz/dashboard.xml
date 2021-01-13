@@ -17,5 +17,225 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
 
+        <label text="&amp;nbsp;" type="p" encode="false"/>
+
+        <container-row style="diagram-sequence"><row-col sm="4">
+            <container style="diagram-sequence-actor"><link text="客户" url="/apps/marble/Customer" link-type="anchor"/></container>
+
+            <container style="diagram-sequence-item">
+                <container><link text="市场" url="/apps/marble/Marketing" link-type="anchor"/></container>
+                <container style="fa left" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <container style="diagram-sequence-item">
+                <!-- TODO: constrain better -->
+                <container><link text="客户申请" url="/apps/marble/Request" link-type="anchor"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <container style="diagram-sequence-item">
+                <link text="销售订单" url="/apps/marble/Order/FindOrder" link-type="anchor" parameter-map="[orderType:'Sales']"/>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <container style="diagram-sequence-item">
+                <container><link text="销售运单" url="/apps/marble/Shipment/FindShipment" link-type="anchor" parameter-map="[parentShipmentType:'ShpTpOutgoing']"/></container>
+                <container><link text="拣货打包" url="/apps/marble/Shipping" link-type="anchor"/></container>
+                <container style="fa left" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <!-- All invoice types:
+            <moqui.basic.Enumeration description="Sales/Purchase" enumId="InvoiceSales" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Return" enumId="InvoiceReturn" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Payroll Employee" enumId="InvoicePayroll" enumTypeId="InvoiceType" relatedEnumId="PtPayrollPayment"/>
+            <moqui.basic.Enumeration description="Payroll Other" enumId="InvoicePayrollOther" enumTypeId="InvoiceType" relatedEnumId="PtPayrollOtherPayment"/>
+            <moqui.basic.Enumeration description="Tax" enumId="InvoiceTax" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Garnishment" enumId="InvoiceGarnishment" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Commission" enumId="InvoiceCommission" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Credit Memo" enumId="InvoiceCreditMemo" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Template" enumId="InvoiceTemplate" enumTypeId="InvoiceType"/>
+            -->
+            <container style="diagram-sequence-item">
+                <link text="应收发票" url="/apps/marble/Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Receivable']"/>
+                <container style="fa left" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="客户付款凭证" url="/apps/marble/Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Payable',invoiceTypeEnumId:'InvoiceCreditMemo']"/>
+                <container style="fa right" type="i"/>
+            </container>
+            <!-- All payment types:
+            <moqui.basic.Enumeration description="Disbursement" enumId="PtDisbursement" enumTypeId="PaymentType"/>
+            <moqui.basic.Enumeration description="Refund" enumId="PtRefund" enumTypeId="PaymentType"/>
+            <!- - Payment meant to be applied to an invoice - ->
+            <moqui.basic.Enumeration description="Invoice Payment" enumId="PtInvoicePayment" enumTypeId="PaymentType"/>
+            <moqui.basic.Enumeration description="Pre Payment - Expense" enumId="PtPrePayment" parentEnumId="PtInvoicePayment" enumTypeId="PaymentType"/>
+            <moqui.basic.Enumeration description="Pre Payment - Inventory" enumId="PtPrePaymentInventory" parentEnumId="PtInvoicePayment" enumTypeId="PaymentType"/>
+            <!- - Payment for deposit to or withdrawal from a FinancialAccount, never applied to an invoice - ->
+            <moqui.basic.Enumeration description="Financial Account Transaction" enumId="PtFinancialAccount" enumTypeId="PaymentType"/>
+            <moqui.basic.Enumeration description="Order Payment Preference" enumId="PtOrderPref" enumTypeId="PaymentType"/>
+            <!- - Payment of payroll invoices - ->
+            <moqui.basic.Enumeration description="Payroll Employee Payment" enumId="PtPayrollPayment" enumTypeId="PaymentType" parentEnumId="PtInvoicePayment"/>
+            <moqui.basic.Enumeration description="Payroll Other Payment" enumId="PtPayrollOtherPayment" enumTypeId="PaymentType" parentEnumId="PtInvoicePayment"/>
+            -->
+            <container style="diagram-sequence-item">
+                <link text="客户付款" url="/apps/marble/Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Incoming',paymentTypeEnumId:'PtInvoicePayment']"/>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="销售退货" url="/apps/marble/Return" link-type="anchor" parameter-map="[returnType:'Customer']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <container><link text="客户退货运单" url="/apps/marble/Shipment/FindShipment" link-type="anchor" parameter-map="[shipmentTypeEnumId:'ShpTpSalesReturn']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="冲销发票" url="/apps/marble/Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Payable',invoiceTypeEnumId:'InvoiceReturn']"/>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="客户退款" url="/apps/marble/Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Outgoing',paymentTypeEnumId:'PtRefund']"/>
+                <container style="fa left" type="i"/>
+            </container>
+
+        </row-col><row-col sm="4">
+
+            <container style="diagram-sequence-actor"><link text="内部" url="/apps/marble/Accounting" link-type="anchor"/></container>
+
+            <container style="diagram-sequence-item">
+                <container><link text="所有当事人" url="/apps/marble/Party" link-type="anchor"/></container>
+                <container><link text="员工" url="/apps/marble/Party/" link-type="anchor"/></container>
+                <!-- TODO: "Employees & Contractors" or maybe "Human Resources" (look up by Employee role on FindParty for now) -->
+            </container>
+
+            <container style="diagram-sequence-item">
+                <container><link text="申请" url="/apps/marble/Request" link-type="anchor"/></container>
+                <!-- maybe not, are mostly internal: <container style="fa left" type="i"/><container style="fa right" type="i"/> -->
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <link text="产品" url="/apps/marble/Catalog/Product" link-type="anchor"/>
+                <label text=" - "/>
+                <link text="类别" url="/apps/marble/Catalog" link-type="anchor"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container>
+                    <link text="资产" url="/apps/marble/Asset" link-type="anchor" style="text-strong"/>
+                    <label text=" &amp; "/>
+                    <link text="库存" url="/apps/marble/Asset/Asset/FindSummary" link-type="anchor" parameter-map="[assetTypeEnumId:'AstTpInventory']"/>
+                </container>
+                <container><link text="制造" url="/apps/marble/Manufacturing" link-type="anchor"/></container>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="项目" url="/apps/marble/Project" link-type="anchor"/></container>
+                <container style="fa left" type="i"/><container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <container><link text="任务" url="/apps/marble/Task" link-type="anchor"/></container>
+                <container style="fa left" type="i"/><container style="fa right" type="i"/>
+            </container>
+            <!-- TODO: Events? what would it go to? most events are context specific, ie for a Party, Facility, Asset, etc -->
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="仓库" url="/apps/marble/Facility" link-type="anchor"/></container>
+                <container><link text="商店" url="/apps/marble/ProductStore" link-type="anchor"/></container>
+            </container>
+            <container style="diagram-sequence-item">
+                <container>
+                    <label text="内容管理: "/>
+                    <link text="维基" url="/apps/marble/Wiki/WikiSpaces" link-type="anchor"/>
+                    <label text=" - "/>
+                    <link text="博客" url="/apps/marble/Wiki/WikiBlogs" link-type="anchor"/>
+                </container>
+                <link text="调查" url="/apps/marble/Survey" link-type="anchor"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <link text="财务" url="/apps/marble/Accounting" link-type="anchor" style="text-strong"/>
+                <label text=" - "/>
+                <link text="报表" url="/apps/marble/Accounting/Reports" link-type="anchor"/>
+            </container>
+        </row-col><row-col sm="4">
+            <container style="diagram-sequence-actor"><link text="供应商" url="/apps/marble/Supplier" link-type="anchor"/></container>
+
+            <label text="&amp;nbsp;" encode="false" type="p"/>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <container style="diagram-sequence-item">
+                <!-- TODO: constrain better -->
+                <container><link text="采购申请" url="/apps/marble/Request" link-type="anchor"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="采购订单" url="/apps/marble/Order/FindOrder" link-type="anchor" parameter-map="[orderType:'Purchase']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="采购运单" url="/apps/marble/Shipment/FindShipment" link-type="anchor" parameter-map="[parentShipmentType:'ShpTpIncoming']"/></container>
+                <container style="fa left" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <link text="应付发票" url="/apps/marble/Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Payable']"/>
+                <container style="fa left" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="供应商付款凭证" url="/apps/marble/Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Receivable',invoiceTypeEnumId:'InvoiceCreditMemo']"/>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="供应商付款" url="/apps/marble/Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Outgoing',paymentTypeEnumId:'PtInvoicePayment']"/>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="采购退货" url="/apps/marble/Return" link-type="anchor" parameter-map="[returnType:'Supplier']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <container><link text="供应商退货运单" url="/apps/marble/Shipment/FindShipment" link-type="anchor" parameter-map="[shipmentTypeEnumId:'ShpTpPurchaseReturn']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="冲销发票" url="/apps/marble/Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Receivable',invoiceTypeEnumId:'InvoiceReturn']"/>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="供应商退款" url="/apps/marble/Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Incoming',paymentTypeEnumId:'PtRefund']"/>
+                <container style="fa left" type="i"/>
+            </container>
+
+        </row-col></container-row>
     </widgets>
 </screen>
