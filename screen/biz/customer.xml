@@ -13,9 +13,73 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-title="客户管理" default-menu-index="3" menu-image="o_group" menu-image-type="icon">
+        default-menu-title="客户管理" default-menu-index="3" menu-image="o_group" menu-image-type="icon" default-menu-include="false">
 
     <widgets>
+        <container-box>
+            <box-header title="客户管理">
 
+            </box-header>
+            <box-toolbar>
+                <!--<link url="." text="新建订单" style=""/>-->
+                <container-dialog id="NewCustomer" button-text="新建客户">
+
+                </container-dialog>
+            </box-toolbar>
+            <box-body>
+                <form-single name="FindCustomerForm" transition=".">
+
+                    <field name="customerPartyId" >
+                        <default-field title="客户编号" ><text-line/></default-field>
+                    </field>
+                    <field name="partyName" >
+                        <default-field title="客户名称" ><text-line /></default-field>
+                    </field>
+                    <field name="statusId"><default-field title="客户状态" >
+                        <drop-down allow-empty="true"></drop-down></default-field></field>
+                    <field name="contact"><default-field title="联系人"><text-line/></default-field></field>
+                    <field name="tel"><default-field title="电话"><text-line/></default-field></field>
+                    <field name="email">
+                        <default-field title="邮箱"><text-line/></default-field></field>
+                    <field name="state"><default-field title="省" >
+                        <drop-down allow-empty="true"><option key="1" text="河北省"/> </drop-down></default-field></field>
+                    <field name="city"><default-field title="市" >
+                        <drop-down allow-empty="true"><option key="1" text="廊坊市"/> </drop-down></default-field></field>
+                    <field name="county"><default-field title="县" >
+                        <drop-down allow-empty="true"><option key="1" text="永清县"/> </drop-down></default-field></field>
+                    <field name="address">
+                        <default-field title="地址" container-style="row"><text-line size="80"/></default-field>
+                    </field>
+
+                    <field name="submitButton">
+                        <default-field ><submit text="查找"/></default-field>
+                    </field>
+
+                    <field-layout>
+                        <field-col-row>
+                            <field-col><field-ref name="customerPartyId"/></field-col>
+                            <field-col><field-ref name="partyName"/></field-col>
+                            <field-col><field-ref name="statusId"/></field-col>
+                        </field-col-row>
+                        <field-col-row>
+                            <field-col><field-ref name="contact"/></field-col>
+                            <field-col><field-ref name="tel"/></field-col>
+                            <field-col><field-ref name="email"/></field-col>
+                        </field-col-row>
+                        <field-col-row>
+                            <field-col><field-ref name="state"/></field-col>
+                            <field-col><field-ref name="city"/></field-col>
+                            <field-col><field-ref name="county"/></field-col>
+                        </field-col-row>
+                        <fields-not-referenced/>
+                        <field-col-row style="justify-end">
+                            <field-col md="6"><field-ref name="submitButton"/></field-col>
+                        </field-col-row>
+                    </field-layout>
+
+                </form-single>
+
+            </box-body>
+        </container-box>
     </widgets>
 </screen>

@@ -13,9 +13,134 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-title="销售管理" default-menu-index="2" menu-image="o_assignment" menu-image-type="icon">
+        default-menu-title="销售管理" default-menu-index="2" menu-image="o_assignment" menu-image-type="icon" default-menu-include="false">
 
     <widgets>
+
+        <container-box>
+            <box-header title="销售管理">
+
+            </box-header>
+            <box-toolbar>
+                <!--<link url="." text="新建订单" style=""/>-->
+                <container-dialog id="NewSalesOrder" button-text="新建订单">
+
+                </container-dialog>
+            </box-toolbar>
+            <box-body>
+                <form-single name="FindOrderForm" transition=".">
+
+                    <field name="orderId" >
+                        <default-field title="订单编号" ><text-line size="25"/></default-field>
+                    </field>
+                    <field name="statusId"><default-field title="订单状态" >
+                        <drop-down allow-empty="true"></drop-down></default-field></field>
+                    <field name="entryDate"><default-field title="配送时间"><date-time/></default-field></field>
+                    <field name="placedDate">
+                        <default-field title="订购时间"><date-time/></default-field></field>
+                    <field name="customerPartyId">
+                        <default-field title="订单客户" container-style="row"><text-line size="56"/></default-field>
+                    </field>
+
+                    <field name="submitButton">
+                        <default-field ><submit text="查找"/></default-field>
+                    </field>
+
+                    <field-layout>
+                        <field-col-row>
+                            <field-col><field-ref name="orderId"/></field-col>
+                            <field-col><field-ref name="statusId"/></field-col>
+                        </field-col-row>
+                        <field-col-row>
+                            <field-col><field-ref name="entryDate"/></field-col>
+                            <field-col><field-ref name="placedDate"/></field-col>
+                        </field-col-row>
+                        <fields-not-referenced/>
+                        <field-col-row style="justify-end">
+                            <field-col md="8"><field-ref name="submitButton"/></field-col>
+                        </field-col-row>
+                    </field-layout>
+
+                </form-single>
+
+            </box-body>
+        </container-box>
+<!--
+        <container type="q-card">
+            <container type="q-card-section" style="bg-grey-3">
+                <container style="text-h7">销售管理</container>
+            </container>
+            <container type="q-card-section">
+                <form-single name="FindOrderForm" transition=".">
+
+                    <field name="orderId" >
+                        <default-field title="订单编号" ><text-line size="25"/></default-field>
+                    </field>
+                    <field name="statusId"><default-field title="订单状态" >
+                        <drop-down allow-empty="true"></drop-down></default-field></field>
+                    <field name="entryDate"><default-field title="配送时间"><date-time/></default-field></field>
+                    <field name="placedDate">
+                        <default-field title="订购时间"><date-time/></default-field></field>
+                    <field name="customerPartyId">
+                        <default-field title="订单客户" container-style="row"><text-line size="56"/></default-field>
+                    </field>
+
+                    <field name="submitButton">
+                        <default-field ><submit text="查找"/></default-field>
+                    </field>
+
+                    <field-layout>
+                        <field-col-row>
+                            <field-col><field-ref name="orderId"/></field-col>
+                            <field-col><field-ref name="statusId"/></field-col>
+                        </field-col-row>
+                        <field-col-row>
+                            <field-col><field-ref name="entryDate"/></field-col>
+                            <field-col><field-ref name="placedDate"/></field-col>
+                        </field-col-row>
+                        <fields-not-referenced/>
+                        <field-col-row style="justify-end">
+                            <field-col md="8"><field-ref name="submitButton"/></field-col>
+                        </field-col-row>
+                    </field-layout>
+
+                </form-single>
+            </container>
+        </container>-->
+
+        <container-box collapsable="false">
+            <box-header title="检索结果"/>
+            <box-body-nopad>
+                <form-list name="OrderList1" list="orderList" >
+                    <entity-find entity-name="mantle.order.OrderPartFindView" list="orderList">
+                        <search-form-inputs default-order-by="-entryDate,orderId,orderPartSeqId"/>
+                    </entity-find>
+                    <field name="orderId">
+                        <default-field title="订单编号"><link text="${orderId}" url="orderDetail" link-type="anchor" condition="orderId"/></default-field></field>
+                    <field name="salesChannelEnumId">
+                        <default-field title="销售渠道" container-style="${salesChannelEnumId == 'ScWeb' ? 'text-strong text-success' : ''}">
+                            <display-entity entity-name="moqui.basic.Enumeration"/></default-field>
+                    </field>
+                    <field name="customerPartyId">
+                        <default-field title="订单客户">
+                            <link url="editCustomer" entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"
+                                  link-type="anchor" parameter-map="[partyId:customerPartyId]"/>
+                            <label text=" - ${custPcaaList*.description.join(', ')}" condition="custPcaaList"/>
+                        </default-field>
+                    </field>
+                    <field name="partStatusId">
+                        <default-field title="订单状态"><display-entity entity-name="moqui.basic.StatusItem"/></default-field>
+                    </field>
+                    <field name="placedDate">
+                        <default-field title="订购时间"><display/></default-field></field>
+                    <field name="shipAfterDate"><default-field title="配送时间"><display/></default-field></field>
+                    <field name="partTotal" align="right" show-total="sum">
+                        <default-field title="订单金额"><display currency-unit-field="currencyUomId"/></default-field>
+                    </field>
+                </form-list>
+            </box-body-nopad>
+        </container-box>
+
 
     </widgets>
 </screen>
