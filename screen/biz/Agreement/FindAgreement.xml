@@ -68,13 +68,14 @@ along with this software (see the LICENSE.md file). If not, see
             </container-dialog>
         </container>
 
-        <container style="q-card--bordered rounded-borders q-pa-sm"><form-list name="AgreementList" list="agreementList" skip-form="true" header-dialog="true" saved-finds="true">
+        <!--<container style="q-card&#45;&#45;bordered rounded-borders q-pa-sm">-->
+        <form-list name="AgreementList" list="agreementList" skip-form="true" header-dialog="true" saved-finds="true">
             <entity-find entity-name="mantle.party.agreement.Agreement" list="agreementList">
                 <search-form-inputs default-order-by="-fromDate"/>
             </entity-find>
 
             <field name="agreementId">
-                <header-field><text-find/></header-field>
+                <header-field show-order-by="true"><text-find/></header-field>
                 <default-field title="合同序号"><link url="editAgreement" text="${agreementId}" link-type="anchor"/></default-field>
             </field>
             <field name="description">
@@ -136,15 +137,15 @@ along with this software (see the LICENSE.md file). If not, see
                 </widget-template-include></header-field>
                 <default-field title="合同状态"><display/></default-field></field>
             <field name="agreementDate">
-                <header-field><date-find/></header-field>
+                <header-field show-order-by="true"><date-find/></header-field>
                 <default-field title="合同签订日期"><display/></default-field></field>
             <field name="fromDate">
-                <header-field><date-find/></header-field>
+                <header-field show-order-by="true"><date-find/></header-field>
                 <default-field title="合同起始日期"><display/></default-field></field>
-            <field name="thruDate">
-                <header-field><date-find/></header-field>
+            <field name="thruDate" >
+                <header-field show-order-by="true"><date-find/></header-field>
                 <default-field title="合同结束日期"><display/></default-field></field>
             <field name="find"><header-field container-style="row justify-end"><submit/></header-field><default-field><ignored/></default-field></field>
-        </form-list></container>
+        </form-list><!--</container>-->
     </widgets>
 </screen>
