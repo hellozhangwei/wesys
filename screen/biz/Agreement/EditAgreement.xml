@@ -43,10 +43,7 @@ along with this software (see the LICENSE.md file). If not, see
         <link url="../FindAgreement" text="返回" icon="fa fa-angle-double-left" link-type="anchor" style="text-grey"/>
 
         <container-row><row-col lg="6">
-        </row-col><row-col lg="6">
-        </row-col></container-row>
-
-        <container-box collapsable="false">
+            <container-box collapsable="false">
             <box-header title="${agreement.agreementId}:${agreement.description}"/>
             <box-toolbar><link url="." text="批准"/> </box-toolbar>
             <box-body>
@@ -78,7 +75,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <field name="textData"><default-field title="合同正文"><text-area rows="5" cols="100"/></default-field></field>
 
                     <field name="submitButton"><default-field title="Update" container-style="row justify-end"><submit text="保存"/></default-field></field>
-                    <field-layout>
+                    <!--<field-layout>
                         <fields-not-referenced></fields-not-referenced>
                         <field-col-row>
                             <field-col><field-ref name="agreementId"/></field-col>
@@ -100,10 +97,72 @@ along with this software (see the LICENSE.md file). If not, see
                             <field-col><field-ref name="textData"/></field-col>
                         </field-col-row>
                         <field-row><field-ref name="submitButton" /></field-row>
+                    </field-layout>-->
+                    <field-layout>
+                        <field-row><field-ref name="agreementId"/><field-ref name="agreementTypeEnumId"/></field-row>
+                        <field-row><field-ref name="organizationPartyId"/><field-ref name="description"/></field-row>
+                        <field-row><field-ref name="otherPartyId"/><field-ref name="otherRoleTypeId"/></field-row>
+                        <field-row><field-ref name="fromDate"/><field-ref name="fromDate"/></field-row>
+                        <field-ref name="agreementDate"/>
+                        <field-ref name="textData"/>
+                        <field-ref name="submitButton" />
                     </field-layout>
                 </form-single>
             </box-body>
         </container-box>
+        </row-col><row-col lg="6">
+            <section name="ContentSection">
+                <actions>
+                    <entity-find entity-name="mantle.party.agreement.AgreementContent" list="contentList">
+                        <econdition field-name="agreementId"/><order-by field-name="-contentDate"/></entity-find>
+                </actions>
+                <widgets>
+                    <container-box><box-header title="合同附件"/><box-toolbar>
+                        <container-dialog id="NewContentDialog" button-text="添加附件">
+                            <form-single name="NewContentForm" transition="createContent">
+                                <field name="agreementId"><default-field><hidden/></default-field></field>
+                                <field name="contentTypeEnumId"><default-field title="Content Type">
+                                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                        <set field="enumTypeId" value="AgreementContentType"/><set field="allowEmpty" value="true"/></widget-template-include>
+                                </default-field></field>
+                                <field name="contentFile"><default-field><file/></default-field></field>
+                                <field name="description"><default-field><text-line size="60"/></default-field></field>
+                                <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                            </form-single>
+                        </container-dialog>
+                    </box-toolbar><box-body>
+                        <section-iterate name="ContentIterateSection" list="contentList" entry="content"><actions>
+                            <entity-find-one entity-name="mantle.party.PersonWithUserAccount" value-field="paua">
+                                <field-map field-name="userId" from="content.userId"/></entity-find-one>
+                            <entity-find-one entity-name="moqui.basic.Enumeration" value-field="contentTypeEnum">
+                                <field-map field-name="enumId" from="content.contentTypeEnumId"/></entity-find-one>
+                        </actions><widgets>
+                            <container>
+                                <container><label text="${contentTypeEnum?.description?:'No Type'}" type="strong"/></container>
+                                <link url="downloadContent" condition="content.contentLocation"
+                                      parameter-map="[agreementContentId:content.agreementContentId]"
+                                      text="Download ${content.contentLocation.substring(content.contentLocation.lastIndexOf('/')+1)}"/>
+                                <container-dialog id="UpdateContentContainer" button-text="Edit Content">
+                                    <form-single name="UpdateContentForm" transition="updateContent" map="content">
+                                        <field name="agreementContentId"><default-field><hidden/></default-field></field>
+                                        <field name="agreementId"><default-field><hidden/></default-field></field>
+                                        <field name="contentTypeEnumId"><default-field title="Content Type">
+                                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                                <set field="enumTypeId" value="AgreementContentType"/><set field="allowEmpty" value="true"/></widget-template-include>
+                                        </default-field></field>
+                                        <field name="contentFile"><default-field><file/></default-field></field>
+                                        <field name="description"><default-field><text-line size="60"/></default-field></field>
+                                        <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                                    </form-single>
+                                </container-dialog>
+                                <container><label condition="paua" text="By ${ec.resource.expand('UsernameTemplate','',paua+[userId:content.userId])} at ${ec.l10n.format(content.contentDate, 'yyyy-MM-dd HH:mm')}"/></container>
+                                <label text="${content.description ?: 'No Description'}" type="p"/>
+                            </container>
+                        </widgets></section-iterate>
+                    </box-body></container-box>
+                </widgets>
+            </section>
+        </row-col></container-row>
 
         <container-box><box-header title="支付条款"/>
             <box-toolbar>
@@ -204,57 +263,7 @@ along with this software (see the LICENSE.md file). If not, see
             </form-list>
         </box-body-nopad></container-box>
 
-        <section name="ContentSection">
-            <actions>
-                <entity-find entity-name="mantle.party.agreement.AgreementContent" list="contentList">
-                    <econdition field-name="agreementId"/><order-by field-name="-contentDate"/></entity-find>
-            </actions>
-            <widgets>
-                <container-box><box-header title="合同附件"/><box-toolbar>
-                    <container-dialog id="NewContentDialog" button-text="添加附件">
-                        <form-single name="NewContentForm" transition="createContent">
-                            <field name="agreementId"><default-field><hidden/></default-field></field>
-                            <field name="contentTypeEnumId"><default-field title="Content Type">
-                                <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                                    <set field="enumTypeId" value="AgreementContentType"/><set field="allowEmpty" value="true"/></widget-template-include>
-                            </default-field></field>
-                            <field name="contentFile"><default-field><file/></default-field></field>
-                            <field name="description"><default-field><text-line size="60"/></default-field></field>
-                            <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-                        </form-single>
-                    </container-dialog>
-                </box-toolbar><box-body>
-                    <section-iterate name="ContentIterateSection" list="contentList" entry="content"><actions>
-                        <entity-find-one entity-name="mantle.party.PersonWithUserAccount" value-field="paua">
-                            <field-map field-name="userId" from="content.userId"/></entity-find-one>
-                        <entity-find-one entity-name="moqui.basic.Enumeration" value-field="contentTypeEnum">
-                            <field-map field-name="enumId" from="content.contentTypeEnumId"/></entity-find-one>
-                    </actions><widgets>
-                        <container>
-                            <container><label text="${contentTypeEnum?.description?:'No Type'}" type="strong"/></container>
-                            <link url="downloadContent" condition="content.contentLocation"
-                                  parameter-map="[agreementContentId:content.agreementContentId]"
-                                  text="Download ${content.contentLocation.substring(content.contentLocation.lastIndexOf('/')+1)}"/>
-                            <container-dialog id="UpdateContentContainer" button-text="Edit Content">
-                                <form-single name="UpdateContentForm" transition="updateContent" map="content">
-                                    <field name="agreementContentId"><default-field><hidden/></default-field></field>
-                                    <field name="agreementId"><default-field><hidden/></default-field></field>
-                                    <field name="contentTypeEnumId"><default-field title="Content Type">
-                                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                                            <set field="enumTypeId" value="AgreementContentType"/><set field="allowEmpty" value="true"/></widget-template-include>
-                                    </default-field></field>
-                                    <field name="contentFile"><default-field><file/></default-field></field>
-                                    <field name="description"><default-field><text-line size="60"/></default-field></field>
-                                    <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-                                </form-single>
-                            </container-dialog>
-                            <container><label condition="paua" text="By ${ec.resource.expand('UsernameTemplate','',paua+[userId:content.userId])} at ${ec.l10n.format(content.contentDate, 'yyyy-MM-dd HH:mm')}"/></container>
-                            <label text="${content.description ?: 'No Description'}" type="p"/>
-                        </container>
-                    </widgets></section-iterate>
-                </box-body></container-box>
-            </widgets>
-        </section>
+
 
     </widgets>
 </screen>
