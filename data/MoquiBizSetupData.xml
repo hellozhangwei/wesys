@@ -25,4 +25,9 @@ along with this software (see the LICENSE.md file). If not, see
         <authz artifactAuthzId="MOQUI_BIZ_MBIZ_ADMIN" userGroupId="MoquiBizAdmin" authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
     </artifactGroups>
 
+
+    <moqui.basic.StatusItem description="In-Draft" sequenceNum="1" statusId="AgreementInDraft" statusTypeId="Agreement"/>
+    <moqui.basic.StatusItem description="In-Progress" sequenceNum="2" statusId="AgreementInProgress" statusTypeId="Agreement"/>
+    <moqui.basic.StatusItem description="Approved" sequenceNum="12" statusId="AgreementApproved" statusTypeId="Agreement"/>
+
 </entity-facade-xml>

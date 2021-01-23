@@ -38,7 +38,7 @@ along with this software (see the LICENSE.md file). If not, see
 
                     <field name="otherPartyId" from="partyId"><default-field title="合同方">
                         <display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/></default-field></field>
-                    <field name="otherRoleTypeId"><default-field title="角色"><drop-down>
+                    <field name="otherRoleTypeId"><default-field title="合同方角色"><drop-down>
                         <entity-options key="${roleTypeId}" text="${description}">
                             <entity-find entity-name="mantle.party.RoleGroupMemberAndType" cache="true">
                                 <econdition field-name="roleGroupEnumId" value="RgpAgreement"/>
@@ -84,6 +84,21 @@ along with this software (see the LICENSE.md file). If not, see
                 </header-field>
                 <default-field title="合同类型"><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
             </field>
+            <field name="otherPartyId">
+                <header-field>
+                    <drop-down>
+                        <entity-options key="${partyId}" text="PartyNameTemplate">
+                            <entity-find entity-name="mantle.party.PartyDetailAndRole">
+                                <econdition field-name="partyId" from="activeOrgId" ignore="!activeOrgId"/>
+                                <econdition field-name="disabled" value="N" or-null="true"/>
+                                <order-by field-name="organizationName"/></entity-find>
+                        </entity-options>
+                    </drop-down>
+                </header-field>
+                <default-field title="合同方角色">
+                    <display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/>
+                </default-field>
+            </field>
             <field name="otherRoleTypeId">
                 <header-field>
                     <drop-down>
@@ -93,9 +108,9 @@ along with this software (see the LICENSE.md file). If not, see
                                 <order-by field-name="description"/></entity-find></entity-options>
                     </drop-down>
                 </header-field>
-                <default-field title="角色">
+                <default-field title="合同方角色">
                 <display-entity entity-name="mantle.party.RoleType"/></default-field></field>
-            <field name="organizationPartyId">
+            <!--<field name="organizationPartyId">
                 <header-field><drop-down>
                     <entity-options key="${partyId}" text="PartyNameTemplate">
                         <entity-find entity-name="mantle.party.PartyDetailAndRole">
@@ -105,10 +120,10 @@ along with this software (see the LICENSE.md file). If not, see
                             <order-by field-name="organizationName"/></entity-find>
                     </entity-options>
                 </drop-down></header-field>
-                <default-field title="合同方">
+                <default-field title="内部组织">
                     <display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/>
                 </default-field>
-            </field>
+            </field>-->
 
             <field name="statusId">
                 <header-field><widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#statusDropDown">
