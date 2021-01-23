@@ -60,9 +60,11 @@ along with this software (see the LICENSE.md file). If not, see
 
                     <field name="submitButton"><default-field title="Create" container-style="row justify-end"><submit/></default-field></field>
                     <field-layout>
-                        <fields-not-referenced/>
-                        <field-row-big><field-ref name="agreementDate"/><field-ref name="fromDate"/><field-ref name="thruDate"/></field-row-big>
-                        <field-ref name="submitButton"/>
+                        <field-row><field-ref name="agreementTypeEnumId"/><field-ref name="agreementDate"/></field-row>
+                        <field-row><field-ref name="organizationPartyId"/><field-ref name="fromDate"/></field-row>
+                        <field-row><field-ref name="description"/><field-ref name="fromDate"/></field-row>
+                        <field-row><field-ref name="otherPartyId"/><field-ref name="otherRoleTypeId"/></field-row>
+                        <field-ref name="submitButton" />
                     </field-layout>
                 </form-single>
             </container-dialog>
