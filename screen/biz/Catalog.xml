@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-title="产品管理" default-menu-index="5" menu-image="/ssstatic/images/Catalog.png">
+    <subscreens default-item="Product">
+        <subscreens-item name="Product" location="component://SimpleScreens/screen/SimpleScreens/Catalog/Product.xml" menu-include="true" menu-index="1" menu-title="产品管理"/>
+        <subscreens-item name="Category" location="component://SimpleScreens/screen/SimpleScreens/Catalog/Category.xml" menu-include="true" menu-index="2" menu-title="分类管理"/>
+        <!--<subscreens-item name="CategoryTree" location="component://SimpleScreens/screen/SimpleScreens/Catalog/CategoryTree.xml" menu-include="true"/>-->
+        <subscreens-item name="Feature" location="component://SimpleScreens/screen/SimpleScreens/Catalog/Feature.xml" menu-include="true" menu-index="3" menu-title="规格管理"/>
+        <subscreens-item name="FeatureGroup" location="component://SimpleScreens/screen/SimpleScreens/Catalog/FeatureGroup.xml" menu-include="true" menu-index="4" menu-title="规格分组"/>
+        <subscreens-item name="Search" location="component://SimpleScreens/screen/SimpleScreens/Catalog/Search.xml" menu-include="true" menu-index="5" menu-title="产品检索"/>
+    </subscreens>
+    <widgets>
+        <subscreens-panel id="CatalogPanel" type="tab"/>
+    </widgets>
+</screen>
