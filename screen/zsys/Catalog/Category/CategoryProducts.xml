@@ -47,8 +47,11 @@ along with this software (see the LICENSE.md file). If not, see
 
         <form-list name="ProductsForm" list="pcmpList" header-dialog="true">
             <entity-find entity-name="mantle.product.category.ProductCategoryMemberProduct" list="pcmpList">
-                <search-form-inputs default-order-by="sequenceNum,pseudoId"/>
-                <econdition field-name="productCategoryId"/></entity-find>
+                <search-form-inputs default-order-by="sequenceNum,pseudoId">
+                    <default-parameters productCategoryId="DEMO_CLOTHING"/>
+                </search-form-inputs>
+                <econdition field-name="productCategoryId"/>
+            </entity-find>
 
             <field name="productCategoryId"><header-field><hidden/></header-field>
                 <default-field><hidden/></default-field></field>
@@ -57,7 +60,7 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="sequenceNum"><header-field show-order-by="true"/>
                 <default-field><display/></default-field></field>
             <field name="pseudoId">
-                <header-field title="ID" show-order-by="true"><text-find size="20" hide-options="true"/></header-field>
+                <header-field title="IDxx" show-order-by="true"><text-find size="20" hide-options="true"/></header-field>
                 <default-field><link url="editProduct" text="${pseudoId}" link-type="anchor"/></default-field>
             </field>
             <field name="productName">
