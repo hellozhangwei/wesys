@@ -31,18 +31,21 @@ along with this software (see the LICENSE.md file). If not, see
     <transition-include name="getProductList" location="component://SimpleScreens/template/product/ProductTransitions.xml"/>
 
     <widgets>
-        <container-dialog id="AddProductDialog" button-text="Add Product">
-            <form-single name="AddProductForm" transition="createProductCategoryMember">
-                <field name="productCategoryId"><default-field><hidden/></default-field></field>
-                <field name="productId"><default-field title="Product"><drop-down>
-                    <dynamic-options transition="getProductList" server-search="true" min-length="0"/></drop-down>
-                </default-field></field>
-                <field name="fromDate" from="ec.user.nowTimestamp"><default-field>
-                    <date-time/></default-field></field>
-                <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-            </form-single>
-        </container-dialog>
-        <form-list name="ProductsForm" list="pcmpList" transition="updateProductCategoryMember" header-dialog="true">
+        <container style="row justify-end">
+            <container-dialog id="AddProductDialog" button-text="Add Product" type="grey">
+                <form-single name="AddProductForm" transition="createProductCategoryMember">
+                    <field name="productCategoryId"><default-field><hidden/></default-field></field>
+                    <field name="productId"><default-field title="Product"><drop-down>
+                        <dynamic-options transition="getProductList" server-search="true" min-length="0"/></drop-down>
+                    </default-field></field>
+                    <field name="fromDate" from="ec.user.nowTimestamp"><default-field>
+                        <date-time/></default-field></field>
+                    <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </container>
+
+        <form-list name="ProductsForm" list="pcmpList" header-dialog="true">
             <entity-find entity-name="mantle.product.category.ProductCategoryMemberProduct" list="pcmpList">
                 <search-form-inputs default-order-by="sequenceNum,pseudoId"/>
                 <econdition field-name="productCategoryId"/></entity-find>
@@ -52,7 +55,7 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="productId"><default-field><hidden/></default-field></field>
 
             <field name="sequenceNum"><header-field show-order-by="true"/>
-                <default-field><text-line size="4"/></default-field></field>
+                <default-field><display/></default-field></field>
             <field name="pseudoId">
                 <header-field title="ID" show-order-by="true"><text-find size="20" hide-options="true"/></header-field>
                 <default-field><link url="editProduct" text="${pseudoId}" link-type="anchor"/></default-field>
@@ -67,14 +70,43 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="fromDate"><header-field show-order-by="true"><date-period/></header-field>
                 <default-field><display/></default-field></field>
             <field name="thruDate"><header-field show-order-by="true"><date-period/></header-field>
-                <default-field><date-time/></default-field></field>
+                <default-field><display/></default-field></field>
             <field name="quantity"><header-field show-order-by="true"/>
-                <default-field><text-line size="4"/></default-field></field>
+                <default-field><display/></default-field></field>
 
-            <field name="submitButton"><header-field title="Find"><submit/></header-field>
-                <default-field title="Update"><submit/></default-field></field>
+            <field name="submitButton"><header-field title="查找"><submit/></header-field>
+                <default-field title="Update">
+                    <container-dialog id="EditProductCategoryMember" button-text="" button-outline="false" button-flat="true" icon="edit">
+                        <form-single name="EditProductCategoryMemberForm" transition="updateProductCategoryMember">
+                            <field name="productCategoryId">
+                                <default-field><hidden/></default-field></field>
+                            <field name="productId"><default-field><hidden/></default-field></field>
+
+                            <field name="sequenceNum">
+                                <default-field><text-line/></default-field></field>
+                            <field name="pseudoId">
+                                <default-field><link url="editProduct" text="${pseudoId}" link-type="anchor"/></default-field>
+                            </field>
+                            <field name="productName">
+                                <default-field><link url="editProduct" text="${productName}" link-type="anchor"/></default-field>
+                            </field>
+                            <field name="productTypeEnumId"><default-field title="Type">
+                                <display-entity entity-name="moqui.basic.Enumeration"/>
+                            </default-field></field>
+                            <field name="fromDate">
+                                <default-field><display/></default-field></field>
+                            <field name="thruDate">
+                                <default-field><date-time/></default-field></field>
+                            <field name="quantity">
+                                <default-field><text-line/></default-field></field>
+                            <field name="submit">
+                                <default-field><submit/></default-field>
+                            </field>
+                        </form-single>
+                    </container-dialog>
+                </default-field></field>
             <field name="delete"><default-field title=""><link url="deleteProductCategoryMember" text=""
-                    icon="fa fa-trash" confirmation="Delete record of product in category?"
+                    icon="fa fa-trash" confirmation="Delete record of product in category?" button-outline="false" button-flat="true"
                     parameter-map="[productId:productId, productCategoryId:productCategoryId, fromDate:fromDate]"/>
             </default-field></field>
         </form-list>
