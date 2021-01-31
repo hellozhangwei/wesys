@@ -7,9 +7,9 @@
     <default-property name="database_time_zone" value="Asia/Shanghai"/>
 
     <screen-facade>
-        <screen location="component://webroot/screen/webroot/apps.xml">
-            <subscreens-item name="biz" menu-title="Easy Biz" menu-index="999"
-                    location="component://moqui-biz/screen/biz.xml"/>
+        <screen location="component://webroot/screen/webroot.xml">
+            <subscreens-item name="zsys" menu-title="Z-SYS" menu-index="999"
+                    location="component://moqui-zsys/screen/zsys.xml"/>
         </screen>
     </screen-facade>
 </moqui-conf>

@@ -14,20 +14,22 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <entity-facade-xml type="seed-initial">
 
-    <moqui.basic.Enumeration description="Moqui Biz App" enumId="UgtMoquiBiz" enumTypeId="UserGroupType"/>
+    <moqui.basic.Enumeration description="Moqui Z-SYS App" enumId="UgtMoquiZsys" enumTypeId="UserGroupType"/>
 
-    <userGroups userGroupId="MoquiBizAdmin" description="Moqui Biz Administrators" groupTypeEnumId="UgtMoquiBiz">
+    <userGroups userGroupId="MoquiZsysAdmin" description="Moqui Zsys Administrators" groupTypeEnumId="UgtMoquiZsys">
     </userGroups>
 
-    <artifactGroups artifactGroupId="MoquiBizAll" description="Marble ERP (via root screen)">
-        <artifacts artifactName="component://moqui-biz/screen/biz.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
-        <authz artifactAuthzId="MOQUI_BIZ_ADMIN" userGroupId="ADMIN"  authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
-        <authz artifactAuthzId="MOQUI_BIZ_MBIZ_ADMIN" userGroupId="MoquiBizAdmin" authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
+    <artifactGroups artifactGroupId="MoquiZsysAll" description="Z-SYS ERP (via root screen)">
+        <artifacts artifactName="component://moqui-zsys/screen/zsys.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+        <authz artifactAuthzId="MOQUI_ZSYS_ADMIN" userGroupId="ADMIN"  authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="MOQUI_ZSYS_MZSYS_ADMIN" userGroupId="MoquiZsysAdmin" authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
     </artifactGroups>
-
 
     <moqui.basic.StatusItem description="In-Draft" sequenceNum="1" statusId="AgreementInDraft" statusTypeId="Agreement"/>
     <moqui.basic.StatusItem description="In-Progress" sequenceNum="2" statusId="AgreementInProgress" statusTypeId="Agreement"/>
     <moqui.basic.StatusItem description="Approved" sequenceNum="12" statusId="AgreementApproved" statusTypeId="Agreement"/>
+
+    <moqui.basic.Enumeration enumId="zapps_root_app" description="component://moqui-zsys/screen/zsys.xml" />
+    <moqui.basic.Enumeration enumId="zapps_root_app_path" description="/zsys" />
 
 </entity-facade-xml>
