@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-include="false" default-menu-title="分类列表">
+
+    <transition name="findCategory"><default-response url="."/></transition>
+    <transition name="editParty"><default-response url="//${appRoot}/Party/EditParty"/></transition>
+
+    <transition name="createCategory"><service-call name="create#mantle.product.category.ProductCategory"/>
+        <default-response url="../EditCategory"/></transition>
+
+    <widgets>
+        <container style="row q-mb-md">
+        <label text="分类列表" style="text-h3" />
+        <container type="q-space"/>
+            <container-dialog id="NewCategoryDialog" button-text="新建分类">
+                <form-single name="NewCategoryForm" transition="createCategory">
+                    <field name="categoryName"><default-field><text-line/></default-field></field>
+                    <field name="productCategoryTypeEnumId"><default-field title="Category Type">
+                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                            <set field="enumTypeId" value="ProductCategoryType"/></widget-template-include>
+                    </default-field></field>
+                    <field name="ownerPartyId"><default-field title="Owner Party">
+                        <drop-down>
+                            <option key="_NA_" text="N/A"/>
+                            <entity-options key="${partyId}" text="PartyNameTemplate">
+                                <entity-find entity-name="mantle.party.PartyDetailAndRole">
+                                    <econdition field-name="partyId" from="activeOrgId" ignore="!activeOrgId"/>
+                                    <econdition field-name="roleTypeId" value="OrgInternal"/>
+                                    <econdition field-name="disabled" value="N" or-null="true"/>
+                                    <order-by field-name="organizationName"/></entity-find>
+                            </entity-options>
+                        </drop-down>
+                    </default-field></field>
+                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </container>
+
+
+        <form-list name="CategoriesForm" list="categoryList" skip-form="true">
+            <entity-find entity-name="mantle.product.category.ProductCategory" list="categoryList" cache="false">
+                <search-form-inputs default-order-by="categoryName"/>
+                <select-field field-name="productCategoryId"/>
+            </entity-find>
+
+            <field name="pseudoId">
+                <header-field title="分类序号" show-order-by="case-insensitive"><text-find size="15" hide-options="true"/></header-field>
+                <default-field><link url="../CategoryView" text="${pseudoId}" link-type="anchor"/></default-field>
+            </field>
+            <field name="categoryName">
+                <header-field title="分类名称" show-order-by="case-insensitive"><text-find size="15" hide-options="true"/></header-field>
+                <default-field><link url="../CategoryView" text="${categoryName}" link-type="anchor"/></default-field>
+            </field>
+            <field name="productCategoryTypeEnumId">
+                <header-field title="Category Type" show-order-by="true">
+                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                        <set field="enumTypeId" value="ProductCategoryType"/><set field="allowEmpty" value="true"/></widget-template-include>
+                </header-field>
+                <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
+            </field>
+            <field name="ownerPartyId">
+                <header-field title="Owner Party"><drop-down allow-empty="true">
+                    <entity-options key="${partyId}" text="PartyNameTemplate">
+                        <entity-find entity-name="mantle.party.PartyDetailAndRole">
+                            <econdition field-name="roleTypeId" value="OrgInternal"/>
+                            <econdition field-name="disabled" value="N" or-null="true"/>
+                            <order-by field-name="organizationName"/>
+                        </entity-find>
+                    </entity-options>
+                </drop-down></header-field>
+                <default-field><link url="editParty" entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"
+                        link-type="anchor" parameter-map="[partyId:ownerPartyId]"/></default-field>
+            </field>
+
+            <field name="submitButton"><header-field title="查找"><submit/></header-field>
+                <default-field><display text=" "/></default-field></field>
+        </form-list>
+    </widgets>
+</screen>
