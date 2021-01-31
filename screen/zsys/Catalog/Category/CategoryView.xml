@@ -41,128 +41,100 @@ along with this software (see the LICENSE.md file). If not, see
         <set field="curProductCategoryId" from="productCategoryId"/>
     </actions>
     <widgets>
-        <container-row><row-col md="7">
-            <form-single name="EditCategoryForm" map="category" transition="updateCategory">
-                <field name="productCategoryId"><default-field><hidden/></default-field></field>
-                <field name="pseudoId"><default-field title="ID"><text-line size="15"/></default-field></field>
-                <field name="categoryName"><default-field title="Name"><text-line size="60"/></default-field></field>
-                <field name="productCategoryTypeEnumId"><default-field title="Type">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="ProductCategoryType"/></widget-template-include>
-                </default-field></field>
-                <field name="ownerPartyId"><default-field title="Owned By Org"><drop-down allow-empty="true">
-                    <option key="_NA_" text="N/A"/>
-                    <entity-options key="${partyId}" text="PartyNameTemplate">
-                        <entity-find entity-name="mantle.party.PartyDetailAndRole">
-                            <econdition field-name="roleTypeId" value="OrgInternal"/>
-                            <econdition field-name="disabled" value="N" or-null="true"/>
-                            <order-by field-name="organizationName"/>
-                        </entity-find>
-                    </entity-options>
-                </drop-down></default-field></field>
 
-                <field name="description"><default-field><text-area cols="65" rows="4"/></default-field></field>
+        <container-box collapsable="false">
+            <box-header title=" "/>
+            <box-toolbar>
+                <container-dialog id="EditCategory" button-text="编辑" icon="add_circle_outline" button-outline="false" button-flat="true">
+                    <form-single name="EditCategoryForm" map="category" transition="updateCategory">
+                        <field name="productCategoryId"><default-field><hidden/></default-field></field>
+                        <field name="pseudoId"><default-field title="ID"><text-line size="15"/></default-field></field>
+                        <field name="categoryName"><default-field title="Name"><text-line size="60"/></default-field></field>
+                        <field name="productCategoryTypeEnumId"><default-field title="Type">
+                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                <set field="enumTypeId" value="ProductCategoryType"/></widget-template-include>
+                        </default-field></field>
+                        <field name="ownerPartyId"><default-field title="Owned By Org"><drop-down allow-empty="true">
+                            <option key="_NA_" text="N/A"/>
+                            <entity-options key="${partyId}" text="PartyNameTemplate">
+                                <entity-find entity-name="mantle.party.PartyDetailAndRole">
+                                    <econdition field-name="roleTypeId" value="OrgInternal"/>
+                                    <econdition field-name="disabled" value="N" or-null="true"/>
+                                    <order-by field-name="organizationName"/>
+                                </entity-find>
+                            </entity-options>
+                        </drop-down></default-field></field>
 
-                <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-            </form-single>
-
-            <section name="ChildCategorySection"><actions>
-                <set field="parentProductCategoryId" from="productCategoryId"/>
-            </actions><widgets>
-                <container-box><box-header title="Child Categories"/><box-toolbar>
-                    <container-dialog id="AddChildDialog" button-text="Add Child Category">
-                        <form-single name="AddChild" transition="createProductCategoryRollup">
-                            <field name="curProductCategoryId"><default-field><hidden/></default-field></field>
-                            <field name="parentProductCategoryId"><default-field><hidden/></default-field></field>
-                            <field name="childProductCategoryId"><default-field title="Child"><drop-down>
-                                <dynamic-options transition="getCategoryList" server-search="true" min-length="0"/></drop-down></default-field></field>
-                            <field name="fromDate" from="ec.user.nowTimestamp"><default-field><date-time/></default-field></field>
-                            <field name="thruDate"><default-field><date-time/></default-field></field>
-                            <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-                        </form-single>
-                    </container-dialog>
-                </box-toolbar><box-body-nopad>
-                    <form-list name="ChildCategoriesForm" list="pccList" transition="updateProductCategoryRollup">
-                        <entity-find entity-name="mantle.product.category.ProductCategoryChildren" list="pccList">
-                            <econdition field-name="parentProductCategoryId"/>
-                            <order-by field-name="sequenceNum,categoryName"/>
-                        </entity-find>
-
-                        <field name="curProductCategoryId"><default-field><hidden/></default-field></field>
-                        <field name="parentProductCategoryId"><default-field><hidden/></default-field></field>
-                        <field name="childProductCategoryId"><default-field><hidden/></default-field></field>
-
-                        <field name="sequenceNum"><default-field><text-line size="4"/></default-field></field>
-                        <field name="pseudoId"><default-field title="ID"><link url="." text="${pseudoId}" link-type="anchor"
-                                parameter-map="[productCategoryId:childProductCategoryId]"/></default-field></field>
-                        <field name="categoryName"><default-field><link url="." text="${categoryName}" link-type="anchor"
-                                parameter-map="[productCategoryId:childProductCategoryId]"/></default-field></field>
-                        <field name="fromDate"><default-field><display/></default-field></field>
-                        <field name="thruDate"><default-field><date-time/></default-field></field>
+                        <field name="description"><default-field><text-area cols="65" rows="4"/></default-field></field>
 
                         <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-                        <field name="delete"><default-field title=""><link url="deleteProductCategoryRollup" text=""
-                                icon="fa fa-trash" confirmation="Delete record of child within category?"
-                                parameter-map="[childProductCategoryId:childProductCategoryId, parentProductCategoryId:parentProductCategoryId, fromDate:fromDate]"/>
-                        </default-field></field>
-                    </form-list>
-                </box-body-nopad></container-box>
-            </widgets></section>
-        </row-col><row-col md="5">
-            <container-box><box-header title="Parent Categories"/><box-body-nopad>
-                <form-list name="ParentCategoriesForm" list="pcpList" skip-form="true">
-                    <entity-find entity-name="mantle.product.category.ProductCategoryParents" list="pcpList">
-                        <econdition field-name="productCategoryId"/>
-                        <select-field field-name="parentProductCategoryId"/>
-                        <order-by field-name="sequenceNum,categoryName"/>
-                    </entity-find>
-
-                    <field name="pseudoId"><default-field title="ID"><link url="." text="${pseudoId}" link-type="anchor"
-                            parameter-map="[productCategoryId:parentProductCategoryId]"/></default-field></field>
-                    <field name="categoryName"><default-field><link url="." text="${categoryName}" link-type="anchor"
-                            parameter-map="[productCategoryId:parentProductCategoryId]"/></default-field></field>
-                    <field name="fromDate"><default-field><display/></default-field></field>
-                    <field name="thruDate"><default-field><display/></default-field></field>
-                </form-list>
-            </box-body-nopad></container-box>
-
-            <container-box><box-header title="Feature Groups"/><box-toolbar>
-                <container-dialog id="AddFeatureGroupDialog" button-text="Apply Feature Group">
-                    <form-single name="AddFeatureGroupForm" transition="createProductCategoryFeatGrpAppl">
-                        <field name="productCategoryId"><default-field><hidden/></default-field></field>
-                        <field name="productFeatureGroupId"><default-field title="Group">
-                            <drop-down>
-                                <entity-options key="${productFeatureGroupId}" text="${description} [${productFeatureGroupId}]">
-                                    <entity-find entity-name="mantle.product.feature.ProductFeatureGroup" limit="200">
-                                        <order-by field-name="description"/></entity-find></entity-options></drop-down>
-                        </default-field></field>
-                        <field name="applTypeEnumId"><default-field title="Appl. Type">
-                            <drop-down no-current-selected-key="PfatStandard">
-                                <entity-options key="${enumId}" text="${description}">
-                                    <entity-find entity-name="moqui.basic.Enumeration">
-                                        <econdition field-name="enumTypeId" value="ProductFeatureApplType"/>
-                                        <order-by field-name="description"/></entity-find></entity-options></drop-down>
-                        </default-field></field>
-                        <field name="fromDate" from="ec.user.nowTimestamp"><default-field><hidden/></default-field></field>
-                        <field name="submitButton"><default-field title="Apply"><submit/></default-field></field>
                     </form-single>
                 </container-dialog>
-            </box-toolbar><box-body>
-                <form-list name="FeatureGroupsForm" list="pfgacaList" transition="updateProductCategoryFeatGrpAppl">
-                    <entity-find entity-name="mantle.product.feature.ProductFeatureGroupAndCategoryAppl" list="pfgacaList">
-                        <date-filter/><econdition field-name="productCategoryId"/></entity-find>
+            </box-toolbar>
+            <box-body>
+                <render-mode><text type="qvt"><![CDATA[
+            <q-item>
+                <q-item-section top>
+                  <q-item-label>分类序号:</q-item-label>
+                </q-item-section>
+                <q-item-section top>
+                  <q-item-label caption>${category.pseudoId}</q-item-label>
+                </q-item-section>
 
-                    <field name="productCategoryId"><default-field><hidden/></default-field></field>
-                    <field name="productFeatureGroupId"><default-field><hidden/></default-field></field>
-                    <field name="featureGroup"><default-field><link url="editFeatureGroup" link-type="anchor"
-                            text="${description} [${productFeatureGroupId}]"/></default-field></field>
-                    <field name="applTypeEnumId"><default-field title="Appl. Type">
-                        <display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
-                    <field name="fromDate"><default-field><hidden/></default-field></field>
-                    <field name="thruDate" from="ec.user.nowTimestamp"><default-field><hidden/></default-field></field>
-                    <field name="submitButton"><default-field title="Unapply"><submit/></default-field></field>
-                </form-list>
-            </box-body></container-box>
-        </row-col></container-row>
+                <q-item-section top>
+                  <q-item-label>分类名称:</q-item-label>
+                </q-item-section>
+
+                <q-item-section top >
+                  <q-item-label caption>${category.categoryName}</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item>
+                <q-item-section top>
+                  <q-item-label>类型:</q-item-label>
+                </q-item-section>
+                <q-item-section top>
+                  <q-item-label caption>${category.productCategoryTypeEnumId}</q-item-label>
+                </q-item-section>
+
+                <q-item-section top>
+                  <q-item-label>所有者:</q-item-label>
+                </q-item-section>
+
+                <q-item-section top >
+                  <q-item-label caption>${category.ownerPartyId}</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item>
+                <q-item-section top>
+                  <q-item-label>父分类:</q-item-label>
+                </q-item-section>
+                <q-item-section top>
+                  <q-item-label caption></q-item-label>
+                </q-item-section>
+
+                <q-item-section top>
+                  <q-item-label>子分类:</q-item-label>
+                </q-item-section>
+
+                <q-item-section top >
+                  <q-item-label caption></q-item-label>
+                </q-item-section>
+              </q-item>
+               <q-item>
+                <q-item-section top>
+                  <q-item-label>分类描述:</q-item-label>
+                </q-item-section>
+                <q-item-section top>
+                  <q-item-label caption>${category.description!}</q-item-label>
+                </q-item-section>
+            </q-item>
+
+        ]]></text>
+                </render-mode>
+            </box-body>
+        </container-box>
+
     </widgets>
 </screen>
