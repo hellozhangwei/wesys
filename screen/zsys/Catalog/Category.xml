@@ -23,9 +23,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
 
-        <container style="q-mb-md">
-            <link url="CategoryFind" text="返回分类列表" icon="fa fa-angle-double-left" link-type="anchor" style=" text-grey" condition="productCategory"/>
-        </container>
+        <link url="CategoryFind" text="返回分类列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="productCategory"/>
 
         <label text="${productCategory.pseudoId}:${productCategory.categoryName}" text-map="productCategory" type="div" condition="productCategory" style="row q-mb-md text-h3"/>
         <subscreens-panel id="CategoryPanel" type="tab"/>
