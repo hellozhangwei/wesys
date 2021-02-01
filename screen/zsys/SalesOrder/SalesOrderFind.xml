@@ -93,31 +93,10 @@ along with this software (see the LICENSE.md file). If not, see
         </if>
     </actions>
     <widgets>
-        <container-row><row-col md="5">
-            <container-dialog id="CreatePurchaseOrderDialog" button-text="Create Purchase Order">
-                <form-single name="CreatePurchaseOrder" transition="createOrder">
-                    <field name="vendorPartyId"><default-field title="Supplier"><drop-down allow-empty="true">
-                        <dynamic-options transition="searchPartyList" server-search="true" min-length="2" parameter-map="[roleTypeId:vendorRole]"/>
-                    </drop-down></default-field></field>
-                    <field name="customerPartyId"><default-field title="Customer Org"><drop-down>
-                        <entity-options key="${partyId}" text="PartyNameTemplate">
-                            <entity-find entity-name="mantle.party.PartyDetailAndRole">
-                                <econdition field-name="roleTypeId" value="OrgInternal"/>
-                                <econdition field-name="disabled" value="N" or-null="true"/>
-                                <order-by field-name="organizationName"/>
-                            </entity-find>
-                        </entity-options>
-                    </drop-down></default-field></field>
-                    <field name="facilityId" from="facilityId ?: defaultFacilityId"><default-field title="Facility">
-                        <drop-down><dynamic-options transition="getFacilityList" server-search="true" min-length="0"
-                                parameter-map="[facilityTypeEnumId:'FcTpWarehouse']"/></drop-down>
-                    </default-field></field>
-                    <field name="shipBeforeDate"><default-field><date-time/></default-field></field>
-                    <field name="estimatedDeliveryDate"><default-field title="Delivery Date"><date-time/></default-field></field>
-                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
-                </form-single>
-            </container-dialog>
-            <container-dialog id="CreateSalesOrderDialog" button-text="Create Sales Order">
+        <container style="row  q-mb-md">
+            <label text="销售订单列表" style="text-h3" />
+            <container type="q-space"/>
+            <container-dialog id="CreateSalesOrderDialog" button-text="创建销售订单">
                 <form-single name="CreateSalesOrder" transition="createOrder">
                     <field name="productStoreId" from="productStoreId ?: defaultProductStoreId"><default-field title="Store">
                         <drop-down allow-empty="true">
@@ -176,11 +155,15 @@ along with this software (see the LICENSE.md file). If not, see
                     </form-single>
                 </container-dialog>
             </widgets></section>
+        </container>
+
+        <!--<container-row><row-col md="5">
+
         </row-col><row-col md="7" style="text-right">
             <link url="../OrderIssuedInvoiced" text="Issued and Invoiced Report" parameter-map="[customerPartyId:customerPartyId]"/>
             <link url="../SalesAnalysis" text="Sales Analysis Report" parameter-map="[customerPartyId:customerPartyId]"/>
             <link url="../SalesSummary" text="Sales Summary Charts" parameter-map="[customerPartyIds:customerPartyId]"/>
-        </row-col></container-row>
+        </row-col></container-row>-->
 
         <form-list name="OrderList" list="orderList" skip-form="true" header-dialog="true" select-columns="true" saved-finds="true"
                 show-csv-button="true" show-xlsx-button="true" show-all-button="true">
