@@ -79,7 +79,7 @@ default-menu-title="合同列表" default-menu-include="false">
 
             <field name="agreementId">
                 <header-field show-order-by="true"><text-find/></header-field>
-                <default-field title="合同序号"><link url="editAgreement" text="${agreementId}" link-type="anchor"/></default-field>
+                <default-field title="合同ID"><link url="editAgreement" text="${agreementId}" link-type="anchor"/></default-field>
             </field>
             <field name="description">
                 <header-field><text-find/></header-field>

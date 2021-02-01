@@ -57,7 +57,7 @@ along with this software (see the LICENSE.md file). If not, see
             </entity-find>
 
             <field name="pseudoId">
-                <header-field title="分类序号" show-order-by="case-insensitive"><text-find size="15" hide-options="true"/></header-field>
+                <header-field title="分类ID" show-order-by="case-insensitive"><text-find size="15" hide-options="true"/></header-field>
                 <default-field><link url="../CategoryView" text="${pseudoId}" link-type="anchor"/></default-field>
             </field>
             <field name="categoryName">
