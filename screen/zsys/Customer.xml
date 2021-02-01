@@ -18,17 +18,14 @@ along with this software (see the LICENSE.md file). If not, see
     <subscreens default-item="CustomerFind"/>
 
     <pre-actions><set field="roleTypeId" value="Customer"/></pre-actions>
+
     <actions>
         <entity-find-one entity-name="mantle.party.PartyDetail" value-field="partyDetail"/>
     </actions>
+    
     <widgets>
-
-
         <link url="CustomerFind" text="返回客户列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="partyDetail"/>
-
         <label text="PartyNameTemplate" text-map="partyDetail" type="div" condition="partyDetail" style="row q-mb-md text-h3"/>
-
-<!--        <label text="PartyNameTemplate" text-map="partyDetail" type="strong" condition="partyDetail"/>-->
         <subscreens-panel id="CustomerPanel" type="popup"/>
     </widgets>
 
