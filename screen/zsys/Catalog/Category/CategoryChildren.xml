@@ -15,15 +15,35 @@ along with this software (see the LICENSE.md file). If not, see
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
         default-menu-title="子分类" default-menu-index="3">
 
-    <parameter name="productCategoryId" required="true" from="curProductCategoryId ?: productCategoryId"/>
+    <parameter name="productCategoryId" required="true" from="parentProductCategoryId ?: productCategoryId"/>
+
+    <transition name="createProductCategoryRollup"><service-call name="create#mantle.product.category.ProductCategoryRollup"
+                                                                 in-map="context + [productCategoryId:childProductCategoryId]"/><default-response url="."/></transition>
+    <transition name="updateProductCategoryRollup"><service-call name="update#mantle.product.category.ProductCategoryRollup"
+                                                                 in-map="context + [productCategoryId:childProductCategoryId]"/><default-response url="."/></transition>
+    <transition name="deleteProductCategoryRollup"><service-call name="delete#mantle.product.category.ProductCategoryRollup"
+                                                                 in-map="context + [productCategoryId:childProductCategoryId]"/><default-response url="."/></transition>
+    <transition-include name="getCategoryList" location="component://SimpleScreens/template/product/ProductTransitions.xml"/>
 
     <actions>
         <set field="parentProductCategoryId" from="productCategoryId"/>
     </actions>
 
     <widgets>
+        <container style="row justify-end">
+            <container-dialog id="AddProductDialog" button-text="添加子分类" type="grey">
+                <form-single name="AddProductForm" transition="createProductCategoryRollup">
+                    <field name="parentProductCategoryId"><default-field><hidden/></default-field></field>
+                    <field name="childProductCategoryId"><default-field title="子分类"><drop-down>
+                        <dynamic-options transition="getCategoryList" server-search="true" min-length="0"/></drop-down></default-field></field>
+                    <field name="fromDate" from="ec.user.nowTimestamp"><default-field title="开始日期"><date-time/></default-field></field>
+                    <field name="thruDate"><default-field title="结束日期"><date-time/></default-field></field>
+                    <field name="submitButton"><default-field container-style="row justify-end" title="确定"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </container>
 
-        <form-list name="ChildCategoriesForm" list="pccList" transition="updateProductCategoryRollup">
+        <form-list name="ChildCategoriesForm" list="pccList">
             <entity-find entity-name="mantle.product.category.ProductCategoryChildren" list="pccList">
                 <econdition field-name="parentProductCategoryId"/>
                 <order-by field-name="sequenceNum,categoryName"/>
@@ -33,15 +53,37 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="parentProductCategoryId"><default-field><hidden/></default-field></field>
             <field name="childProductCategoryId"><default-field><hidden/></default-field></field>
 
-            <field name="sequenceNum"><default-field><text-line size="4"/></default-field></field>
-            <field name="pseudoId"><default-field title="ID"><link url="." text="${pseudoId}" link-type="anchor"
+            <field name="sequenceNum"><default-field title="顺序号"><display/></default-field></field>
+            <field name="pseudoId"><default-field title="分类序号"><link url="." text="${pseudoId}" link-type="anchor"
                                                                    parameter-map="[productCategoryId:childProductCategoryId]"/></default-field></field>
-            <field name="categoryName"><default-field><link url="." text="${categoryName}" link-type="anchor"
+            <field name="categoryName"><default-field title="分类名称"><link url="." text="${categoryName}" link-type="anchor"
                                                             parameter-map="[productCategoryId:childProductCategoryId]"/></default-field></field>
-            <field name="fromDate"><default-field><display/></default-field></field>
-            <field name="thruDate"><default-field><date-time/></default-field></field>
+            <field name="fromDate"><default-field title="开始日期"><display/></default-field></field>
+            <field name="thruDate"><default-field title="结束日期"><display/></default-field></field>
 
-            <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+            <field name="submitButton"><default-field title="Update">
+                <container-dialog id="EditProductCategoryRollup" button-text="" button-outline="false" button-flat="true" icon="edit">
+                    <form-single name="EditProductCategoryRollupForm" transition="updateProductCategoryRollup">
+                        <field name="parentProductCategoryId"><default-field><hidden/></default-field></field>
+                        <field name="childProductCategoryId"><default-field><hidden/></default-field></field>
+                        <field name="sequenceNum">
+                            <default-field title="顺序号"><text-line/></default-field></field>
+                        <field name="pseudoId">
+                            <default-field title="分类序号"><link url="editProduct" text="${pseudoId}" link-type="anchor"/></default-field>
+                        </field>
+                        <field name="分类名称">
+                            <default-field><display/></default-field>
+                        </field>
+                        <field name="fromDate">
+                            <default-field title="开始日期"><display/></default-field></field>
+                        <field name="thruDate">
+                            <default-field title="结束日期"><date-time/></default-field></field>
+                        <field name="submit">
+                            <default-field container-style="row justify-end"><submit text="确定"/></default-field>
+                        </field>
+                    </form-single>
+                </container-dialog>
+            </default-field></field>
             <field name="delete"><default-field title=""><link url="deleteProductCategoryRollup" text=""
                                                                icon="fa fa-trash" confirmation="Delete record of child within category?"
                                                                parameter-map="[childProductCategoryId:childProductCategoryId, parentProductCategoryId:parentProductCategoryId, fromDate:fromDate]"/>
