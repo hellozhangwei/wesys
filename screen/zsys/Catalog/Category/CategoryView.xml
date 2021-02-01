@@ -39,6 +39,20 @@ along with this software (see the LICENSE.md file). If not, see
         <entity-find-one entity-name="mantle.product.category.ProductCategory" value-field="category" cache="false"/>
         <if condition="category == null"><return error="true" message="Category not found with ID ${productCategoryId}"/></if>
         <set field="curProductCategoryId" from="productCategoryId"/>
+
+        <entity-find entity-name="mantle.product.category.ProductCategoryChildren" list="pccList">
+            <econdition field-name="parentProductCategoryId" from="curProductCategoryId"/>
+            <order-by field-name="sequenceNum,categoryName"/>
+        </entity-find>
+        <set field="pccNameList" from="pccList?.categoryName?.join(', ')"/>
+
+        <entity-find entity-name="mantle.product.category.ProductCategoryParents" list="pcpList">
+            <econdition field-name="productCategoryId"/>
+            <select-field field-name="parentProductCategoryId,categoryName"/>
+            <order-by field-name="sequenceNum,categoryName"/>
+        </entity-find>
+        <set field="pcpNameList" from="pcpList?.categoryName?.join(', ')"/>
+
     </actions>
     <widgets>
 
@@ -111,7 +125,7 @@ along with this software (see the LICENSE.md file). If not, see
                   <q-item-label>父分类:</q-item-label>
                 </q-item-section>
                 <q-item-section top>
-                  <q-item-label caption></q-item-label>
+                  <q-item-label caption>${pcpNameList}</q-item-label>
                 </q-item-section>
 
                 <q-item-section top>
@@ -119,7 +133,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </q-item-section>
 
                 <q-item-section top >
-                  <q-item-label caption></q-item-label>
+                  <q-item-label caption>${pccNameList}</q-item-label>
                 </q-item-section>
               </q-item>
                <q-item>
