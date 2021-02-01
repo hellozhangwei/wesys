@@ -34,7 +34,7 @@ along with this software (see the LICENSE.md file). If not, see
 
         <!-- NOTE: here down is in alpha order -->
 
-        <subscreens-item name="Customer" location="component://SimpleScreens/screen/SimpleScreens/Customer.xml" menu-index="2" menu-title="客户管理"/>
+        <!--<subscreens-item name="Customer" location="component://SimpleScreens/screen/SimpleScreens/Customer.xml" menu-index="2" menu-title="客户管理"/>-->
         <subscreens-item name="Order" location="component://SimpleScreens/screen/SimpleScreens/Order.xml" menu-index="3" menu-title="销售管理"/>
         <subscreens-item name="Request" location="component://SimpleScreens/screen/SimpleScreens/Request.xml" menu-index="4" menu-title="审批管理"/>
         <!--<subscreens-item name="Catalog" location="component://SimpleScreens/screen/SimpleScreens/Catalog.xml" menu-index="5" menu-title="产品管理"/>-->
