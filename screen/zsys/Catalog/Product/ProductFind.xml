@@ -67,50 +67,25 @@ along with this software (see the LICENSE.md file). If not, see
             </row-actions>
 
             <field name="pseudoId">
-                <header-field title="ID" show-order-by="case-insensitive"><text-find size="20" default-operator="begins"/></header-field>
+                <header-field title="产品ID" show-order-by="case-insensitive"><text-find size="20" default-operator="begins"/></header-field>
                 <default-field><link url="editProduct" text="${pseudoId}" link-type="anchor"/></default-field>
             </field>
             <field name="productName">
-                <header-field title="Name" show-order-by="case-insensitive"><text-find size="25" default-operator="begins"/></header-field>
+                <header-field title="产品名称" show-order-by="case-insensitive"><text-find size="25" default-operator="begins"/></header-field>
                 <default-field><link url="editProduct" text="${productName}" link-type="anchor"/></default-field>
             </field>
 
             <field name="productTypeEnumId">
-                <header-field title="Product Type" show-order-by="true">
+                <header-field title="产品类型" show-order-by="true">
                     <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
                         <set field="enumTypeId" value="ProductType"/><set field="allowEmpty" value="true"/>
                         <set field="style" value=" "/></widget-template-include>
                 </header-field>
                 <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
             </field>
-            <field name="productClassEnumId">
-                <header-field title="Product Class" show-order-by="true">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="ProductClass"/><set field="allowEmpty" value="true"/>
-                        <set field="style" value=" "/></widget-template-include>
-                </header-field>
-                <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
-            </field>
-
-            <field name="assetTypeEnumId">
-                <header-field title="Asset Type" show-order-by="true">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="AssetType"/><set field="allowEmpty" value="true"/>
-                        <set field="style" value=" "/></widget-template-include>
-                </header-field>
-                <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
-            </field>
-            <field name="assetClassEnumId">
-                <header-field title="Asset Class" show-order-by="true">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="AssetClass"/><set field="allowEmpty" value="true"/>
-                        <set field="style" value=" "/></widget-template-include>
-                </header-field>
-                <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
-            </field>
 
             <field name="ownerPartyId">
-                <header-field title="Owned By Org"><drop-down allow-empty="true">
+                <header-field title="拥有者"><drop-down allow-empty="true">
                     <option key="_NA_" text="N/A"/>
                     <entity-options key="${partyId}" text="PartyNameTemplate">
                         <entity-find entity-name="mantle.party.PartyDetailAndRole">
@@ -123,37 +98,25 @@ along with this software (see the LICENSE.md file). If not, see
                 <conditional-field condition="ownerPartyId == '_NA_'"><display text=" "/></conditional-field>
                 <default-field><display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/></default-field>
             </field>
-            <field name="prodIdents"><default-field title="Other IDs">
+            <field name="prodIdents"><default-field title="条形码">
                 <section-iterate name="OtherProductIdSection" list="prodIdentList" entry="prodIdent"><widgets>
                     <label text="${prodIdent.idValue} (${prodIdent.type?.description ?: ''})" type="div"/>
                 </widgets></section-iterate>
             </default-field></field>
-            <field name="idValue"><header-field title="Other ID"><text-find default-operator="begins"/></header-field></field>
+            <field name="idValue"><header-field title="条形码"><text-find default-operator="begins"/></header-field></field>
 
-            <field name="prodAssocFroms"><default-field title="Assoc From">
-                <section-iterate name="AssocFromSection" list="prodAssocFromList" entry="prodAssoc"><widgets><container>
-                    <link url="editProduct" link-type="anchor" parameter-map="[productId:prodAssoc.productId]"
-                            text="${ec.resource.expand('ProductNameTemplate', '', prodAssoc.product)} (${prodAssoc.type?.description?:''})"/>
-                </container></widgets></section-iterate>
-            </default-field></field>
-            <field name="assocFromProductId"><header-field title="Assoc From (Virtual, BOM)">
-                <drop-down allow-multiple="true"><dynamic-options transition="getProductList" server-search="true" min-length="0"/></drop-down>
-            </header-field></field>
-
-            <field name="productFeatureId"><header-field title="Feature">
-                <drop-down allow-multiple="true"><dynamic-options transition="getFeatureList" server-search="true" min-length="0"/></drop-down>
-            </header-field></field>
-            <field name="productCategoryId"><header-field title="Category">
+            <field name="productCategoryId">
+                <header-field title="类别">
                 <drop-down allow-multiple="true"><dynamic-options transition="getCategoryList" server-search="true" min-length="0"/></drop-down>
-            </header-field></field>
+            </header-field>
+                <default-field>
+                    <link url="../../Category/CategoryView" parameter-map="[productCategoryId:productCategoryId]"
+                          link-type="anchor" entity-name="mantle.product.category.ProductCategory"/>
+                </default-field>
+            </field>
 
             <field name="submitButton"><header-field title="Find"><submit/></header-field></field>
 
-            <form-list-column><field-ref name="pseudoId"/><field-ref name="productName"/></form-list-column>
-            <form-list-column><field-ref name="productTypeEnumId"/><field-ref name="productClassEnumId"/></form-list-column>
-            <form-list-column><field-ref name="assetTypeEnumId"/><field-ref name="assetClassEnumId"/></form-list-column>
-            <form-list-column><field-ref name="ownerPartyId"/><field-ref name="prodIdents"/></form-list-column>
-            <form-list-column><field-ref name="prodAssocFroms"/></form-list-column>
         </form-list>
     </widgets>
 </screen>
