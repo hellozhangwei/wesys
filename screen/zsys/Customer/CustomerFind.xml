@@ -68,9 +68,9 @@ along with this software (see the LICENSE.md file). If not, see
 <!--            <field name="idValue"><header-field title="Other ID"><text-line size="20"/></header-field></field>-->
 <!--            <field name="gatewayCimId"><header-field title="CIM ID"><text-line size="20"/></header-field></field>-->
 
-<!--            <field name="organizationName"><header-field><text-line size="40"/></header-field></field>-->
-<!--            <field name="firstName"><header-field><text-line size="40"/></header-field></field>-->
-<!--            <field name="lastName"><header-field><text-line size="40"/></header-field></field>-->
+            <field name="organizationName"><header-field title="公司名"><text-line size="40"/></header-field></field>
+            <field name="firstName"><header-field title="姓"><text-line size="40"/></header-field></field>
+            <field name="lastName"><header-field title="名"><text-line size="40"/></header-field></field>
 
            <!-- <field name="combinedName">
                 <header-field title="Name" show-order-by="true"><text-line size="40"/></header-field>
@@ -133,9 +133,10 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="postalCode"><header-field><text-line size="10"/></header-field></field>
 
             <field name="submitButton">
-                <header-field title="Find"><submit/></header-field>
-                <default-field><link url="findOrder" text="销售订单" parameter-map="[customerPartyId:partyId]"
-                        link-type="anchor"/></default-field>
+                <header-field title="Find" container-style="row justify-end"><submit/></header-field>
+                <default-field>
+                    <link url="findOrder" text="销售订单" parameter-map="[customerPartyId:partyId]" link-type="anchor"/>
+                </default-field>
             </field>
         </form-list>
 
