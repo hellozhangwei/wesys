@@ -32,7 +32,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
         <container style="row justify-end">
-            <container-dialog id="AddProductDialog" button-text="Add Product" type="grey">
+            <container-dialog id="AddProductDialog" button-text="添加产品" type="grey">
                 <form-single name="AddProductForm" transition="createProductCategoryMember">
                     <field name="productCategoryId"><default-field><hidden/></default-field></field>
                     <field name="productId"><default-field title="Product"><drop-down>
@@ -57,27 +57,27 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field><hidden/></default-field></field>
             <field name="productId"><default-field><hidden/></default-field></field>
 
-            <field name="sequenceNum"><header-field show-order-by="true"/>
+            <field name="sequenceNum"><header-field show-order-by="true" title="顺序号"/>
                 <default-field><display/></default-field></field>
             <field name="pseudoId">
-                <header-field title="ID" show-order-by="true"><text-find size="20" hide-options="true"/></header-field>
+                <header-field title="产品序号" show-order-by="true"><text-find size="20" hide-options="true"/></header-field>
                 <default-field><link url="editProduct" text="${pseudoId}" link-type="anchor"/></default-field>
             </field>
             <field name="productName">
-                <header-field title="Name" show-order-by="true"><text-find size="50" hide-options="true"/></header-field>
+                <header-field title="产品名称" show-order-by="true"><text-find size="50" hide-options="true"/></header-field>
                 <default-field><link url="editProduct" text="${productName}" link-type="anchor"/></default-field>
             </field>
-            <field name="productTypeEnumId"><default-field title="Type">
+            <field name="productTypeEnumId"><default-field title="产品类型">
                 <display-entity entity-name="moqui.basic.Enumeration"/>
             </default-field></field>
-            <field name="fromDate"><header-field show-order-by="true"><date-period/></header-field>
+            <field name="fromDate"><header-field show-order-by="true" title="开始日期"><date-period/></header-field>
                 <default-field><display/></default-field></field>
-            <field name="thruDate"><header-field show-order-by="true"><date-period/></header-field>
+            <field name="thruDate"><header-field show-order-by="true" title="结束日期"><date-period/></header-field>
                 <default-field><display/></default-field></field>
-            <field name="quantity"><header-field show-order-by="true"/>
+            <field name="quantity"><header-field show-order-by="true" title="数量"/>
                 <default-field><display/></default-field></field>
 
-            <field name="submitButton"><header-field title="查找"><submit/></header-field>
+            <field name="submitButton"><header-field title="查找" container-style="row justify-end"><submit/></header-field>
                 <default-field title="Update">
                     <container-dialog id="EditProductCategoryMember" button-text="" button-outline="false" button-flat="true" icon="edit">
                         <form-single name="EditProductCategoryMemberForm" transition="updateProductCategoryMember">
