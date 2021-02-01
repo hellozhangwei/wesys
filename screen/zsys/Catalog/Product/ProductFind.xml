@@ -29,12 +29,12 @@ along with this software (see the LICENSE.md file). If not, see
             <container type="q-space"/>
             <container-dialog id="NewProductDialog" button-text="新建产品">
                 <form-single name="NewProductForm" transition="createProduct">
-                    <field name="productName"><default-field><text-line/></default-field></field>
-                    <field name="productTypeEnumId"><default-field title="Product Type">
+                    <field name="productName"><default-field title="产品名称"><text-line/></default-field></field>
+                    <field name="productTypeEnumId"><default-field title="产品类型">
                         <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
                             <set field="enumTypeId" value="ProductType"/></widget-template-include>
                     </default-field></field>
-                    <field name="ownerPartyId"><default-field title="Owned By Org"><drop-down>
+                    <field name="ownerPartyId"><default-field title="拥有者"><drop-down>
                         <option key="_NA_" text="N/A"/>
                         <entity-options key="${partyId}" text="PartyNameTemplate">
                             <entity-find entity-name="mantle.party.PartyDetailAndRole">
@@ -44,7 +44,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </entity-find>
                         </entity-options>
                     </drop-down></default-field></field>
-                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                    <field name="submitButton"><default-field container-style="row justify-end" title="创建"><submit/></default-field></field>
                 </form-single>
             </container-dialog>
         </container>
