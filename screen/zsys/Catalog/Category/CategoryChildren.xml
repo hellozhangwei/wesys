@@ -84,9 +84,9 @@ along with this software (see the LICENSE.md file). If not, see
                     </form-single>
                 </container-dialog>
             </default-field></field>
-            <field name="delete"><default-field title=""><link url="deleteProductCategoryRollup" text=""
-                                                               icon="fa fa-trash" confirmation="Delete record of child within category?"
-                                                               parameter-map="[childProductCategoryId:childProductCategoryId, parentProductCategoryId:parentProductCategoryId, fromDate:fromDate]"/>
+            <field name="delete"><default-field title="">
+                <link url="deleteProductCategoryRollup" text="" icon="fa fa-trash" confirmation="Delete record of child within category?" btn-type="danger"
+                    parameter-map="[childProductCategoryId:childProductCategoryId, parentProductCategoryId:parentProductCategoryId, fromDate:fromDate]"/>
             </default-field></field>
         </form-list>
     </widgets>
