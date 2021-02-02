@@ -15,11 +15,18 @@ along with this software (see the LICENSE.md file). If not, see
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
         default-menu-title="销售管理" default-menu-index="4"  menu-image-type="icon" menu-image="o_shopping_cart">
 
-    <subscreens default-item="SalesOrderFind"/>
+    <subscreens default-item="SalesOrderFind">
+        <subscreens-item name="OrderIssuedInvoiced" menu-index="3"
+                         location="component://SimpleScreens/screen/SimpleScreens/Accounting/Reports/OrderIssuedInvoiced.xml" menu-title="成交记录"/>
+        <subscreens-item name="SalesAnalysis" menu-index="4"
+                         location="component://SimpleScreens/screen/SimpleScreens/Accounting/Reports/SalesAnalysis.xml" menu-title="销售分析"/>
+        <subscreens-item name="SalesSummary" menu-index="5"
+                         location="component://SimpleScreens/screen/SimpleScreens/Accounting/Reports/SalesSummary.xml" menu-title="销售统计"/>
+    </subscreens>
 
     <widgets>
         <link url="SalesOrderFind" text="返回销售列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="orderId"/>
         <label text="销售订单: ${orderId}" type="div" condition="orderId" style="row q-mb-md text-h3"/>
-        <subscreens-panel id="OrderPanel" type="tab"/>
+        <subscreens-panel id="OrderPanel" type="popup"/>
     </widgets>
 </screen>

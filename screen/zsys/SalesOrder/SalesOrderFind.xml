@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-title="销售订单列表" default-menu-include="false">
+        default-menu-title="订单列表">
 
     <transition name="orderDetail"><default-response url="../SalesOrderDetail"/></transition>
     <transition name="createOrder"><service-call name="mantle.order.OrderServices.create#Order"/>
@@ -94,7 +94,7 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
         <container style="row  q-mb-md">
-            <label text="销售订单列表" style="text-h3" />
+            <label text="订单列表" style="text-h3" />
             <container type="q-space"/>
             <container-dialog id="CreateSalesOrderDialog" button-text="创建销售订单">
                 <form-single name="CreateSalesOrder" transition="createOrder">
