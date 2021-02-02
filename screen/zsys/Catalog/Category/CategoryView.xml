@@ -89,7 +89,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <form-single name="CategoryViewForm" map="category">
                     <field name="pseudoId"><default-field title="分类ID"><display/></default-field></field>
                     <field name="categoryName"><default-field title="分类名称"><display/></default-field></field>
-                    <field name="productCategoryTypeEnumId"><default-field title="类型"><display/></default-field></field>
+                    <field name="productCategoryTypeEnumId"><default-field title="类型"><display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
                     <field name="ownerPartyId"><default-field title="所有者"><display/></default-field></field>
                     <field name="pcpNameList"><default-field title="父分类"><display text="${pcpNameList}"/></default-field></field>
                     <field name="pccNameList"><default-field title="子分类"><display text="${pccNameList}"/></default-field></field>
