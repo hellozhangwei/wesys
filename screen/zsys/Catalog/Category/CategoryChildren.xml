@@ -31,7 +31,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
         <container style="row justify-end">
-            <container-dialog id="AddProductDialog" button-text="添加子分类" type="grey">
+            <container-dialog id="AddProductDialog" button-text="添加子分类" type="secondary" button-outline="false" button-flat="false">
                 <form-single name="AddProductForm" transition="createProductCategoryRollup">
                     <field name="parentProductCategoryId"><default-field><hidden/></default-field></field>
                     <field name="childProductCategoryId"><default-field title="子分类"><drop-down>
