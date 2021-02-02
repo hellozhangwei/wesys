@@ -86,67 +86,21 @@ along with this software (see the LICENSE.md file). If not, see
                 </container-dialog>
             </box-toolbar>
             <box-body>
-                <render-mode><text type="qvt"><![CDATA[
-            <q-item>
-                <q-item-section top>
-                  <q-item-label>分类ID:</q-item-label>
-                </q-item-section>
-                <q-item-section top>
-                  <q-item-label caption>${category.pseudoId}</q-item-label>
-                </q-item-section>
-
-                <q-item-section top>
-                  <q-item-label>分类名称:</q-item-label>
-                </q-item-section>
-
-                <q-item-section top >
-                  <q-item-label caption>${category.categoryName}</q-item-label>
-                </q-item-section>
-              </q-item>
-
-              <q-item>
-                <q-item-section top>
-                  <q-item-label>类型:</q-item-label>
-                </q-item-section>
-                <q-item-section top>
-                  <q-item-label caption>${category.productCategoryTypeEnumId}</q-item-label>
-                </q-item-section>
-
-                <q-item-section top>
-                  <q-item-label>所有者:</q-item-label>
-                </q-item-section>
-
-                <q-item-section top >
-                  <q-item-label caption>${category.ownerPartyId}</q-item-label>
-                </q-item-section>
-              </q-item>
-              <q-item>
-                <q-item-section top>
-                  <q-item-label>父分类:</q-item-label>
-                </q-item-section>
-                <q-item-section top>
-                  <q-item-label caption>${pcpNameList}</q-item-label>
-                </q-item-section>
-
-                <q-item-section top>
-                  <q-item-label>子分类:</q-item-label>
-                </q-item-section>
-
-                <q-item-section top >
-                  <q-item-label caption>${pccNameList}</q-item-label>
-                </q-item-section>
-              </q-item>
-               <q-item>
-                <q-item-section top>
-                  <q-item-label>分类描述:</q-item-label>
-                </q-item-section>
-                <q-item-section top>
-                  <q-item-label caption>${category.description!}</q-item-label>
-                </q-item-section>
-            </q-item>
-
-        ]]></text>
-                </render-mode>
+                <form-single name="CategoryViewForm" map="category">
+                    <field name="pseudoId"><default-field title="分类ID"><display/></default-field></field>
+                    <field name="categoryName"><default-field title="分类名称"><display/></default-field></field>
+                    <field name="productCategoryTypeEnumId"><default-field title="类型"><display/></default-field></field>
+                    <field name="ownerPartyId"><default-field title="所有者"><display/></default-field></field>
+                    <field name="pcpNameList"><default-field title="父分类"><display text="${pcpNameList}"/></default-field></field>
+                    <field name="pccNameList"><default-field title="子分类"><display text="${pccNameList}"/></default-field></field>
+                    <field name="description"><default-field title="分类描述"><text-area read-only="true" rows="10"/></default-field></field>
+                    <field-layout>
+                        <field-row><field-ref name="pseudoId"/><field-ref name="categoryName"/></field-row>
+                        <field-row><field-ref name="productCategoryTypeEnumId"/><field-ref name="ownerPartyId"/></field-row>
+                        <field-row><field-ref name="pcpNameList"/><field-ref name="pccNameList"/></field-row>
+                        <field-ref name="description"/>
+                    </field-layout>
+                </form-single>
             </box-body>
         </container-box>
 
