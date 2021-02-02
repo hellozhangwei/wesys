@@ -27,7 +27,7 @@ default-menu-title="合同列表" default-menu-include="false">
         <container style="row q-mb-md">
             <label text="合同管理" style="text-h3" />
             <container type="q-space"/>
-            <container-dialog id="NewAgreementDialog" button-text="新建合同">
+            <container-dialog id="NewAgreementDialog" button-text="新建合同" button-outline="false" button-flat="false">
                 <form-single name="NewAgreement" transition="createAgreement">
                     <field name="partyId"><default-field><hidden/></default-field></field>
 
