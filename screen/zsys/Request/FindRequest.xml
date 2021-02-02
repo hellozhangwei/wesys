@@ -33,7 +33,7 @@ along with this software (see the LICENSE.md file). If not, see
     <widgets>
 
         <container style="row  q-mb-md">
-            <label text="客户列表" style="text-h3" />
+            <label text="审批列表" style="text-h3" />
             <container type="q-space"/>
             <container-dialog id="NewRequestContainer" button-text="新建审批">
                 <form-single name="NewRequestForm" transition="createRequest">
