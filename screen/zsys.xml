@@ -42,10 +42,10 @@ along with this software (see the LICENSE.md file). If not, see
 <!--        <subscreens-item name="Facility" location="component://SimpleScreens/screen/SimpleScreens/Facility.xml" menu-index="7" menu-title="仓库管理"/>-->
         <!--<subscreens-item name="Order" location="component://SimpleScreens/screen/SimpleScreens/Order.xml" menu-index="7" menu-title="采购管理"/>-->
 <!--        <subscreens-item name="Supplier" location="component://SimpleScreens/screen/SimpleScreens/Supplier.xml" menu-index="8" menu-title="供应商管理"/>-->
-<!--        <subscreens-item name="Manufacturing" location="component://SimpleScreens/screen/SimpleScreens/Manufacturing.xml" menu-index="9" menu-title="制造管理"/>-->
+<!--        <subscreens-item name="Manufacturing" location="component://SimpleScreens/screen/SimpleScreens/Manufacturing.xml" menu-index="9" menu-title="生产管理"/>-->
 
 <!--        <subscreens-item name="Party" location="component://SimpleScreens/screen/SimpleScreens/Party.xml" menu-index="11" menu-title="员工管理"/>-->
-        <!--<subscreens-item name="Task" location="component://SimpleScreens/screen/SimpleScreens/Task.xml" menu-index="12" menu-title="任务管理"/>-->
+        <subscreens-item name="Task" location="component://SimpleScreens/screen/SimpleScreens/Project.xml" menu-index="12" menu-title="工程管理"/>
 
         <!--<subscreens-item name="Return" location="component://SimpleScreens/screen/SimpleScreens/Return.xml" menu-index="10"/>-->
         <subscreens-item name="Shipment" location="component://SimpleScreens/screen/SimpleScreens/Shipment.xml" menu-index="13" menu-title="运输管理"/>
