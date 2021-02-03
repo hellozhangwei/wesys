@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-title="Manufacturing" default-menu-index="9" menu-image="fa fa-industry" menu-image-type="icon">
+        default-menu-title="Manufacturing" default-menu-index="9" menu-image="precision_manufacturing" menu-image-type="icon">
 
     <!--<subscreens default-item="Run">
         <subscreens-item name="FindAsset" location="component://SimpleScreens/screen/SimpleScreens/Asset/Asset/FindAsset.xml" menu-index="2" menu-title="生产设备"/>
