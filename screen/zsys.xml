@@ -16,10 +16,10 @@ along with this software (see the LICENSE.md file). If not, see
         default-menu-title="Z-SYS" menu-image="fa fa-shopping-cart" menu-image-type="icon">
 
     <always-actions>
-        <set field="appRoot" value="biz"/>
+        <set field="appRoot" value="zsys"/>
 
-        <set field="searchIndexName" value="biz"/>
-        <set field="searchLinkSets" value="biz"/>
+        <set field="searchIndexName" value="zsys"/>
+        <set field="searchLinkSets" value="zsys"/>
         <set field="searchProductDocType" value="MantleProduct"/>
         <set field="searchPartyDocType" value="MantleParty"/>
 
