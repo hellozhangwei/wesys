@@ -140,6 +140,54 @@ along with this software (see the LICENSE.md file). If not, see
         <set field="roleTypeIdList" from="partyRoleList*.roleTypeId"/>
     </actions>
     <widgets>
+        <container-box collapsable="false">
+            <box-header></box-header>
+            <box-toolbar>
+                <container-dialog id="EditCustomerDialog" button-text="编辑" button-outline="false" button-flat="true">
+                    <section-include name="EditPartySection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+
+                </container-dialog>
+                <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960" button-outline="false" button-flat="true"/>
+            </box-toolbar>
+            <box-body>
+                <form-single name="CustomerViewForm" map="party">
+                    <field name="hasDuplicates">
+                        <default-field>
+                            <section-include name="HasDuplicatesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+                        </default-field>
+                    </field>
+                    <field name="pseudoId"><default-field title="客户ID"><display/></default-field></field>
+                    <field name="organizationName"><default-field title="客户名称"><display/></default-field></field>
+
+                    <field name="disabled"><default-field title="禁用状态"><display/></default-field></field>
+                    <field name="gatewayCimId"><default-field title="网关ID"><display/></default-field></field>
+                    <field name="externalId"><default-field title="外部ID"><display/></default-field></field>
+                    <field name="ownerPartyId"><default-field title="拥有者"><display/></default-field></field>
+                    <field name="comments"><default-field title="备注"><text-area rows="3" cols="120" read-only="true"/></default-field></field>
+                    <field name="shippingInstructions"><default-field title="配送说明"><text-area rows="5" cols="120" read-only="true"/></default-field></field>
+
+                    <field-layout>
+                        <field-ref name="hasDuplicates"/>
+
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="pseudoId"/></field-col>
+                            <field-col md="3"><field-ref name="organizationName"/></field-col>
+                            <field-col md="3"><field-ref name="externalId"/></field-col>
+                            <field-col md="3"><field-ref name="gatewayCimId"/></field-col>
+                        </field-col-row>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="ownerPartyId"/></field-col>
+                            <field-col md="3"><field-ref name="disabled"/></field-col>
+                        </field-col-row>
+
+                        <field-ref name="comments"/>
+                        <field-ref name="shippingInstructions"/>
+                    </field-layout>
+                </form-single>
+            </box-body>
+        </container-box>
+
+        
         <container-row><row-col lg="6">
             <link url="findRequest" text="Requests" badge="${requestCount}" parameter-map="[partyId:partyId]"/>
             <link url="findOrder" text="Orders" badge="${customerOrderPartCount}" parameter-map="[customerPartyId:partyId]"/>
@@ -148,10 +196,10 @@ along with this software (see the LICENSE.md file). If not, see
 
             <section-include name="NonUserPerson" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
 
-            <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"/>
+<!--            <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"/>-->
             <section-include name="HasDuplicatesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
 
-            <section-include name="EditPartySection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+<!--            <section-include name="EditPartySection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>-->
             <section-include name="RolesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
             <section-include name="PartyClassificationSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
             <section-include name="PartySettingSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
