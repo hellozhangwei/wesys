@@ -158,6 +158,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </container-dialog>
                 <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"
                                 button-outline="false" button-flat="true" button-size="xs" type="secondary"/>
+                <section-include name="NonUserPerson" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
             </box-toolbar>
             <box-body>
                 <form-single name="CustomerViewForm" map="party">
@@ -196,94 +197,28 @@ along with this software (see the LICENSE.md file). If not, see
                 </form-single>
             </box-body>
         </container-box>
-        <section name="NotesSection"><actions>
-            <entity-find entity-name="mantle.party.PartyNote" list="partyNoteList">
-                <econdition field-name="partyId"/><order-by field-name="-noteDate"/></entity-find>
-        </actions><widgets>
-            <container-box initial="closed"><box-header title="沟通记录"/><box-toolbar>
-                <container-dialog id="NewNoteDialog" button-text="添加记录" button-outline="false" button-flat="true" button-size="xs" type="secondary">
-                    <form-single name="NewNoteForm" transition="createPartyNote">
-                        <field name="partyId"><default-field><hidden/></default-field></field>
-                        <field name="noteText"><default-field title="Note"><text-area cols="60" rows="6"/></default-field></field>
-                        <field name="submitButton"><default-field title="Add Note"><submit/></default-field></field>
-                    </form-single>
-                </container-dialog>
-            </box-toolbar><box-body>
-                <label text="无内容" condition="!partyNoteList" style="text-grey"/>
-                <section-iterate name="NoteIterateSection" list="partyNoteList" entry="partyNote"><actions>
-                    <entity-find-one entity-name="mantle.party.PersonWithUserAccount" value-field="paua">
-                        <field-map field-name="userId" from="partyNote.userId"/></entity-find-one>
-                </actions><widgets>
-                    <label text="By ${paua?.firstName?:''} ${paua?.lastName?:''} (${paua?.username ?: partyNote.userId}) at ${ec.l10n.format(partyNote.noteDate, 'yyyy-MM-dd HH:mm')}" style="text-grey"/>
-                    <section name="UpdateNoteSection" condition="partyNote.userId == ec.user.userId || ec.user.isInGroup('ADMIN')"><widgets>
-                        <container-dialog id="UpdateNoteContainer" button-text="" button-outline="false" button-flat="true" button-size="xs" icon="edit" type="secondary">
-                            <form-single name="UpdateNoteForm" transition="updatePartyNote" map="partyNote">
-                                <field name="partyId"><default-field><hidden/></default-field></field>
-                                <field name="noteDate"><default-field><hidden/></default-field></field>
-                                <field name="noteText"><default-field title="Note"><text-area cols="60" rows="6"/></default-field></field>
-                                <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-                            </form-single>
-                        </container-dialog>
-                    </widgets></section>
-                    <label text="${partyNote.noteText}" type="p"/>
-                </widgets></section-iterate>
-            </box-body></container-box>
-        </widgets></section>
+        <container-row><row-col lg="6">
 
-        <container-box type="info" initial="closed">
-            <box-header title="联系方式"/>
-            <box-toolbar><container-dialog id="Xxx" button-text="新建联系方式" type="secondary" button-outline="false" button-flat="true" button-size="xs" ></container-dialog> </box-toolbar>
-        </container-box>
-        <section name="ContentSection"><actions>
-            <entity-find entity-name="mantle.party.PartyContent" list="contentList">
-                <econdition field-name="partyId"/><order-by field-name="-contentDate"/></entity-find>
-        </actions><widgets>
-            <container-box initial="closed"><box-header title="附件"/><box-toolbar>
-                <container-dialog id="NewContentDialog" button-text="添加附件"  button-outline="false" button-flat="true" button-size="xs" type="secondary">
-                    <form-single name="NewContentForm" transition="createContent">
-                        <field name="partyId"><default-field><hidden/></default-field></field>
-                        <field name="partyContentTypeEnumId"><default-field title="Content Type">
-                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                                <set field="enumTypeId" value="PartyContentType"/><set field="allowEmpty" value="true"/></widget-template-include>
-                        </default-field></field>
-                        <field name="contentFile"><default-field><file/></default-field></field>
-                        <field name="description"><default-field><text-line size="60"/></default-field></field>
-                        <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-                    </form-single>
-                </container-dialog>
-            </box-toolbar><box-body>
-                <section-iterate name="ContentIterateSection" list="contentList" entry="content"><actions>
-                    <entity-find-one entity-name="mantle.party.PersonWithUserAccount" value-field="paua">
-                        <field-map field-name="userId" from="content.userId"/></entity-find-one>
-                    <entity-find-one entity-name="moqui.basic.Enumeration" value-field="contentTypeEnum">
-                        <field-map field-name="enumId" from="content.partyContentTypeEnumId"/></entity-find-one>
-                </actions><widgets>
-                    <container>
-                        <container><label text="${contentTypeEnum?.description?:'No Type'}" type="strong"/></container>
-                        <link url="downloadContent" condition="content.contentLocation"
-                              parameter-map="[partyContentId:content.partyContentId]"
-                              text="Download ${content.contentLocation.substring(content.contentLocation.lastIndexOf('/')+1)}"/>
-                        <container-dialog id="UpdateContentContainer" button-text="Edit Content">
-                            <form-single name="UpdateContentForm" transition="updateContent" map="content">
-                                <field name="partyContentId"><default-field><hidden/></default-field></field>
-                                <field name="partyId"><default-field><hidden/></default-field></field>
-                                <field name="partyContentTypeEnumId"><default-field title="Content Type">
-                                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                                        <set field="enumTypeId" value="PartyContentType"/><set field="allowEmpty" value="true"/></widget-template-include>
-                                </default-field></field>
-                                <field name="contentFile"><default-field><file/></default-field></field>
-                                <field name="description"><default-field><text-line size="60"/></default-field></field>
-                                <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-                            </form-single>
-                        </container-dialog>
-                        <container><label condition="paua" text="By ${ec.resource.expand('UsernameTemplate','',paua+[userId:content.userId])} at ${ec.l10n.format(content.contentDate, 'yyyy-MM-dd HH:mm')}"/></container>
-                        <label text="${content.description ?: 'No Description'}" type="p"/>
-                    </container>
-                </widgets></section-iterate>
-            </box-body></container-box>
-        </widgets></section>
-<!--        <section-include name="ContentSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>-->
-<!--        <section-include name="SalesAccountContactSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>-->
+            <!--<section-include name="NonUserPerson" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
+
+            <!--<dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"/>-->
+            <!--<section-include name="HasDuplicatesSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
+
+           <!--<section-include name="EditPartySection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
+            <section-include name="PartyIdentificationSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            <section-include name="UserSecuritySection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            <section-include name="PartySettingSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            <section-include name="PartyClassificationSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            <!--<section-include name="RolesSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
+
+            <section-include name="SalesAccountContactSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+        </row-col><row-col lg="6">
+            <section-include name="NotesSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            <section-include name="ContactInfoSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            <section-include name="PaymentMethodSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            <!--<section-include name="FinancialAccountSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
+            <section-include name="ContentSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+        </row-col></container-row>
 
     </widgets>
 </screen>
