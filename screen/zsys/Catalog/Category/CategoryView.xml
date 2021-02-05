@@ -56,10 +56,10 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
 
-        <container-box collapsable="false">
-            <box-header title=" "/>
+        <container-box>
+            <box-header title="基本信息"/>
             <box-toolbar>
-                <container-dialog id="EditCategory" button-text="编辑" icon="add_circle_outline" button-outline="false" button-flat="true">
+                <container-dialog id="EditCategory" button-text="编辑" icon="edit" button-outline="false" button-flat="true" type="secondary">
                     <form-single name="EditCategoryForm" map="category" transition="updateCategory">
                         <field name="productCategoryId"><default-field><hidden/></default-field></field>
                         <field name="pseudoId"><default-field title="ID"><text-line size="15"/></default-field></field>
