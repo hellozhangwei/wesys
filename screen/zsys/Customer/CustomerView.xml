@@ -154,11 +154,11 @@ along with this software (see the LICENSE.md file). If not, see
 <!--                <link url="findShipment" text="运单"  parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
                 <!--<link url="receivableStatement" text="Statement PDF" parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
                 <container-dialog id="EditCustomerDialog" button-text="编辑" button-outline="false" button-flat="true" button-size="xs" type="secondary">
-                    <section-include name="EditPartySection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+                    <section-include name="EditPartySection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
                 </container-dialog>
                 <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"
                                 button-outline="false" button-flat="true" button-size="xs" type="secondary"/>
-                <section-include name="NonUserPerson" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+                <section-include name="NonUserPerson" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
             </box-toolbar>
             <box-body>
                 <form-single name="CustomerViewForm" map="party">
