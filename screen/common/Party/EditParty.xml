@@ -457,41 +457,45 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="partyId"/><order-by field-name="partySettingTypeId"/></entity-find>
             </actions><widgets>
                 <container-box initial="closed"><box-header title="Settings"/><box-toolbar>
-                    <container-dialog id="AddSettingDialog" button-text="Select Setting" button-outline="false" button-flat="true" type="secondary">
-                        <form-single name="AddSettingForm" transition="storePartySetting">
-                            <field name="partyId"><default-field><hidden/></default-field></field>
-                            <field name="partySettingTypeId"><default-field title="Type">
-                                <drop-down><entity-options key="${partySettingTypeId}" text="${description}">
-                                    <entity-find entity-name="mantle.party.PartySettingTypeAndRole" cache="false">
-                                        <econdition field-name="roleTypeId" operator="in" from="roleTypeIdList" or-null="true"/>
-                                        <econdition field-name="enumTypeId" operator="is-not-null"/>
-                                        <order-by field-name="description"/></entity-find></entity-options>
-                                </drop-down>
-                            </default-field></field>
-                            <field name="settingValue"><default-field title="Value">
-                                <drop-down><dynamic-options transition="getPartySettingList"
-                                        value-field="enumId" label-field="description">
-                                    <depends-on field="partySettingTypeId"/></dynamic-options></drop-down>
-                            </default-field></field>
-                            <field name="submitButton"><default-field title="Set"><submit/></default-field></field>
-                        </form-single>
-                    </container-dialog>
-                    <container-dialog id="AddSettingTextDialog" button-text="Enter Setting" button-outline="false" button-flat="true" type="secondary">
-                        <form-single name="AddSettingTextForm" transition="storePartySetting">
-                            <field name="partyId"><default-field><hidden/></default-field></field>
-                            <field name="partySettingTypeId"><default-field title="Type">
-                                <drop-down><entity-options key="${partySettingTypeId}" text="${description}">
-                                    <entity-find entity-name="mantle.party.PartySettingTypeAndRole" cache="false">
-                                        <econdition field-name="roleTypeId" operator="in" from="roleTypeIdList" or-null="true"/>
-                                        <econdition field-name="enumTypeId" operator="is-null"/>
-                                        <order-by field-name="description"/></entity-find></entity-options>
-                                </drop-down>
-                            </default-field></field>
-                            <field name="settingValue"><default-field title="Value">
-                                <text-line size="40"/></default-field></field>
-                            <field name="submitButton"><default-field title="Set"><submit/></default-field></field>
-                        </form-single>
-                    </container-dialog>
+
+                    <button-menu text="操作" btn-type="secondary">
+                        <container-dialog id="AddSettingDialog" button-text="Select Setting" button-outline="false" button-flat="true" type="secondary">
+                            <form-single name="AddSettingForm" transition="storePartySetting">
+                                <field name="partyId"><default-field><hidden/></default-field></field>
+                                <field name="partySettingTypeId"><default-field title="Type">
+                                    <drop-down><entity-options key="${partySettingTypeId}" text="${description}">
+                                        <entity-find entity-name="mantle.party.PartySettingTypeAndRole" cache="false">
+                                            <econdition field-name="roleTypeId" operator="in" from="roleTypeIdList" or-null="true"/>
+                                            <econdition field-name="enumTypeId" operator="is-not-null"/>
+                                            <order-by field-name="description"/></entity-find></entity-options>
+                                    </drop-down>
+                                </default-field></field>
+                                <field name="settingValue"><default-field title="Value">
+                                    <drop-down><dynamic-options transition="getPartySettingList"
+                                                                value-field="enumId" label-field="description">
+                                        <depends-on field="partySettingTypeId"/></dynamic-options></drop-down>
+                                </default-field></field>
+                                <field name="submitButton"><default-field title="Set"><submit/></default-field></field>
+                            </form-single>
+                        </container-dialog>
+                        <container-dialog id="AddSettingTextDialog" button-text="Enter Setting" button-outline="false" button-flat="true" type="secondary">
+                            <form-single name="AddSettingTextForm" transition="storePartySetting">
+                                <field name="partyId"><default-field><hidden/></default-field></field>
+                                <field name="partySettingTypeId"><default-field title="Type">
+                                    <drop-down><entity-options key="${partySettingTypeId}" text="${description}">
+                                        <entity-find entity-name="mantle.party.PartySettingTypeAndRole" cache="false">
+                                            <econdition field-name="roleTypeId" operator="in" from="roleTypeIdList" or-null="true"/>
+                                            <econdition field-name="enumTypeId" operator="is-null"/>
+                                            <order-by field-name="description"/></entity-find></entity-options>
+                                    </drop-down>
+                                </default-field></field>
+                                <field name="settingValue"><default-field title="Value">
+                                    <text-line size="40"/></default-field></field>
+                                <field name="submitButton"><default-field title="Set"><submit/></default-field></field>
+                            </form-single>
+                        </container-dialog>
+                    </button-menu>
+
                 </box-toolbar><box-body-nopad>
                     <form-list name="SettingsForm" list="settingList" transition="deletePartySetting" skip-header="true">
                         <row-actions>
@@ -1123,12 +1127,15 @@ along with this software (see the LICENSE.md file). If not, see
                         in-map="[partyId:partyId]" out-map="ppmiOut"/>
             </actions><widgets>
                 <container-box type="success" initial="closed"><box-header title="Payment Methods"/><box-toolbar>
-                    <dynamic-dialog id="CreateCreditCardDialog" button-text="Create Credit Card"
-                            transition="UpdatePaymentMethodInfo" width="800"
-                            parameter-map="[partyId:partyId, paymentMethodTypeEnumId:'PmtCreditCard']" button-outline="false" button-flat="true" type="secondary"/>
-                    <dynamic-dialog id="CreateBankAccountDialog" button-text="Create Bank Account"
-                            transition="UpdatePaymentMethodInfo" width="800"
-                            parameter-map="[partyId:partyId, paymentMethodTypeEnumId:'PmtBankAccount']" button-outline="false" button-flat="true" type="secondary"/>
+                    <button-menu text="操作" btn-type="secondary">
+                        <dynamic-dialog id="CreateCreditCardDialog" button-text="Create Credit Card"
+                                        transition="UpdatePaymentMethodInfo" width="800"
+                                        parameter-map="[partyId:partyId, paymentMethodTypeEnumId:'PmtCreditCard']" button-outline="false" button-flat="true" type="secondary"/>
+                        <dynamic-dialog id="CreateBankAccountDialog" button-text="Create Bank Account"
+                                        transition="UpdatePaymentMethodInfo" width="800"
+                                        parameter-map="[partyId:partyId, paymentMethodTypeEnumId:'PmtBankAccount']" button-outline="false" button-flat="true" type="secondary"/>
+                    </button-menu>
+
                 </box-toolbar><box-body>
                     <container style="float-box" type="ul">
                         <section-iterate name="BillingInfoSection" list="ppmiOut.methodInfoList" entry="methodInfo"><widgets>
