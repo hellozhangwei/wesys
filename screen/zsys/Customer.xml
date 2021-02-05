@@ -15,8 +15,14 @@ along with this software (see the LICENSE.md file). If not, see
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
         default-menu-title="客户管理" default-menu-index="2" menu-image="o_group" menu-image-type="icon">
 
-    <subscreens default-item="CustomerFind"/>
+    <subscreens default-item="CustomerFind">
 
+        <subscreens-item name="PartyAgreements" location="component://SimpleScreens/screen/SimpleScreens/Party/PartyAgreements.xml" menu-index="2"/>
+        <subscreens-item name="PartyCalendar" location="component://SimpleScreens/screen/SimpleScreens/Party/PartyCalendar.xml" menu-index="3"/>
+        <subscreens-item name="PartyMessages" location="component://SimpleScreens/screen/SimpleScreens/Party/PartyMessages.xml" menu-index="4"/>
+        <subscreens-item name="PartyTimeEntries" location="component://SimpleScreens/screen/SimpleScreens/Party/PartyTimeEntries.xml" menu-index="5"/>
+        <subscreens-item name="FinancialInfo" location="component://SimpleScreens/screen/SimpleScreens/Party/FinancialInfo.xml" menu-index="6"/>
+    </subscreens>
     <pre-actions><set field="roleTypeId" value="Customer"/></pre-actions>
 
     <actions>
@@ -26,7 +32,7 @@ along with this software (see the LICENSE.md file). If not, see
     <widgets>
         <link url="CustomerFind" text="返回客户列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="partyDetail"/>
         <label text="PartyNameTemplate" text-map="partyDetail" type="div" condition="partyDetail" style="row q-mb-md text-h3"/>
-        <subscreens-panel id="CustomerPanel" type="popup"/>
+        <subscreens-panel id="CustomerPanel" type="tab"/>
     </widgets>
 
 </screen>
