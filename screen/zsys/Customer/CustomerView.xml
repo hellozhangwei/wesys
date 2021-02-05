@@ -153,10 +153,11 @@ along with this software (see the LICENSE.md file). If not, see
                 </render-mode>
 <!--                <link url="findShipment" text="运单"  parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
                 <!--<link url="receivableStatement" text="Statement PDF" parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
-                <container-dialog id="EditCustomerDialog" button-text="编辑" button-outline="false" button-flat="true" type="secondary">
+                <container-dialog id="EditCustomerDialog" button-text="编辑" button-outline="false" button-flat="true" button-size="xs" type="secondary">
                     <section-include name="EditPartySection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
                 </container-dialog>
-                <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960" button-outline="false" button-flat="true" type="secondary"/>
+                <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"
+                                button-outline="false" button-flat="true" button-size="xs" type="secondary"/>
             </box-toolbar>
             <box-body>
                 <form-single name="CustomerViewForm" map="party">
@@ -200,7 +201,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <econdition field-name="partyId"/><order-by field-name="-noteDate"/></entity-find>
         </actions><widgets>
             <container-box initial="closed"><box-header title="沟通记录"/><box-toolbar>
-                <container-dialog id="NewNoteDialog" button-text="添加记录" button-outline="false" button-flat="true" type="secondary">
+                <container-dialog id="NewNoteDialog" button-text="添加记录" button-outline="false" button-flat="true" button-size="xs" type="secondary">
                     <form-single name="NewNoteForm" transition="createPartyNote">
                         <field name="partyId"><default-field><hidden/></default-field></field>
                         <field name="noteText"><default-field title="Note"><text-area cols="60" rows="6"/></default-field></field>
@@ -215,7 +216,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </actions><widgets>
                     <label text="By ${paua?.firstName?:''} ${paua?.lastName?:''} (${paua?.username ?: partyNote.userId}) at ${ec.l10n.format(partyNote.noteDate, 'yyyy-MM-dd HH:mm')}" style="text-grey"/>
                     <section name="UpdateNoteSection" condition="partyNote.userId == ec.user.userId || ec.user.isInGroup('ADMIN')"><widgets>
-                        <container-dialog id="UpdateNoteContainer" button-text="" button-outline="false" button-flat="true" icon="edit" type="secondary">
+                        <container-dialog id="UpdateNoteContainer" button-text="" button-outline="false" button-flat="true" button-size="xs" icon="edit" type="secondary">
                             <form-single name="UpdateNoteForm" transition="updatePartyNote" map="partyNote">
                                 <field name="partyId"><default-field><hidden/></default-field></field>
                                 <field name="noteDate"><default-field><hidden/></default-field></field>
@@ -231,14 +232,14 @@ along with this software (see the LICENSE.md file). If not, see
 
         <container-box type="info" initial="closed">
             <box-header title="联系方式"/>
-            <box-toolbar><container-dialog id="Xxx" button-text="新建联系方式" type="secondary" button-outline="false" button-flat="true" ></container-dialog> </box-toolbar>
+            <box-toolbar><container-dialog id="Xxx" button-text="新建联系方式" type="secondary" button-outline="false" button-flat="true" button-size="xs" ></container-dialog> </box-toolbar>
         </container-box>
         <section name="ContentSection"><actions>
             <entity-find entity-name="mantle.party.PartyContent" list="contentList">
                 <econdition field-name="partyId"/><order-by field-name="-contentDate"/></entity-find>
         </actions><widgets>
             <container-box initial="closed"><box-header title="附件"/><box-toolbar>
-                <container-dialog id="NewContentDialog" button-text="添加附件"  button-outline="false" button-flat="true" type="secondary">
+                <container-dialog id="NewContentDialog" button-text="添加附件"  button-outline="false" button-flat="true" button-size="xs" type="secondary">
                     <form-single name="NewContentForm" transition="createContent">
                         <field name="partyId"><default-field><hidden/></default-field></field>
                         <field name="partyContentTypeEnumId"><default-field title="Content Type">
