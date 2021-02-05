@@ -147,8 +147,8 @@ along with this software (see the LICENSE.md file). If not, see
 <!--                <link url="findOrder" text="销售订单"  parameter-map="[customerPartyId:partyId]" link-type="anchor-button" style="bg-blue-1 no-border text-grey"/>-->
                 <render-mode>
                     <text type="qvt"><![CDATA[
-                    <q-btn flat color="secondary" label="审批" icon="edit" size="xs"/>
-                    <q-btn flat color="secondary" label="运单" icon="build" size="xs" />
+                    <q-btn flat @click.stop color="secondary" label="审批" icon="edit" size="xs"/>
+                    <q-btn flat @click.stop color="secondary" label="运单" icon="build" size="xs" />
                     ]]></text>
                 </render-mode>
 <!--                <link url="findShipment" text="运单"  parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
