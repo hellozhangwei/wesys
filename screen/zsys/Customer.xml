@@ -40,9 +40,9 @@ along with this software (see the LICENSE.md file). If not, see
         <section name="PartyName">
             <condition><expression>partyDetail</expression></condition>
             <widgets>
-                <container style="row q-mb-md">
+                <container style="row q-mb-md items-end">
                     <label text="PartyNameTemplate" text-map="partyDetail" style="text-h3 q-mr-md"/>
-                    <label text="[${partyRoles?.role?.description?.join(', ')}]" style="text-grey"/>
+                    <label text="[ ${partyRoles?.role?.description?.join(', ')} ]" style="text-grey"/>
                 </container>
             </widgets>
         </section>
