@@ -28,11 +28,25 @@ along with this software (see the LICENSE.md file). If not, see
 
     <actions>
         <entity-find-one entity-name="mantle.party.PartyDetail" value-field="partyDetail"/>
+        <entity-find entity-name="mantle.party.PartyRole" list="partyRoles">
+            <econdition field-name="partyId"/>
+        </entity-find>
     </actions>
     
     <widgets>
+
         <link url="CustomerFind" text="返回客户列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="partyDetail"/>
-        <label text="PartyNameTemplate" text-map="partyDetail" type="div" condition="partyDetail" style="row q-mb-md text-h3"/>
+
+        <section name="PartyName">
+            <condition><expression>partyDetail</expression></condition>
+            <widgets>
+                <container style="row q-mb-md">
+                    <label text="PartyNameTemplate" text-map="partyDetail" style="text-h3 q-mr-md"/>
+                    <label text="[${partyRoles?.role?.description?.join(', ')}]" style="text-grey"/>
+                </container>
+            </widgets>
+        </section>
+
         <subscreens-panel id="CustomerPanel" type="tab"/>
     </widgets>
 
