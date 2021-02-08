@@ -76,20 +76,71 @@ along with this software (see the LICENSE.md file). If not, see
         <if condition="party == null"><return error="true" message="Supplier not found with ID ${partyId}"/></if>
     </actions>
     <widgets>
-        <container-row><row-col lg="6">
-            <link url="findOrder" text="Orders" parameter-map="[vendorPartyId:partyId]"/>
-            <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"/>
-            <section-include name="HasDuplicatesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+        <container-box >
+            <box-header title="基本信息"/>
+            <box-toolbar>
+                <!--                <link url="findRequest" text="Requests"  parameter-map="[partyId:partyId]" link-type="anchor-button"  />-->
+                <!--                <link url="findOrder" text="销售订单"  parameter-map="[customerPartyId:partyId]" link-type="anchor-button" style="bg-blue-1 no-border text-grey"/>-->
+                <render-mode>
+                    <text type="qvt"><![CDATA[
+                        <q-btn flat @click.stop color="secondary" label="审批" icon="edit" size="xs"/>
+                        <q-btn flat @click.stop color="secondary" label="运单" icon="build" size="xs" />
+                        ]]></text>
+                </render-mode>
+                <!--                <link url="findShipment" text="运单"  parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
+                <!--<link url="receivableStatement" text="Statement PDF" parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
+                <container-dialog id="EditCustomerDialog" button-text="编辑" button-outline="false" button-flat="true" button-size="xs" type="secondary">
+                    <section-include name="EditPartySection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+                </container-dialog>
+                <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"
+                                button-outline="false" button-flat="true" button-size="xs" type="secondary"/>
+                <section-include name="NonUserPerson" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            </box-toolbar>
+            <box-body>
+                <form-single name="CustomerViewForm" map="party">
+                    <field name="hasDuplicates">
+                        <default-field>
+                            <section-include name="HasDuplicatesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+                        </default-field>
+                    </field>
+                    <field name="pseudoId"><default-field title="客户ID"><display/></default-field></field>
+                    <field name="organizationName"><default-field title="客户名称"><display/></default-field></field>
 
-            <section-include name="EditPartySection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-            <section-include name="RolesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-            <section-include name="PartyIdentificationSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-        </row-col><row-col lg="6">
-            <section-include name="NotesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-            <section-include name="ContactInfoSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-            <section-include name="PaymentMethodSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-            <section-include name="FinancialAccountSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-            <section-include name="ContentSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-        </row-col></container-row>
+                    <field name="disabled"><default-field title="禁用状态"><display/></default-field></field>
+                    <field name="gatewayCimId"><default-field title="网关ID"><display/></default-field></field>
+                    <field name="externalId"><default-field title="外部ID"><display/></default-field></field>
+                    <field name="ownerPartyId"><default-field title="拥有者"><display/></default-field></field>
+                    <field name="comments"><default-field title="备注"><text-area rows="1" cols="120" read-only="true"/></default-field></field>
+                    <field name="shippingInstructions"><default-field title="配送说明"><text-area rows="1" cols="120" read-only="true"/></default-field></field>
+
+                    <field-layout>
+                        <field-ref name="hasDuplicates"/>
+
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="pseudoId"/></field-col>
+                            <field-col md="3"><field-ref name="organizationName"/></field-col>
+                            <field-col md="3"><field-ref name="externalId"/></field-col>
+                            <field-col md="3"><field-ref name="gatewayCimId"/></field-col>
+                        </field-col-row>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="ownerPartyId"/></field-col>
+                            <field-col md="3"><field-ref name="disabled"/></field-col>
+                        </field-col-row>
+
+                        <field-ref name="comments"/>
+                        <field-ref name="shippingInstructions"/>
+                    </field-layout>
+                </form-single>
+            </box-body>
+        </container-box>
+
+        <!--<section-include name="RolesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>-->
+        <section-include name="PartyIdentificationSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+        <section-include name="NotesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+        <section-include name="ContactInfoSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+        <!--<section-include name="PaymentMethodSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>-->
+        <!--<section-include name="FinancialAccountSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>-->
+        <section-include name="ContentSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+
     </widgets>
 </screen>
