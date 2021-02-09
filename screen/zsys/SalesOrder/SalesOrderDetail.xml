@@ -758,10 +758,10 @@ along with this software (see the LICENSE.md file). If not, see
                             <order-by field-name="shipmentId"/>
                         </entity-find>
                     </actions><widgets>
-                        <link url="shipOrderPart" text="Create Shipment" link-type="hidden-form" btn-type="success">
+                        <link url="shipOrderPart" text="Create Shipment" link-type="hidden-form-link" btn-type="success">
                             <parameter name="orderId"/><parameter name="orderPartSeqId" from="orderPart.orderPartSeqId"/></link>
 
-                        <link url="quickShipOrder" text="Quick Ship Entire Order" link-type="hidden-form" btn-type="success">
+                        <link url="quickShipOrder" text="Quick Ship Entire Order" link-type="hidden-form-link" btn-type="success">
                             <parameter name="orderId"/><parameter name="orderPartSeqId" from="orderPart.orderPartSeqId"/></link>
 
                         <section name="AddPartToShipmentSection" condition="ssfsList"><widgets>
@@ -829,7 +829,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </form-single>
                         </container-dialog>
                     </widgets><fail-widgets>
-                        <container-dialog id="EditPartNonEdDialog" button-text="Edit Part ${orderPart.orderPartSeqId}" width="960">
+                        <container-dialog id="EditPartNonEdDialog" button-text="Edit Part ${orderPart.orderPartSeqId}" width="960" button-outline="false" button-flat="true" type="secondary">
                             <form-single name="EditPartNonEdForm" transition="updateOrderPart" map="orderPart">
                                 <field name="orderId"><default-field><hidden/></default-field></field>
                                 <field name="orderPartSeqId"><default-field><hidden/></default-field></field>
@@ -1556,8 +1556,8 @@ along with this software (see the LICENSE.md file). If not, see
 
                         <field name="orderItemSeqId"><default-field title="Item" container-style="${parentItemSeqId ? 'text-info' : ''}"><display/></default-field></field>
                         <field name="orderPartSeqId" align="center">
-                            <!-- <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'"><drop-down>
-                                 <list-options list="orderPartList" key="${orderPartSeqId}" text="${orderPartSeqId}"/></drop-down></conditional-field>-->
+                            <conditional-field title="Part" condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'"><drop-down>
+                                 <list-options list="orderPartList" key="${orderPartSeqId}" text="${orderPartSeqId}"/></drop-down></conditional-field>
                             <default-field title="Part"><display text="Part ${orderPartSeqId}"/></default-field>
                         </field>
                         <!--<field name="parentItemSeqId" align="center">
