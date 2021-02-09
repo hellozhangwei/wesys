@@ -1030,7 +1030,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </default-field>
                         </field><field name="facility">
                             <default-field>
-                                <display text="${orderPartInfo?.facility?.facilityName}"/>
+                                <display text="${orderPartInfo?.facility?.facilityName?:''}"/>
                             </default-field>
                         </field>
 
