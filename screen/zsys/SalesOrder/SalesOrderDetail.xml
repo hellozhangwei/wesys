@@ -928,7 +928,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field name="customer">
                             <default-field>
                                 <link url="editCustomer" link-type="anchor" text="${ec.resource.expand('PartyNameTemplate','',orderPartInfo.customerDetail)}"
-                                      parameter-map="[partyId:orderPartInfo.customerDetail.partyId]"/>
+                                      parameter-map="[partyId:orderPartInfo.customerDetail.partyId]" condition="orderPartInfo.customerDetail"/>
                             </default-field>
                         </field>
                         <field name="customerEmail">
@@ -984,7 +984,7 @@ along with this software (see the LICENSE.md file). If not, see
                     </field><field name="vendor">
                         <default-field>
                             <link url="editSupplier" link-type="anchor" text="${ec.resource.expand('PartyNameTemplate','',orderPartInfo.vendorDetail)}"
-                                  parameter-map="[partyId:orderPartInfo.vendorDetail.partyId]"/>
+                                  parameter-map="[partyId:orderPartInfo.vendorDetail.partyId]" condition="orderPartInfo.vendorDetail"/>
                         </default-field>
                     </field><field name="otherPartyOrderDate">
                             <default-field>
