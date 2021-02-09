@@ -926,9 +926,12 @@ along with this software (see the LICENSE.md file). If not, see
                             </default-field>
                         </field>
                         <field name="customer">
-                            <default-field>
+                            <conditional-field condition="orderPartInfo.customerDetail">
                                 <link url="editCustomer" link-type="anchor" text="${ec.resource.expand('PartyNameTemplate','',orderPartInfo.customerDetail)}"
-                                      parameter-map="[partyId:orderPartInfo.customerDetail.partyId]" condition="orderPartInfo.customerDetail"/>
+                                      parameter-map="[partyId:orderPartInfo.customerDetail.partyId]"/>
+                            </conditional-field>
+                            <default-field>
+                                <display text="No specified"/>
                             </default-field>
                         </field>
                         <field name="customerEmail">
@@ -979,12 +982,15 @@ along with this software (see the LICENSE.md file). If not, see
                             </default-field>
                         </field><field name="store">
                         <default-field>
-                            <display text="${productStore?.productStoreId}: ${productStore?.storeName}"/>
+                            <display text="${productStore?.productStoreId?:''}${productStore?.storeName?(': ' + productStore?.storeName):''}"/>
                         </default-field>
                     </field><field name="vendor">
-                        <default-field>
+                        <conditional-field condition="orderPartInfo.vendorDetail">
                             <link url="editSupplier" link-type="anchor" text="${ec.resource.expand('PartyNameTemplate','',orderPartInfo.vendorDetail)}"
-                                  parameter-map="[partyId:orderPartInfo.vendorDetail.partyId]" condition="orderPartInfo.vendorDetail"/>
+                                  parameter-map="[partyId:orderPartInfo.vendorDetail.partyId]"/>
+                        </conditional-field>
+                        <default-field>
+                            <display text="No specified"/>
                         </default-field>
                     </field><field name="otherPartyOrderDate">
                             <default-field>
@@ -994,13 +1000,9 @@ along with this software (see the LICENSE.md file). If not, see
                             <default-field>
                                 <display text="${orderPartInfo.orderPart.shippingInstructions ?: '\u00a0'}"/>
                             </default-field>
-                        </field><field name="signatureRequiredEnumId">
-                            <default-field>
-                                <display text="${orderPartInfo.orderPart.signatureRequiredEnumId}"/>
-                            </default-field>
                         </field><field name="signatureRequiredEnum">
                             <default-field>
-                                <display text="${orderPartInfo.orderPart.signatureRequiredEnum?.description}"/>
+                                <display text="${orderPartInfo.orderPart.signatureRequiredEnum?.description?:''}"/>
                             </default-field>
                         </field><field name="isGift">
                             <default-field>
@@ -1008,23 +1010,23 @@ along with this software (see the LICENSE.md file). If not, see
                             </default-field>
                         </field><field name="giftMessage">
                             <default-field>
-                                <display text="${orderPartInfo.orderPart.giftMessage}"/>
+                                <display text="${orderPartInfo.orderPart.giftMessage?:''}"/>
                             </default-field>
                         </field><field name="disablePromotions">
                             <default-field>
-                                <display text="${orderPartInfo.orderPart.disablePromotions}"/>
+                                <display text="${orderPartInfo.orderPart.disablePromotions?:''}"/>
                             </default-field>
                         </field><field name="disableTaxCalc">
                             <default-field>
-                                <display text="${orderPartInfo.orderPart.disableTaxCalc}"/>
+                                <display text="${orderPartInfo.orderPart.disableTaxCalc?:''}"/>
                             </default-field>
                         </field><field name="disableShippingCalc">
                             <default-field>
-                                <display text="${orderPartInfo.orderPart.disableShippingCalc}"/>
+                                <display text="${orderPartInfo.orderPart.disableShippingCalc?:''}"/>
                             </default-field>
                         </field><field name="reservationAutoEnumId">
                             <default-field>
-                                <display text="${orderPartInfo.orderPart.reservationAutoEnum?.description}"/>
+                                <display text="${orderPartInfo.orderPart.reservationAutoEnum?.description?:''}"/>
                             </default-field>
                         </field><field name="facility">
                             <default-field>
@@ -1054,21 +1056,20 @@ along with this software (see the LICENSE.md file). If not, see
                                 <field-col md="2"><field-ref name="facility"/></field-col>
                                 <field-col md="2"><field-ref name="vendor"/></field-col>
                                 <field-col md="2"><field-ref name="store"/></field-col>
-                                <field-col md="2"><field-ref name="signatureRequiredEnumId"/></field-col>
-                                <field-col md="2"><field-ref name="signatureRequiredEnum"/></field-col>
+                                <field-col md="2"><field-ref name="otherPartyOrderId"/></field-col>
+                                <field-col md="2"><field-ref name="otherPartyOrderDate"/></field-col>
                             </field-col-row>
                             <field-col-row>
-                                <field-col md="2"><field-ref name="isGift"/></field-col>
-                                <field-col md="2"><field-ref name="giftMessage"/></field-col>
                                 <field-col md="2"><field-ref name="disablePromotions"/></field-col>
                                 <field-col md="2"><field-ref name="disableTaxCalc"/></field-col>
                                 <field-col md="2"><field-ref name="disableShippingCalc"/></field-col>
                                 <field-col md="2"><field-ref name="reservationAutoEnumId"/></field-col>
+                                <field-col md="2"><field-ref name="isGift"/></field-col>
+                                <field-col md="2"><field-ref name="giftMessage"/></field-col>
                             </field-col-row>
                             <field-col-row>
-                                <field-col md="2"><field-ref name="otherPartyOrderId"/></field-col>
-                                <field-col md="2"><field-ref name="otherPartyOrderDate"/></field-col>
-                                <field-col md="8"><field-ref name="shippingInstructions"/></field-col>
+                                <field-col md="2"><field-ref name="signatureRequiredEnum"/></field-col>
+                                <field-col md="10"><field-ref name="shippingInstructions"/></field-col>
                             </field-col-row>
                             <fields-not-referenced/>
 
@@ -1160,7 +1161,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <label text="${orderPartInfo.orderPart.signatureRequiredEnum?.description}" type="dd" condition="orderPartInfo.orderPart.signatureRequiredEnumId"/>
                         <label text="Is Gift" type="dt"/>
                         <label text="${orderPartInfo.orderPart.isGift ?: 'N'}" type="dd"/>
-                        <label text="Gift Message" type="dt"/>
+                        <label text="GiftMessage" type="dt"/>
                         <label text="${orderPartInfo.orderPart.giftMessage ?: '\u00a0'}" type="dd"/>
 
                         <label text="Disable Promotions" type="dt" condition="orderPartInfo.orderPart.disablePromotions == 'Y'"/>
