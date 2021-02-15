@@ -17,7 +17,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     <transition name="orderDetail"><default-response url="../PurchaseOrderDetail"/></transition>
     <transition name="createOrder"><service-call name="mantle.order.OrderServices.create#Order"/>
-        <default-response url="../OrderDetail"/></transition>
+        <default-response url="../PurchaseOrderDetail"/></transition>
     <transition name="changeOrderPartsStatus"><service-call name="mantle.order.OrderBulkServices.change#OrderPartsStatus"/>
         <default-response url="."/></transition>
 
@@ -100,7 +100,7 @@ along with this software (see the LICENSE.md file). If not, see
             <container-dialog id="CreatePurchaseOrderDialog" button-text="Create Purchase Order">
                 <form-single name="CreatePurchaseOrder" transition="createOrder">
                     <field name="vendorPartyId"><default-field title="Supplier"><drop-down allow-empty="true">
-                        <dynamic-options transition="searchPartyList" server-search="true" min-length="2" parameter-map="[roleTypeId:vendorRole]"/>
+                        <dynamic-options transition="searchPartyList" server-search="true" min-length="0" parameter-map="[roleTypeId:vendorRole]"/>
                     </drop-down></default-field></field>
                     <field name="customerPartyId"><default-field title="Customer Org"><drop-down>
                         <entity-options key="${partyId}" text="PartyNameTemplate">
