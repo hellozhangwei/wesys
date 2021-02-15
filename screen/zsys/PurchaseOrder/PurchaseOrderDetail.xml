@@ -857,7 +857,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </form-single>
                         </container-dialog>
                     </fail-widgets></section>
-                    <container-dialog id="AddPartPartyDialog" button-text="Add Party" button-outline="false" button-flat="true" type="secondary">
+                    <!--<container-dialog id="AddPartPartyDialog" button-text="Add Party" button-outline="false" button-flat="true" type="secondary">
                         <form-single name="CreateOrderPartParty" transition="createOrderPartParty" map="orderPart">
                             <field name="orderId"><default-field><hidden/></default-field></field>
                             <field name="orderPartSeqId"><default-field><hidden/></default-field></field>
@@ -873,7 +873,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </default-field></field>
                             <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
                         </form-single>
-                    </container-dialog>
+                    </container-dialog>-->
 
                     <link url="invoiceOrderPart" text="Create Invoice" link-type="hidden-form-link"
                           parameter-map="[orderPartSeqId:orderPart.orderPartSeqId]"
@@ -908,6 +908,111 @@ along with this software (see the LICENSE.md file). If not, see
                         <link url="cancelOrderPart" text="Close Part" link-type="hidden-form" btn-type="warning"
                               confirmation="OrderDetailConfirmClosePart"/>
                     </container-dialog>
+
+                    <section name="AddItemsSection" condition="orderPartInfo.partEditable"><widgets>
+
+
+                        <container-dialog id="AddProductItemContainer" button-text="Add Product Item" button-outline="false" button-flat="true" type="secondary">
+                            <form-single name="AddProductItemForm" transition="addProductItem" focus-field="productId">
+                                <field name="orderId"><default-field><hidden/></default-field></field>
+                                <field name="orderPartSeqId" from="orderPartInfo.orderPart.orderPartSeqId"><default-field><hidden/></default-field></field>
+                                <field name="updateExisting"><default-field><hidden default-value="false"/></default-field></field>
+                                <field name="requireInventory"><default-field><hidden default-value="false"/></default-field></field>
+
+                                <field name="assetClassEnumId"><default-field title="Asset Class">
+                                    <drop-down allow-empty="true" no-current-selected-key="AsClsInventoryFin">
+                                        <entity-options key="${enumId}" text="${description}"><entity-find entity-name="moqui.basic.Enumeration">
+                                            <econdition field-name="parentEnumId" value="AsClsInventory"/><order-by field-name="sequenceNum,description"/>
+                                        </entity-find></entity-options>
+                                    </drop-down>
+                                </default-field></field>
+                                <field name="productId"><default-field title="Product">
+                                    <drop-down><dynamic-options transition="getProductList" server-search="true" min-length="0" depends-optional="true">
+                                        <depends-on field="assetClassEnumId"/></dynamic-options></drop-down>
+                                </default-field></field>
+                                <field name="quantity"><default-field><text-line size="8" default-value="1"/></default-field></field>
+                                <field name="unitAmount"><default-field title="Price" tooltip="Leave empty to use Calc Price">
+                                    <text-line size="10"/></default-field></field>
+                                <field name="calcAmount"><default-field title="Calc Price">
+                                    <display dynamic-transition="getProductPrice"
+                                             parameter-map="[orderId:orderId, orderPartSeqId:orderPartInfo.orderPart.orderPartSeqId, priceFormat:'#,##0.00']">
+                                        <depends-on field="productId"/><depends-on field="quantity"/></display>
+                                </default-field></field>
+                                <field name="standardCost"><conditional-field condition="orderPartInfo.isCustomerInternalOrg"
+                                                                              tooltip="Cost for accounting if different from Price, used to set Asset Acquire Cost on receipt">
+                                    <text-line size="10"/></conditional-field></field>
+                                <field name="requiredByDate" from="orderPartInfo.orderPart.shipBeforeDate"><default-field><date-time format="yyyy-MM-dd HH:mm"/></default-field></field>
+                                <!-- <field name="itemDescription"><default-field><text-line size="60"/></default-field></field> -->
+                                <field name="itemTypeEnumId" from="null"><conditional-field condition="orderPartInfo.isCustomerInternalOrg" title="Item Type">
+                                    <drop-down no-current-selected-key="ItemInventory">
+                                        <option key="ItemInventory" text="Inventory"/>
+                                        <option key="ItemAsset" text="Fixed Asset"/>
+                                        <option key="ItemExpSupplies" text="Supplies"/>
+                                    </drop-down>
+                                </conditional-field><default-field title="Item Type">
+                                    <drop-down no-current-selected-key="ItemProduct">
+                                        <option key="ItemProduct" text="Product"/>
+                                        <option key="ItemAsset" text="Fixed Asset"/>
+                                        <option key="ItemRental" text="Rental Asset"/>
+                                        <option key="ItemReplacement" text="Replacement"/>
+                                    </drop-down>
+                                </default-field></field>
+
+                                <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                            </form-single>
+                        </container-dialog >
+                        <container-dialog id="AddOtherItemContainer" button-text="Add Other Item" button-outline="false" button-flat="true" type="secondary">
+                            <form-single name="AddOtherItemForm" transition="createItem" focus-field="itemTypeEnumId">
+                                <field name="orderId"><default-field><hidden/></default-field></field>
+                                <field name="orderPartSeqId" from="orderPartInfo.orderPart.orderPartSeqId"><default-field><hidden/></default-field></field>
+                                <field name="requireInventory"><default-field><hidden default-value="false"/></default-field></field>
+
+                                <field name="parentItemSeqId"><default-field title="Parent Item"><drop-down allow-empty="true">
+                                    <list-options list="applicableParentItems" key="${orderItemSeqId}" text="${orderItemSeqId} - ${itemDescription}"/>
+                                </drop-down></default-field></field>
+                                <field name="itemTypeEnumId"><default-field title="Item Type">
+                                    <drop-down no-current-selected-key="ItemShipping">
+                                        <entity-options key="${enumId}" text="${description}">
+                                            <entity-find entity-name="moqui.basic.EnumAndGroup" list="itemTypeEnumList">
+                                                <econdition field-name="enumGroupEnumId" from="orderPartInfo.isCustomerInternalOrg ? 'EngItemsPurchase' : 'EngItemsSales'"/>
+                                                <order-by field-name="description"/></entity-find></entity-options>
+                                    </drop-down>
+                                </default-field></field>
+                                <field name="itemDescription"><default-field title="Description"><text-line size="60"/></default-field></field>
+                                <field name="quantity"><default-field><text-line size="8" default-value="1"/></default-field></field>
+                                <field name="unitAmount"><default-field title="Price"><text-line size="10"/></default-field></field>
+                                <field name="requiredByDate"><default-field><date-time format="yyyy-MM-dd HH:mm"/></default-field></field>
+
+                                <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                            </form-single>
+                        </container-dialog>
+
+                        <!--<link url="../QuickItems" text="Quick Add Items"/>-->
+<!--
+                        <link url="recalcOrderPartItemAmounts" text="Re-Calc Prices" link-type="hidden-form-link"  style="text-secondary q-pa-xs"
+                              confirmation="Re-calculate price for each Item and reset to calculated price?"/>
+
+                        <link url="updateOrderPart" text="Ship Calc" btn-type="danger" icon="fa fa-remove"
+                              condition="orderPart.disableShippingCalc == 'Y'" link-type="hidden-form-link"
+                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disableShippingCalc:'N']"/>
+                        <link url="updateOrderPart" text="Ship Calc" btn-type="success" icon="fa fa-check"
+                              condition="orderPart.disableShippingCalc != 'Y'" link-type="hidden-form-link"
+                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disableShippingCalc:'Y']"/>
+
+                        <link url="updateOrderPart" text="Tax Calc" btn-type="danger" icon="fa fa-remove"
+                              condition="orderPart.disableTaxCalc == 'Y'" link-type="hidden-form-link"
+                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disableTaxCalc:'N']"/>
+                        <link url="updateOrderPart" text="Tax Calc" btn-type="success" icon="fa fa-check"
+                              condition="orderPart.disableTaxCalc != 'Y'" link-type="hidden-form-link"
+                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disableTaxCalc:'Y']"/>
+
+                        <link url="updateOrderPart" text="Promos" btn-type="danger" icon="fa fa-remove"
+                              condition="orderPart.disablePromotions == 'Y'" link-type="hidden-form-link"
+                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disablePromotions:'N']"/>
+                        <link url="updateOrderPart" text="Promos" btn-type="success" icon="fa fa-check"
+                              condition="orderPart.disablePromotions != 'Y'" link-type="hidden-form-link"
+                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disablePromotions:'Y']"/>-->
+                    </widgets></section>
                 </box-toolbar>
                 <box-body>
                     <section name="DuplicatesByOtherPartyOrderIdSection" condition="orderPartInfo.duplicateOrderPartList"><widgets>
@@ -1081,110 +1186,7 @@ along with this software (see the LICENSE.md file). If not, see
 
 <!--                    <label text="${orderPartInfo.isVendorInternalOrg ? 'Sales' : 'Purchase'} Order Items"/>-->
 <!--                    <container type="q-separator"/>-->
-                   <!-- <section name="AddItemsSection" condition="orderPartInfo.partEditable"><widgets>
 
-
-                        <container-dialog id="AddProductItemContainer" button-text="Add Product Item" button-outline="false" button-flat="true" type="secondary">
-                            <form-single name="AddProductItemForm" transition="addProductItem" focus-field="productId">
-                                <field name="orderId"><default-field><hidden/></default-field></field>
-                                <field name="orderPartSeqId" from="orderPartInfo.orderPart.orderPartSeqId"><default-field><hidden/></default-field></field>
-                                <field name="updateExisting"><default-field><hidden default-value="false"/></default-field></field>
-                                <field name="requireInventory"><default-field><hidden default-value="false"/></default-field></field>
-
-                                <field name="assetClassEnumId"><default-field title="Asset Class">
-                                    <drop-down allow-empty="true" no-current-selected-key="AsClsInventoryFin">
-                                        <entity-options key="${enumId}" text="${description}"><entity-find entity-name="moqui.basic.Enumeration">
-                                            <econdition field-name="parentEnumId" value="AsClsInventory"/><order-by field-name="sequenceNum,description"/>
-                                        </entity-find></entity-options>
-                                    </drop-down>
-                                </default-field></field>
-                                <field name="productId"><default-field title="Product">
-                                    <drop-down><dynamic-options transition="getProductList" server-search="true" min-length="0" depends-optional="true">
-                                        <depends-on field="assetClassEnumId"/></dynamic-options></drop-down>
-                                </default-field></field>
-                                <field name="quantity"><default-field><text-line size="8" default-value="1"/></default-field></field>
-                                <field name="unitAmount"><default-field title="Price" tooltip="Leave empty to use Calc Price">
-                                    <text-line size="10"/></default-field></field>
-                                <field name="calcAmount"><default-field title="Calc Price">
-                                    <display dynamic-transition="getProductPrice"
-                                             parameter-map="[orderId:orderId, orderPartSeqId:orderPartInfo.orderPart.orderPartSeqId, priceFormat:'#,##0.00']">
-                                        <depends-on field="productId"/><depends-on field="quantity"/></display>
-                                </default-field></field>
-                                <field name="standardCost"><conditional-field condition="orderPartInfo.isCustomerInternalOrg"
-                                                                              tooltip="Cost for accounting if different from Price, used to set Asset Acquire Cost on receipt">
-                                    <text-line size="10"/></conditional-field></field>
-                                <field name="requiredByDate" from="orderPartInfo.orderPart.shipBeforeDate"><default-field><date-time format="yyyy-MM-dd HH:mm"/></default-field></field>
-                                &lt;!&ndash; <field name="itemDescription"><default-field><text-line size="60"/></default-field></field> &ndash;&gt;
-                                <field name="itemTypeEnumId" from="null"><conditional-field condition="orderPartInfo.isCustomerInternalOrg" title="Item Type">
-                                    <drop-down no-current-selected-key="ItemInventory">
-                                        <option key="ItemInventory" text="Inventory"/>
-                                        <option key="ItemAsset" text="Fixed Asset"/>
-                                        <option key="ItemExpSupplies" text="Supplies"/>
-                                    </drop-down>
-                                </conditional-field><default-field title="Item Type">
-                                    <drop-down no-current-selected-key="ItemProduct">
-                                        <option key="ItemProduct" text="Product"/>
-                                        <option key="ItemAsset" text="Fixed Asset"/>
-                                        <option key="ItemRental" text="Rental Asset"/>
-                                        <option key="ItemReplacement" text="Replacement"/>
-                                    </drop-down>
-                                </default-field></field>
-
-                                <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-                            </form-single>
-                        </container-dialog >
-                        <container-dialog id="AddOtherItemContainer" button-text="Add Other Item" button-outline="false" button-flat="true" type="secondary">
-                            <form-single name="AddOtherItemForm" transition="createItem" focus-field="itemTypeEnumId">
-                                <field name="orderId"><default-field><hidden/></default-field></field>
-                                <field name="orderPartSeqId" from="orderPartInfo.orderPart.orderPartSeqId"><default-field><hidden/></default-field></field>
-                                <field name="requireInventory"><default-field><hidden default-value="false"/></default-field></field>
-
-                                <field name="parentItemSeqId"><default-field title="Parent Item"><drop-down allow-empty="true">
-                                    <list-options list="applicableParentItems" key="${orderItemSeqId}" text="${orderItemSeqId} - ${itemDescription}"/>
-                                </drop-down></default-field></field>
-                                <field name="itemTypeEnumId"><default-field title="Item Type">
-                                    <drop-down no-current-selected-key="ItemShipping">
-                                        <entity-options key="${enumId}" text="${description}">
-                                            <entity-find entity-name="moqui.basic.EnumAndGroup" list="itemTypeEnumList">
-                                                <econdition field-name="enumGroupEnumId" from="orderPartInfo.isCustomerInternalOrg ? 'EngItemsPurchase' : 'EngItemsSales'"/>
-                                                <order-by field-name="description"/></entity-find></entity-options>
-                                    </drop-down>
-                                </default-field></field>
-                                <field name="itemDescription"><default-field title="Description"><text-line size="60"/></default-field></field>
-                                <field name="quantity"><default-field><text-line size="8" default-value="1"/></default-field></field>
-                                <field name="unitAmount"><default-field title="Price"><text-line size="10"/></default-field></field>
-                                <field name="requiredByDate"><default-field><date-time format="yyyy-MM-dd HH:mm"/></default-field></field>
-
-                                <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-                            </form-single>
-                        </container-dialog>
-
-                        &lt;!&ndash;<link url="../QuickItems" text="Quick Add Items"/>&ndash;&gt;
-
-                        <link url="recalcOrderPartItemAmounts" text="Re-Calc Prices" link-type="hidden-form-link"  style="text-secondary q-pa-xs"
-                              confirmation="Re-calculate price for each Item and reset to calculated price?"/>
-
-                        <link url="updateOrderPart" text="Ship Calc" btn-type="danger" icon="fa fa-remove"
-                              condition="orderPart.disableShippingCalc == 'Y'" link-type="hidden-form-link"
-                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disableShippingCalc:'N']"/>
-                        <link url="updateOrderPart" text="Ship Calc" btn-type="success" icon="fa fa-check"
-                              condition="orderPart.disableShippingCalc != 'Y'" link-type="hidden-form-link"
-                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disableShippingCalc:'Y']"/>
-
-                        <link url="updateOrderPart" text="Tax Calc" btn-type="danger" icon="fa fa-remove"
-                              condition="orderPart.disableTaxCalc == 'Y'" link-type="hidden-form-link"
-                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disableTaxCalc:'N']"/>
-                        <link url="updateOrderPart" text="Tax Calc" btn-type="success" icon="fa fa-check"
-                              condition="orderPart.disableTaxCalc != 'Y'" link-type="hidden-form-link"
-                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disableTaxCalc:'Y']"/>
-
-                        <link url="updateOrderPart" text="Promos" btn-type="danger" icon="fa fa-remove"
-                              condition="orderPart.disablePromotions == 'Y'" link-type="hidden-form-link"
-                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disablePromotions:'N']"/>
-                        <link url="updateOrderPart" text="Promos" btn-type="success" icon="fa fa-check"
-                              condition="orderPart.disablePromotions != 'Y'" link-type="hidden-form-link"
-                              parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId, disablePromotions:'Y']"/>
-                    </widgets></section>-->
 
                     <label text="Showing ${orderPartInfo.partNoParentOrderItemList.size()} of ${orderPartInfo.partNoParentOrderItemCount} Items"
                            type="strong" style="text-danger"
