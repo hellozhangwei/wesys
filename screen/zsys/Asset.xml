@@ -14,6 +14,6 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
         default-menu-index="6" menu-image-type="icon" menu-image="o_inventory" default-menu-title="Assets">
-    <subscreens default-item="Asset"/>
+    <subscreens default-item="InventoryAsset"/>
     <widgets><subscreens-panel id="AssetOuter" type="popup"/></widgets>
 </screen>

@@ -13,8 +13,8 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-index="1" menu-image="/ssstatic/images/Asset.png" default-menu-title="资产管理">
-    <subscreens default-item="FindAsset"/>
+        default-menu-index="1" menu-image="/ssstatic/images/Asset.png" default-menu-title="Fixed Asset">
+    <subscreens default-item="FixedAssetFind"/>
     <actions>
         <if condition="assetId">
             <entity-find-one entity-name="mantle.product.asset.Asset" value-field="asset"/>
@@ -24,8 +24,13 @@ along with this software (see the LICENSE.md file). If not, see
         </if>
     </actions>
     <widgets>
-        <label text="AssetNameTemplate" text-map="asset" type="strong" condition="asset"/>
-        <label text=": ${product.productName}" type="strong" condition="product"/>
-        <subscreens-panel id="AssetPanel" type="tab"/>
+<!--        <label text="AssetNameTemplate" text-map="asset" type="strong" condition="asset"/>-->
+<!--        <label text=": ${product.productName}" type="strong" condition="product"/>-->
+
+        <link url="FixedAssetFind" text="返回固定资产列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="asset"/>
+
+        <label text="${asset.assetId} : ${asset.assetName}" text-map="product" type="div" condition="asset" style="row q-mb-md text-h3"/>
+
+        <subscreens-panel id="FixedAssetPanel" type="tab"/>
     </widgets>
 </screen>

@@ -13,16 +13,16 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false">
+        default-menu-title="Fixed Asset" default-menu-include="false">
 
-    <transition name="assetDetail"><default-response url="../AssetDetail"/></transition>
+    <transition name="assetDetail"><default-response url="../FixedAssetDetail"/></transition>
     <transition name="editProduct"><default-response url="//${appRoot}/Catalog/Product/EditProduct"/></transition>
     <transition name="editFacility"><default-response url="//${appRoot}/Facility/EditFacility"/></transition>
     <transition name="editContainer"><default-response url="//${appRoot}/Asset/Container/EditContainer"/></transition>
     <transition name="orderDetail"><default-response url="//${appRoot}/Order/OrderDetail"/></transition>
 
     <transition name="createEquipment"><service-call name="mantle.product.EquipmentServices.create#Equipment"/>
-        <default-response url="../AssetDetail"/></transition>
+        <default-response url="../FixedAssetDetail"/></transition>
     <transition name="updateProductAcquireCost"><service-call name="mantle.product.AssetServices.update#ProductAcquireCost"/>
         <default-response url="." parameter-map="[productId:productId, facilityId:facilityId]"/></transition>
 
@@ -36,6 +36,35 @@ along with this software (see the LICENSE.md file). If not, see
     <transition-include name="getContainerList" location="component://SimpleScreens/template/facility/FacilityTransitions.xml"/>
 
     <widgets>
+        <container style="row q-mb-md">
+            <label text="固定资产列表" style="text-h3" />
+            <container type="q-space"/>
+            <container-dialog id="NewEquipmentDialog" button-text="New Equipment">
+                <label text="NOTE: for accounting and other traceability record equipment purchase using a purchase order, incoming shipment, and payable invoice; this form is for existing or third party equipment" type="p"/>
+                <label text="Use the Asset screen after create for depreciation and other settings." type="p"/>
+                <form-single name="CreateEquipment" transition="createEquipment">
+                    <field name="assetName"><default-field><text-line size="40"/></default-field></field>
+                    <field name="classEnumId"><default-field title="Asset Class">
+                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                            <set field="enumTypeId" value="AssetClass"/></widget-template-include>
+                    </default-field></field>
+                    <field name="productId"><default-field title="Model Product"><drop-down>
+                        <dynamic-options transition="getProductList" server-search="true" min-length="0"/></drop-down></default-field></field>
+                    <field name="statusId"><default-field title="Initial Status">
+                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#statusDropDown">
+                            <set field="statusTypeId" value="Asset"/><set field="noCurrentSelectedKey" value="AstInUse"/></widget-template-include>
+                    </default-field></field>
+
+                    <field name="ownerPartyId"><default-field title="Owner Party"><drop-down>
+                        <dynamic-options transition="searchPartyList" server-search="true" min-length="2"/></drop-down></default-field></field>
+                    <field name="facilityId"><default-field title="Facility"><drop-down allow-empty="true">
+                        <dynamic-options transition="getFacilityList" server-search="true" min-length="0"/></drop-down></default-field></field>
+                    <field name="acquiredDate"><default-field><date-time/></default-field></field>
+
+                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </container>
 <!--        <link url="../FindSummary" text="Asset Summary Find"/>-->
 <!--        <link url="../SelectAsset" text="Move Asset"/>-->
 <!--        <link url="../../Container" text="Containers"/>-->
@@ -96,6 +125,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="acquireCost" operator="is-null" ignore="onlyNoAcquireCost != 'true'"/>
                     <econdition field-name="acquireCost" from="0.0" ignore="onlyNoAcquireCost != 'true'"/>
                     <econdition field-name="acquireCost" to-field-name="acquireUnitAmount" ignore="onlyAcquireMatchPo != 'true'"/>
+                    <econdition field-name="assetTypeEnumId" operator="not-in" from="['AstTpInventory', 'AstTpSupplies']"/>
                 </econditions>
                 <econdition field-name="locationSeqId" operator="is-null" ignore="onlyNoLocation != 'true'"/>
                 <!-- unlike Asset/FindSummary show all asset history here:
@@ -117,12 +147,17 @@ along with this software (see the LICENSE.md file). If not, see
                 <header-field title="Asset ID" show-order-by="case-insensitive"><text-find size="15" hide-options="true"/></header-field>
                 <default-field><link url="assetDetail" text="${assetId}" link-type="anchor" condition="assetId"/></default-field>
             </field>
+            <field name="assetName">
+                <default-field><link url="assetDetail" text="${assetName}" link-type="anchor" condition="assetId"/></default-field>
+            </field>
             <field name="productId">
                 <header-field title="Product" show-order-by="case-insensitive"><drop-down allow-empty="true">
                     <dynamic-options transition="getProductList" server-search="true" min-length="2"/></drop-down>
                 </header-field>
                 <default-field><link url="editProduct" entity-name="Product" link-type="anchor" condition="pseudoId"/></default-field>
             </field>
+            <field name="serialNumber"><default-field><display/></default-field></field>
+
             <!--<field name="ownerPartyId">
                 <header-field title="Owner Party"><drop-down allow-empty="true">
                     <dynamic-options transition="searchPartyList" server-search="true" min-length="2"/></drop-down></header-field>
@@ -197,14 +232,14 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="manufacturedDate"><header-field show-order-by="true" title="Mfg Date"><date-period/></header-field>
                 <default-field><display/></default-field></field>
 
-            <field name="availableToPromiseTotal" show-total="true" align="right">
+            <!--<field name="availableToPromiseTotal" show-total="true" align="right">
                 <header-field title="Available" show-order-by="true"><range-find size="5"/></header-field>
                 <default-field><display text="${ec.l10n.format(availableToPromiseTotal, null)} (${amountUom?.description?:'each'})"/></default-field>
             </field>
             <field name="quantityOnHandTotal" show-total="true" align="right">
                 <header-field title="On Hand" show-order-by="true"><range-find size="5"/></header-field>
                 <default-field><display text="${ec.l10n.format(quantityOnHandTotal, null)} (${amountUom?.description?:'each'})"/></default-field>
-            </field>
+            </field>-->
 
             <field name="onlyNoAcquireCost"><header-field title="Acquire Cost">
                 <check><option key="true" text="Only No Cost"/></check></header-field></field>
