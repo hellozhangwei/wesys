@@ -20,7 +20,7 @@ along with this software (see the LICENSE.md file). If not, see
     </userGroups>
 
     <artifactGroups artifactGroupId="MoquiWeSysAll" description="WE-SYS ERP (via root screen)">
-        <artifacts artifactName="component://moqui-zsys/screen/wesys.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+        <artifacts artifactName="component://wesys/screen/wesys.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
         <authz artifactAuthzId="MOQUI_WESYS_ADMIN" userGroupId="ADMIN"  authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
         <authz artifactAuthzId="MOQUI_WESYS_MWESYS_ADMIN" userGroupId="MoquiWeSysAdmin" authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
     </artifactGroups>
@@ -29,7 +29,7 @@ along with this software (see the LICENSE.md file). If not, see
     <moqui.basic.StatusItem description="In-Progress" sequenceNum="2" statusId="AgreementInProgress" statusTypeId="Agreement"/>
     <moqui.basic.StatusItem description="Approved" sequenceNum="12" statusId="AgreementApproved" statusTypeId="Agreement"/>
 
-    <moqui.basic.Enumeration enumId="zapps_root_app" description="component://moqui-zsys/screen/wesys.xml"/>
+    <moqui.basic.Enumeration enumId="zapps_root_app" description="component://wesys/screen/wesys.xml"/>
     <moqui.basic.Enumeration enumId="zapps_root_app_path" description="/wesys"/>
 
 </entity-facade-xml>

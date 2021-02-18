@@ -154,11 +154,11 @@ along with this software (see the LICENSE.md file). If not, see
 <!--                <link url="findShipment" text="运单"  parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
                 <!--<link url="receivableStatement" text="Statement PDF" parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
                 <container-dialog id="EditCustomerDialog" button-text="编辑" button-outline="false" button-flat="true" button-size="xs" type="secondary">
-                    <section-include name="EditPartySection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+                    <section-include name="EditPartySection" location="component://wesys/screen/common/Party/EditParty.xml"/>
                 </container-dialog>
                 <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"
                                 button-outline="false" button-flat="true" button-size="xs" type="secondary"/>
-                <section-include name="NonUserPerson" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+                <section-include name="NonUserPerson" location="component://wesys/screen/common/Party/EditParty.xml"/>
                 <render-mode>
                     <text type="qvt"><![CDATA[
                     <q-btn color="grey-7" round flat icon="more_vert" @click.stop>
@@ -218,25 +218,25 @@ along with this software (see the LICENSE.md file). If not, see
         </container-box>
         <container-row><row-col lg="6">
 
-            <!--<section-include name="NonUserPerson" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
+            <!--<section-include name="NonUserPerson" location="component://wesys/screen/common/Party/EditParty.xml"/>-->
 
             <!--<dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"/>-->
-            <!--<section-include name="HasDuplicatesSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
+            <!--<section-include name="HasDuplicatesSection" location="component://wesys/screen/common/Party/EditParty.xml"/>-->
 
-           <!--<section-include name="EditPartySection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
-            <section-include name="PartyIdentificationSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
-            <section-include name="UserSecuritySection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
-            <section-include name="PartySettingSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
-            <section-include name="PartyClassificationSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
-            <!--<section-include name="RolesSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
+           <!--<section-include name="EditPartySection" location="component://wesys/screen/common/Party/EditParty.xml"/>-->
+            <section-include name="PartyIdentificationSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+            <section-include name="UserSecuritySection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+            <section-include name="PartySettingSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+            <section-include name="PartyClassificationSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+            <!--<section-include name="RolesSection" location="component://wesys/screen/common/Party/EditParty.xml"/>-->
 
-            <section-include name="SalesAccountContactSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            <section-include name="SalesAccountContactSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
         </row-col><row-col lg="6">
-            <section-include name="NotesSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
-            <section-include name="ContactInfoSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
-            <section-include name="PaymentMethodSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
-            <!--<section-include name="FinancialAccountSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>-->
-            <section-include name="ContentSection" location="component://moqui-zsys/screen/common/Party/EditParty.xml"/>
+            <section-include name="NotesSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+            <section-include name="ContactInfoSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+            <section-include name="PaymentMethodSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+            <!--<section-include name="FinancialAccountSection" location="component://wesys/screen/common/Party/EditParty.xml"/>-->
+            <section-include name="ContentSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
         </row-col></container-row>
 
     </widgets>
