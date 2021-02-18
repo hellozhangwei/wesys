@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-include="false">
+
+    <parameter name="productId"/>
+
+    <actions>
+<!--        <service-call name="mantle.work.ManufacturingServices.get#ProductBomDetail" in-map="[productId:productId]" out-map="context"/>-->
+        <entity-find-one value-field="product" entity-name="mantle.product.Product"/>
+    </actions>
+
+    <widgets>
+
+        <link url="../BomFind" text="返回BOM列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey"/>
+
+        <label text="Components of ${product.productName}" type="div" style="row q-mb-md text-h3"/>
+
+        <form-list name="ProductBomList" list="productBomList">
+            <entity-find entity-name="mantle.product.ProductAssoc" list="bomList" distinct="true">
+                <econdition field-name="productId"/>
+                <econdition field-name="productAssocTypeEnumId" operator="in" from="['PatMfgBom', 'PatEngBom']"/>
+            </entity-find>
+
+            <field name="toProductId">
+                <default-field title="Product ID"><display/></default-field>
+            </field>
+
+            <field name="toProductName">
+                <default-field title="Product Name"><display-entity entity-name="Product" key-field-name="toProductId"/></default-field>
+            </field>
+            <field name="sequenceNum">
+                <default-field><display/></default-field>
+            </field>
+            <field name="quantity">
+                <default-field><display/></default-field>
+            </field>
+            <field name="fromDate">
+                <default-field>
+                    <display/>
+                </default-field>
+            </field>
+            <field name="thruDate">
+                <default-field>
+                    <display/>
+                </default-field>
+            </field>
+
+
+        </form-list>
+    </widgets>
+</screen>

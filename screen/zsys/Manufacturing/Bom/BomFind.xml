@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-title="Production Runs" default-menu-include="false">
+
+    <actions>
+
+    </actions>
+    <widgets>
+        <container style="row  q-mb-md">
+            <label text="BOM列表" style="text-h3" />
+            <container type="q-space"/>
+            <container-dialog id="NewBomContainer" button-text="New Bom" button-outline="false" button-flat="false">
+
+                <form-single name="NewBomForm" transition="createBom">
+
+                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </container>
+
+        <form-list name="BomList" list="bomList" skip-form="true">
+            <entity-find entity-name="mantle.product.ProductAssoc" list="bomList" distinct="true">
+                <select-field field-name="productId"/>
+                <econdition field-name="productAssocTypeEnumId" operator="in" from="['PatMfgBom', 'PatEngBom']"/>
+            </entity-find>
+
+            <field name="productId1">
+                <header-field show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
+                <default-field><link url="../BomDetail" text="${productId}" link-type="anchor" parameter-map="[productId:productId]"/></default-field>
+            </field>
+
+            <field name="productId">
+                <header-field show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
+                <default-field><link url="../BomDetail" link-type="anchor" entity-key-name="productId" entity-name="Product" parameter-map="[productId:productId]"/></default-field>
+            </field>
+
+            <field name="productAssocTypeEnumId">
+                <header-field show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
+                <default-field title="Bom Type"><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
+            </field>
+
+            <field name="findButton"><header-field title="Find"><submit/></header-field><default-field>
+                <ignored/>
+            </default-field></field>
+        </form-list>
+
+    </widgets>
+</screen>
