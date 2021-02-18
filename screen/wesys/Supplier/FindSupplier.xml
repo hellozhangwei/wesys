@@ -26,8 +26,9 @@ along with this software (see the LICENSE.md file). If not, see
     <transition-include name="searchPartyList" location="component://SimpleScreens/template/party/PartyForms.xml"/>
     <transition-include name="getPartyClassificationList" location="component://SimpleScreens/template/party/PartyTransitions.xml"/>
 
-    <pre-actions><set field="roleTypeId" value="Supplier"/></pre-actions>
+    <!--<pre-actions><set field="roleTypeId" value="Supplier"/></pre-actions>-->
     <actions>
+        <set field="roleTypeId" from="roleTypeId?:'Supplier'"/>
         <service-call name="mantle.party.PartyServices.search#Party" in-map="context" out-map="context"/>
     </actions>
     <widgets>
