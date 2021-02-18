@@ -8,8 +8,8 @@
 
     <screen-facade>
         <screen location="component://webroot/screen/webroot.xml">
-            <subscreens-item name="zsys" menu-title="Z-SYS" menu-index="999"
-                    location="component://moqui-zsys/screen/zsys.xml"/>
+            <subscreens-item name="wesys" menu-title="WE-SYS" menu-index="999"
+                    location="component://moqui-zsys/screen/wesys.xml"/>
         </screen>
     </screen-facade>
 </moqui-conf>
