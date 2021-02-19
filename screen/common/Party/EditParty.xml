@@ -825,13 +825,29 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="partyId"/><order-by field-name="-noteDate"/></entity-find>
             </actions><widgets>
                 <container-box initial="closed"><box-header title="Notes"/><box-toolbar>
-                    <container-dialog id="NewNoteDialog" button-text="Add Note"  button-outline="false" button-flat="true" type="secondary">
+                    <container-dialog id="NewNoteDialog" button-text="Add Note"  button-outline="false" button-flat="true" type="secondary" button-size="xs" button-style="no-border-radius">
                         <form-single name="NewNoteForm" transition="createPartyNote">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="noteText"><default-field title="Note"><text-area cols="60" rows="6"/></default-field></field>
                             <field name="submitButton"><default-field title="Add Note"><submit/></default-field></field>
                         </form-single>
                     </container-dialog>
+                    <render-mode>
+                        <text type="qvt"><![CDATA[
+                        <q-separator vertical style="height:20px" class="self-center"></q-separator>
+                        <q-btn size="xs" flat no-caps label="Edit Part 01" color="secondary" class="no-border-radius"></q-btn>
+                        <q-separator vertical style="height:20px" class="self-center"></q-separator>
+                        <q-btn size="xs" flat no-caps label="Two" color="secondary" class="no-border-radius" ></q-btn>
+                        <q-separator vertical style="height:20px" class="self-center" ></q-separator>
+                        <q-btn size="xs" flat no-caps label="Three" color="secondary" class="no-border-radius" ></q-btn>
+                        <q-separator  vertical style="height:20px" class="self-center" ></q-separator>
+                        <q-btn size="xs" flat no-caps label="Four" color="secondary" class="no-border-radius" ></q-btn>
+                        <q-separator vertical style="height:20px" class="self-center" ></q-separator>
+                        <q-btn size="xs" rounded="false" flat no-caps label="Five" color="secondary" class="no-border-radius" ></q-btn>
+                        <q-separator vertical style="height:20px" class="self-center" ></q-separator>
+                        <q-btn size="xs" dense color="grey-7" round flat icon="more_vert" @click.stop></q-btn>
+                    ]]></text>
+                    </render-mode>
                 </box-toolbar><box-body>
                     <section-iterate name="NoteIterateSection" list="partyNoteList" entry="partyNote"><actions>
                         <entity-find-one entity-name="mantle.party.PersonWithUserAccount" value-field="paua">
