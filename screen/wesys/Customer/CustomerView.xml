@@ -161,7 +161,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <section-include name="NonUserPerson" location="component://wesys/screen/common/Party/EditParty.xml"/>
                 <render-mode>
                     <text type="qvt"><![CDATA[
-                    <q-btn color="grey-7" round flat size="xs" icon="more_vert" @click.stop>
+                    <q-btn color="grey-7" round flat dense size="xs" icon="more_vert" @click.stop>
                       <q-menu auto-close>
                         <q-list style="min-width: 150px">
                           <q-item clickable>
