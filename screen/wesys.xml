@@ -16,7 +16,7 @@ along with this software (see the LICENSE.md file). If not, see
         default-menu-title="WE SYS" menu-image="fa fa-shopping-cart" menu-image-type="icon">
 
     <always-actions>
-        <set field="appRoot" value="zsys"/>
+        <set field="appRoot" value="wesys"/>
 
         <set field="searchIndexName" value="mantle"/>
         <set field="searchLinkSets" value="PopcAdmin"/>
