@@ -40,7 +40,7 @@ along with this software (see the LICENSE.md file). If not, see
         <service-call name="mantle.party.PartyServices.search#Party" in-map="context" out-map="context"/>
     </actions>
     <widgets>
-        <container style="row  q-mb-md">
+        <container style="row q-mb-md q-gutter-xs">
             <label text="客户列表" style="text-h3" />
             <container type="q-space"/>
 
