@@ -63,25 +63,28 @@ along with this software (see the LICENSE.md file). If not, see
 
         <form-list name="CustomerListForm" list="documentList" skip-form="true" header-dialog="true" saved-finds="true"
                    show-xlsx-button="true" show-csv-button="true" show-page-size="true">
-            <field name="pseudoId"><default-field title="客户ID"><link url="editCustomer" text="${pseudoId}" link-type="anchor"/></default-field></field>
-            <field name="combinedName"><default-field title="客户名称"><link url="editCustomer" text="PartyNameOnlyTemplate" text-map="party" link-type="anchor"/></default-field></field>
+            <field name="pseudoId">
+                <header-field title="客户ID" show-order-by="true"><text-line size="20"/></header-field>
+                <default-field><link url="editCustomer" text="${pseudoId}" link-type="anchor"/></default-field>
+            </field>
+<!--            <field name="combinedName"><default-field title="客户名称"><link url="editCustomer" text="PartyNameOnlyTemplate" text-map="party" link-type="anchor"/></default-field></field>-->
 
 <!--            <field name="idValue"><header-field title="Other ID"><text-line size="20"/></header-field></field>-->
 <!--            <field name="gatewayCimId"><header-field title="CIM ID"><text-line size="20"/></header-field></field>-->
 
-            <field name="organizationName"><header-field title="公司名"><text-line size="40"/></header-field></field>
+<!--            <field name="organizationName"><header-field title="公司名"><text-line size="40"/></header-field></field>-->
             <field name="firstName"><header-field title="姓"><text-line size="40"/></header-field></field>
             <field name="lastName"><header-field title="名"><text-line size="40"/></header-field></field>
 
-           <!-- <field name="combinedName">
-                <header-field title="Name" show-order-by="true"><text-line size="40"/></header-field>
-                <default-field><link url="editParty" text="${combinedName}" link-type="anchor"/></default-field>
-            </field>-->
+             <field name="combinedName">
+                <header-field title="客户名称" show-order-by="true"><text-line size="40"/></header-field>
+                <default-field><link url="editCustomer" text="PartyNameOnlyTemplate" link-type="anchor"/></default-field>
+            </field>
             <!--<field name="username">
                 <header-field show-order-by="true"><text-line size="20"/></header-field>
                 <default-field><display text="${userAccounts ? userAccounts*.username.join(', ') : ''}"/></default-field>
             </field>-->
-
+            <field name="anyField"><header-field><text-line size="80"/></header-field></field>
             <field name="roleTypeId">
                 <header-field title="客户角色">
                     <drop-down allow-empty="true"><entity-options key="${roleTypeId}" text="${description}">
