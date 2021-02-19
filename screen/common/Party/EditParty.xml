@@ -204,7 +204,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </entity-find>
                 <set field="emailAddress" from="primaryEmailList?.first?.infoString"/>
             </actions><widgets>
-                <container-dialog id="CreateUserAccountDialog" button-text="Create User"  button-outline="false" button-flat="true" type="success">
+                <container-dialog id="CreateUserAccountDialog" button-text="Create User" button-style="no-border-radius" button-size="xs" button-outline="false" button-flat="true" type="success">
                     <label text="User must change password before first login, even if password is set here." type="p"/>
                     <form-single name="CreateUserAccount" transition="createUserAccount">
                         <field name="partyId"><default-field><hidden/></default-field></field>

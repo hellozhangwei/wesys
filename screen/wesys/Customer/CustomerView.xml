@@ -151,14 +151,18 @@ along with this software (see the LICENSE.md file). If not, see
                     <q-btn flat @click.stop color="secondary" label="运单" icon="build" size="xs" />
                     ]]></text>
                 </render-mode>-->
-                <link url="." text="运单" icon="build" parameter-map="[toPartyId:partyId]" link-type="anchor-button" btn-type="secondary" button-outline="false" button-flat="true"/>
+                <link url="." text="运单" icon="build" parameter-map="[toPartyId:partyId]" link-type="anchor-button" style="no-border-radius" btn-type="secondary" button-outline="false" button-flat="true"/>
                 <!--<link url="receivableStatement" text="Statement PDF" parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
-                <container-dialog id="EditCustomerDialog" button-text="编辑" button-outline="false" button-flat="true" button-size="xs" type="secondary">
+                <vertical-separator/>
+                <container-dialog id="EditCustomerDialog" button-text="编辑" button-style="no-border-radius" button-outline="false" button-flat="true" button-size="xs" type="secondary">
                     <section-include name="EditPartySection" location="component://wesys/screen/common/Party/EditParty.xml"/>
                 </container-dialog>
+                <vertical-separator/>
                 <dynamic-dialog id="FindDuplicatesDialog" button-text="Find Duplicates" transition="FindDuplicates" width="960"
-                                button-outline="false" button-flat="true" button-size="xs" type="secondary"/>
+                                button-style="no-border-radius" button-outline="false" button-flat="true" button-size="xs" type="secondary"/>
+                <vertical-separator/>
                 <section-include name="NonUserPerson" location="component://wesys/screen/common/Party/EditParty.xml"/>
+                <vertical-separator/>
                 <render-mode>
                     <text type="qvt"><![CDATA[
                     <q-btn color="grey-7" round flat dense size="xs" icon="more_vert" @click.stop>
