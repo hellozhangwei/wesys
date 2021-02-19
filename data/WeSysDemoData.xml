@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<entity-facade-xml type="demo">
+    <mantle.product.category.ProductCategory productCategoryId="JD"
+                                             productCategoryTypeEnumId="PctCatalog" categoryName="家用电器"/>
+    <mantle.product.category.ProductCategory productCategoryId="3C"
+                                             productCategoryTypeEnumId="PctCatalog" categoryName="手机数码"/>
+    <mantle.product.category.ProductCategory productCategoryId="DN"
+                                             productCategoryTypeEnumId="PctCatalog" categoryName="电脑办公"/>
+    <mantle.product.category.ProductCategory productCategoryId="FZ"
+                                             productCategoryTypeEnumId="PctCatalog" categoryName="服装鞋帽"/>
+    <mantle.product.category.ProductCategory productCategoryId="MY"
+                                             productCategoryTypeEnumId="PctCatalog" categoryName="母婴玩具"/>
+    <mantle.product.category.ProductCategory productCategoryId="SP"
+                                             productCategoryTypeEnumId="PctCatalog" categoryName="食品饮料"/>
+    <mantle.product.category.ProductCategory productCategoryId="BOOK"
+                                             productCategoryTypeEnumId="PctCatalog" categoryName="图书"/>
+
+</entity-facade-xml>
