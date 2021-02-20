@@ -221,13 +221,13 @@ along with this software (see the LICENSE.md file). If not, see
                         <vertical-separator/>
                     </widgets></section>
 
-                    <link url="placeOrder" text="Un-approve" link-type="anchor-button"
+                    <link url="placeOrder" text="Un-approve" link-type="hidden-form-link"
                           condition="orderHeader.statusId == 'OrderApproved'" confirmation="Un-approve order (change status back to Placed)?" style="text-secondary" button-outline="false" button-flat="true"/>
-                    <link url="sendOrder" text="Order Sent" link-type="anchor-button"
+                    <link url="sendOrder" text="Order Sent" link-type="hidden-form-link"
                           condition="orderHeader.statusId == 'OrderApproved' &amp;&amp; firstPartInfo.isCustomerInternalOrg" confirmation="Mark order as Sent?" button-outline="false" button-flat="true"/>
                     <vertical-separator/>
                     <link url="holdOrder" text="Hold" confirmation="Really hold order?"
-                          condition="orderHeader.statusId in ['OrderPlaced', 'OrderProcessing', 'OrderApproved']" link-type="anchor-button" button-outline="false" button-flat="true"/>
+                          condition="orderHeader.statusId in ['OrderPlaced', 'OrderProcessing', 'OrderApproved']" link-type="hidden-form-link" button-outline="false" button-flat="true"/>
                     <vertical-separator/>
                     <!--<link url="requestOrder" text="Quote Requested" link-type="hidden-form-link" confirmation="Set order as quote requested by customer?"
                           condition="orderHeader.statusId == 'OrderOpen'"/>
