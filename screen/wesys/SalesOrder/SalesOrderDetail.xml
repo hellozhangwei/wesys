@@ -1347,8 +1347,8 @@ along with this software (see the LICENSE.md file). If not, see
                         <!-- <field name="unitListPrice"><default-field title="List Price">
                              <display currency-unit-field="orderHeader.currencyUomId"/></default-field></field>-->
                         <field name="unitAmount">
-                            <!--<conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" title="Price">
-                                <text-line size="8" format="#,##0.00#"/></conditional-field>-->
+                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" title="Price" container-style="small-input hide-input-label">
+                                <text-line size="8" format="#,##0.00#"/></conditional-field>
                             <default-field title="Price"><display currency-unit-field="orderHeader.currencyUomId"/></default-field>
                         </field>
                         <field name="unitAmountHist"><default-field title="">
@@ -1375,7 +1375,7 @@ along with this software (see the LICENSE.md file). If not, see
                     ]]></text></render-mode>
                         </default-field></field>
                         <field name="quantity">
-                            <!--<conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'"><text-line size="5"/></conditional-field>-->
+                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" container-style="small-input hide-input-label"><text-line size="5"/></conditional-field>
                             <default-field><display/></default-field>
                         </field>
                         <!--<field name="quantity_changeReason">
@@ -1469,8 +1469,8 @@ along with this software (see the LICENSE.md file). If not, see
                                         </field>-->
 
                         <field name="submitButton"><conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'">
-                            <submit text="Update" button-flat="true"/>
-                            <link url="deleteItem" text="删除" btn-type="danger" condition="itemCanDelete" confirmation="Delete item ${orderItemSeqId}?"/>
+                            <submit text="Update" button-size="sm" type="secondary"/>
+                            <link url="deleteItem" text="删除" link-type="anchor-button" btn-type="secondary" condition="itemCanDelete" confirmation="Delete item ${orderItemSeqId}?"/>
                         </conditional-field><conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo == 'Y'">
                             <link url="deleteItem" text="删除" btn-type="danger" condition="itemCanDelete" confirmation="Delete item ${orderItemSeqId}?"/>
                         </conditional-field><default-field title=""/></field>
