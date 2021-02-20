@@ -151,7 +151,12 @@ along with this software (see the LICENSE.md file). If not, see
                     <q-btn flat @click.stop color="secondary" label="运单" icon="build" size="xs" />
                     ]]></text>
                 </render-mode>-->
-                <link url="." text="运单" icon="build" parameter-map="[toPartyId:partyId]" link-type="anchor-button" style="no-border-radius" btn-type="secondary" button-outline="false" button-flat="true"/>
+                <link url="findRequest" text="Requests" badge="${requestCount}" parameter-map="[partyId:partyId]" btn-type="secondary" button-outline="false" button-flat="true"/>
+                <vertical-separator/>
+                <link url="findOrder" text="Orders" badge="${customerOrderPartCount}" parameter-map="[customerPartyId:partyId]" btn-type="secondary" button-outline="false" button-flat="true"/>
+                <vertical-separator/>
+                <link url="findShipment" text="Shipments To" badge="${toShipmentCount}" parameter-map="[toPartyId:partyId]" btn-type="secondary" button-outline="false" button-flat="true"/>
+                <!--<link url="." text="运单" icon="build" parameter-map="[toPartyId:partyId]" link-type="anchor-button" style="no-border-radius" btn-type="secondary" button-outline="false" button-flat="true"/>-->
                 <!--<link url="receivableStatement" text="Statement PDF" parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
                 <vertical-separator/>
                 <container-dialog id="EditCustomerDialog" button-text="编辑" button-style="no-border-radius" button-outline="false" button-flat="true" button-size="sm" type="secondary">
