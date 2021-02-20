@@ -204,7 +204,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </entity-find>
                 <set field="emailAddress" from="primaryEmailList?.first?.infoString"/>
             </actions><widgets>
-                <container-dialog id="CreateUserAccountDialog" button-text="Create User" button-style="no-border-radius" button-size="xs" button-outline="false" button-flat="true" type="success">
+                <container-dialog id="CreateUserAccountDialog" button-text="Create User" button-style="no-border-radius" button-size="sm" button-outline="false" button-flat="true" type="success">
                     <label text="User must change password before first login, even if password is set here." type="p"/>
                     <form-single name="CreateUserAccount" transition="createUserAccount">
                         <field name="partyId"><default-field><hidden/></default-field></field>
@@ -382,7 +382,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <date-filter/><econdition field-name="partyId"/></entity-find>
             </actions><widgets>
                 <container-box type="warning" initial="closed"><box-header title="Classifications"/><box-toolbar>
-                    <container-dialog id="SetClassificationDialog" button-text="Set Classification" button-outline="false" button-flat="true" type="secondary">
+                    <container-dialog id="SetClassificationDialog" button-text="Set Classification" button-size="sm" button-outline="false" button-flat="true" type="secondary">
                         <form-single name="SetClassificationForm" transition="setPartyClassification">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="classificationTypeEnumId"><default-field title="Type">
@@ -417,7 +417,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <set field="partyIdTypeEnumIds" from="partyIdentificationList.partyIdTypeEnumId"/>
             </actions><widgets>
                 <container-box initial="closed"><box-header title="Identification"/><box-toolbar>
-                    <container-dialog id="AddIdentificationDialog" button-text="Add Identification" button-outline="false" button-flat="true" type="secondary">
+                    <container-dialog id="AddIdentificationDialog" button-text="Add Identification" button-size="sm" button-outline="false" button-flat="true" type="secondary">
                         <form-single name="AddIdentificationForm" transition="createPartyIdentification">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="partyIdTypeEnumId"><default-field title="ID Type">
@@ -700,7 +700,7 @@ along with this software (see the LICENSE.md file). If not, see
                     </entity-find>
                 </actions><widgets>
                     <container-box initial="closed"><box-header title="Sales Account Contacts"/><box-toolbar>
-                        <container-dialog id="AddContactAssignDialog" button-text="Add Contact" button-outline="false" button-flat="true" type="secondary">
+                        <container-dialog id="AddContactAssignDialog" button-text="Add Contact" button-size="sm" button-outline="false" button-flat="true" type="secondary">
                             <form-single name="AddContactAssignForm" transition="addContact">
                                 <field name="partyId" from="contactPartyId"><default-field title="Contact"><drop-down>
                                     <dynamic-options transition="searchPartyList" server-search="true" min-length="2" parameter-map="[roleTypeId:null]"/>
@@ -717,7 +717,7 @@ along with this software (see the LICENSE.md file). If not, see
                                 <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
                             </form-single>
                         </container-dialog>
-                        <container-dialog id="CreateContactDialog" button-text="New Contact" button-outline="false" button-flat="true" type="secondary">
+                        <container-dialog id="CreateContactDialog" button-text="New Contact" button-size="sm" button-outline="false" button-flat="true" type="secondary">
                             <form-single name="CreateContactForm" transition="createContact">
                                 <field name="firstName"><default-field><text-line size="30"/></default-field></field>
                                 <field name="lastName"><default-field><text-line size="30"/></default-field></field>
@@ -756,7 +756,7 @@ along with this software (see the LICENSE.md file). If not, see
                     </entity-find>
                 </actions><widgets>
                     <container-box initial="closed"><box-header title="Parent Sales Account"/><box-toolbar>
-                        <container-dialog id="AddParentAccountDialog" button-text="Add Parent Account" button-outline="false" button-flat="true" type="secondary">
+                        <container-dialog id="AddParentAccountDialog" button-text="Add Parent Account" button-size="sm" button-outline="false" button-flat="true" type="secondary">
                             <form-single name="AddParentAccount" transition="createPartyRelationship">
                                 <field name="partyId"><default-field><hidden/></default-field></field>
                                 <field name="fromPartyId" from="partyId"><default-field><hidden/></default-field></field>
@@ -789,7 +789,7 @@ along with this software (see the LICENSE.md file). If not, see
                     </entity-find>
                 </actions><widgets>
                     <container-box initial="closed"><box-header title="Child Sales Accounts"/><box-toolbar>
-                        <container-dialog id="AddChildAccountDialog" button-text="Add Child Account" button-outline="false" button-flat="true" type="secondary">
+                        <container-dialog id="AddChildAccountDialog" button-text="Add Child Account" button-size="sm" button-outline="false" button-flat="true" type="secondary">
                             <form-single name="AddChildAccount" transition="createPartyRelationship">
                                 <field name="partyId"><default-field><hidden/></default-field></field>
                                 <field name="toPartyId" from="partyId"><default-field><hidden/></default-field></field>
@@ -825,7 +825,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="partyId"/><order-by field-name="-noteDate"/></entity-find>
             </actions><widgets>
                 <container-box initial="closed"><box-header title="Notes"/><box-toolbar>
-                    <container-dialog id="NewNoteDialog" button-text="Add Note"  button-outline="false" button-flat="true" type="secondary" button-size="xs" button-style="no-border-radius">
+                    <container-dialog id="NewNoteDialog" button-text="Add Note"  button-outline="false" button-flat="true" type="secondary" button-size="sm" button-style="no-border-radius">
                         <form-single name="NewNoteForm" transition="createPartyNote">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="noteText"><default-field title="Note"><text-area cols="60" rows="6"/></default-field></field>
@@ -870,7 +870,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <label text="无内容" condition="!partyNoteList" style="text-grey"/>
                         <label text="By ${paua?.firstName?:''} ${paua?.lastName?:''} (${paua?.username ?: partyNote.userId}) at ${ec.l10n.format(partyNote.noteDate, 'yyyy-MM-dd HH:mm')}" style="text-grey"/>
                         <section name="UpdateNoteSection" condition="partyNote.userId == ec.user.userId || ec.user.isInGroup('ADMIN')"><widgets>
-                            <container-dialog id="UpdateNoteContainer" button-text="" button-outline="false" button-flat="true" button-size="xs" icon="edit" type="secondary">
+                            <container-dialog id="UpdateNoteContainer" button-text="" button-outline="false" button-flat="true" button-size="sm" icon="edit" type="secondary">
                                 <form-single name="UpdateNoteForm" transition="updatePartyNote" map="partyNote">
                                     <field name="partyId"><default-field><hidden/></default-field></field>
                                     <field name="noteDate"><default-field><hidden/></default-field></field>
@@ -1219,7 +1219,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="partyId"/><order-by field-name="-contentDate"/></entity-find>
             </actions><widgets>
                 <container-box initial="closed"><box-header title="Content"/><box-toolbar>
-                    <container-dialog id="NewContentDialog" button-text="Add Content" button-outline="false" button-flat="true" type="secondary">
+                    <container-dialog id="NewContentDialog" button-text="Add Content" button-size="sm" button-outline="false" button-flat="true" type="secondary">
                         <form-single name="NewContentForm" transition="createContent">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="partyContentTypeEnumId"><default-field title="Content Type">
