@@ -18,7 +18,9 @@ along with this software (see the LICENSE.md file). If not, see
     <subscreens default-item="ProductFind"/>
 
     <actions>
-        <entity-find-one entity-name="mantle.product.Product" value-field="product"/>
+        <entity-find-one entity-name="mantle.product.Product" value-field="product">
+            <field-map field-name="productId"/>
+        </entity-find-one>
     </actions>
 
     <widgets>
