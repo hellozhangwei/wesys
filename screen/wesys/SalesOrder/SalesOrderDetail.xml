@@ -174,7 +174,7 @@ along with this software (see the LICENSE.md file). If not, see
         <subscreens-item name="UpdatePaymentMethodInfo" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty/UpdatePaymentMethodInfo.xml"/>
     </subscreens>
     <actions>
-        <set field="defaultItemLimit" from="ec.user.getPreference('order.detail.item.limit') ?: '10'"/>
+        <set field="defaultItemLimit" from="ec.user.getPreference('order.detail.item.limit') ?: '999'"/>
         <set field="itemLimit" from="itemLimit ?: defaultItemLimit"/>
         <service-call name="mantle.order.OrderInfoServices.get#OrderDisplayInfo" in-map="[orderId:orderId, itemLimit:(itemLimit as Integer)]" out-map="context"/>
         <set field="firstPartInfo" from="orderPartInfoList[0]"/>
@@ -286,6 +286,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <link url="PrintOrder.pdf" text="Order PDF" link-type="anchor-button" button-outline="false" button-flat="true"/>
                     <vertical-separator/>
                     <link url="cloneOrder" text="Clone" confirmation="Create new order based on this one?" parameter-map="[baseOrderId:orderId]" link-type="hidden-form-link" style="text-secondary q-pa-xs"/>
+                    <vertical-separator/>
                     <container-dialog id="RecurDialog" button-text="Recurring" type="${orderHeader.recurCronExpression ? (orderHeader.statusId == 'OrderApproved' ? 'success' : 'warning') : 'primary'}"
                                       button-size="sm" button-outline="false" button-flat="true">
                         <label text="Order is not in Approved status" type="p" style="text-warning" condition="orderHeader.statusId != 'OrderApproved'"/>
@@ -1048,7 +1049,7 @@ along with this software (see the LICENSE.md file). If not, see
                         </field>
                         <field name="customer">
                             <conditional-field condition="orderPartInfo.customerDetail">
-                                <link url="editCustomer" link-type="anchor" text="${ec.resource.expand('PartyNameTemplate','',orderPartInfo.customerDetail)}"
+                                <link url="editCustomer" link-type="anchor" text="${ec.resource.expand('PartyNameOnlyTemplate','',orderPartInfo.customerDetail)}"
                                       parameter-map="[partyId:orderPartInfo.customerDetail.partyId]"/>
                             </conditional-field>
                             <default-field>
@@ -1107,7 +1108,7 @@ along with this software (see the LICENSE.md file). If not, see
                         </default-field>
                     </field><field name="vendor">
                         <conditional-field condition="orderPartInfo.vendorDetail">
-                            <link url="editSupplier" link-type="anchor" text="${ec.resource.expand('PartyNameTemplate','',orderPartInfo.vendorDetail)}"
+                            <link url="editSupplier" link-type="anchor" text="${ec.resource.expand('PartyNameOnlyTemplate','',orderPartInfo.vendorDetail)}"
                                   parameter-map="[partyId:orderPartInfo.vendorDetail.partyId]"/>
                         </conditional-field>
                         <default-field>
@@ -1470,13 +1471,14 @@ along with this software (see the LICENSE.md file). If not, see
 
                         <field name="submitButton"><conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'">
                             <submit text="Update" button-size="sm" type="secondary"/>
-                            <link url="deleteItem" text="删除" link-type="anchor-button" btn-type="secondary" condition="itemCanDelete" confirmation="Delete item ${orderItemSeqId}?"/>
+                            <link url="deleteItem" text="删除" link-type="anchor-button" btn-type="secondary" button-outline="false" button-flat="false" condition="itemCanDelete" confirmation="Delete item ${orderItemSeqId}?"/>
                         </conditional-field><conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo == 'Y'">
                             <link url="deleteItem" text="删除" btn-type="danger" condition="itemCanDelete" confirmation="Delete item ${orderItemSeqId}?"/>
                         </conditional-field><default-field title=""/></field>
 
                         <field name="closeButton"><default-field title="">
                             <link url="cancelOrderItem" text="Close" btn-type="warning" link-type="hidden-form"
+                                  button-outline="false" button-flat="false"
                                   confirmation="Really close item? Quantity will be reduced to quantity shipped and remaining quantity (${ec.l10n.format(itemQuantityNotShipped, null)}) will be cancelled."
                                   condition="isProductItemType &amp;&amp; itemQuantityNotShipped &amp;&amp; orderPartInfo.orderPart.statusId in ['OrderOpen', 'OrderPlaced', 'OrderProcessing', 'OrderApproved', 'OrderHold']"
                                   parameter-map="[orderItem:null]"/>
