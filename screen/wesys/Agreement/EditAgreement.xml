@@ -44,7 +44,7 @@ along with this software (see the LICENSE.md file). If not, see
 
         <container-row><row-col lg="6">
             <container-box collapsable="false">
-            <box-header title="${agreement.agreementId}:${agreement.description}"/>
+            <box-header title="基本信息"/>
             <box-toolbar>
                 <container-dialog id="EditAgreement" button-text="编辑" button-size="sm" button-outline="false" button-flat="true" type="secondary">
                     <form-single name="EditAgreement" map="agreement" transition="updateAgreement">

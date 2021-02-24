@@ -23,7 +23,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
         <link url="FindAgreement" text="返回合同列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="agreement"/>
-        <label text="合同详情：${agreementId}" text-map="agreement" type="div" condition="agreement" style="row q-mb-md text-h3"/>
+        <label text="${agreement.agreementId} : ${agreement.description}" text-map="agreement" type="div" condition="agreement" style="row q-mb-md text-h3"/>
         <subscreens-panel id="AgreementPanel" type="tab"/>
     </widgets>
 </screen>
