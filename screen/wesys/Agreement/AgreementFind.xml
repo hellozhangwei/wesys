@@ -18,7 +18,7 @@ default-menu-title="合同列表" default-menu-include="false">
     <transition name="editParty"><default-response url="../../EditParty"/></transition>
     <transition name="editAgreement"><default-response url="../AgreementView"/></transition>
     <transition name="createAgreement"><service-call name="create#mantle.party.agreement.Agreement"/>
-        <default-response url="../EditAgreement"/></transition>
+        <default-response url="../AgreementView"/></transition>
 
     <transition-include name="searchPartyList" location="component://SimpleScreens/template/party/PartyForms.xml"/>
 
