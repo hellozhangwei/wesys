@@ -37,8 +37,16 @@ default-menu-title="合同列表" default-menu-include="false">
                     </default-field></field>
                     <field name="description"><default-field title="合同名称"><text-line size="80"/></default-field></field>
 
-                    <field name="otherPartyId" from="partyId"><default-field title="合同方">
-                        <display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/></default-field></field>
+                    <field name="otherPartyId"><default-field title="合同方">
+                        <drop-down>
+                            <option key="" text=""/>
+                            <entity-options key="${partyId}" text="PartyNameOnlyTemplate">
+                                <entity-find entity-name="mantle.party.PartyDetailAndRole">
+                                    <econdition field-name="roleTypeId" operator="in" from="['Customer', 'Vendor']"/>
+                                    <econdition field-name="disabled" value="N" or-null="true"/>
+                                    <order-by field-name="organizationName"/></entity-find>
+                            </entity-options>
+                        </drop-down></default-field></field>
                     <field name="otherRoleTypeId"><default-field title="合同方角色"><drop-down>
                         <entity-options key="${roleTypeId}" text="${description}">
                             <entity-find entity-name="mantle.party.RoleGroupMemberAndType" cache="true">
@@ -46,7 +54,8 @@ default-menu-title="合同列表" default-menu-include="false">
                                 <order-by field-name="description"/></entity-find></entity-options>
                     </drop-down></default-field></field>
                     <field name="organizationPartyId"><default-field title="内部组织"><drop-down>
-                        <entity-options key="${partyId}" text="PartyNameTemplate">
+                        <option key="" text=""/>
+                        <entity-options key="${partyId}" text="PartyNameOnlyTemplate">
                             <entity-find entity-name="mantle.party.PartyDetailAndRole">
                                 <econdition field-name="partyId" from="activeOrgId" ignore="!activeOrgId"/>
                                 <econdition field-name="roleTypeId" value="OrgInternal"/>
@@ -61,10 +70,12 @@ default-menu-title="合同列表" default-menu-include="false">
 
                     <field name="submitButton"><default-field title="Create" container-style="row justify-end"><submit type="success"/></default-field></field>
                     <field-layout>
-                        <field-row><field-ref name="agreementTypeEnumId"/><field-ref name="agreementDate"/></field-row>
-                        <field-row><field-ref name="organizationPartyId"/><field-ref name="fromDate"/></field-row>
-                        <field-row><field-ref name="description"/><field-ref name="fromDate"/></field-row>
-                        <field-row><field-ref name="otherPartyId"/><field-ref name="otherRoleTypeId"/></field-row>
+                        <field-row><field-ref name="description"/><field-ref name="agreementTypeEnumId"/></field-row>
+                        <field-row><field-ref name="otherPartyId"/>
+                            <field-ref name="otherRoleTypeId"/></field-row>
+                        <field-row><field-ref name="organizationPartyId"/></field-row>
+                        <field-row-big><field-ref name="agreementDate"/><field-ref name="fromDate"/><field-ref name="thruDate"/></field-row-big>
+
                         <field-ref name="submitButton" />
                     </field-layout>
                 </form-single>
@@ -89,7 +100,7 @@ default-menu-title="合同列表" default-menu-include="false">
             <field name="agreementTypeEnumId">
                 <header-field>
                     <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="AgreementType"/><set field="noCurrentSelectedKey" value="AgrOther"/></widget-template-include>
+                        <set field="enumTypeId" value="AgreementType"/></widget-template-include>
                 </header-field>
                 <default-field title="合同类型"><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
             </field>
@@ -104,8 +115,8 @@ default-menu-title="合同列表" default-menu-include="false">
                         </entity-options>
                     </drop-down>
                 </header-field>
-                <default-field title="合同方角色">
-                    <display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/>
+                <default-field title="合同方">
+                    <display-entity entity-name="mantle.party.PartyDetail" text="PartyNameOnlyTemplate"/>
                 </default-field>
             </field>
             <field name="otherRoleTypeId">
@@ -141,13 +152,13 @@ default-menu-title="合同列表" default-menu-include="false">
                 <default-field title="合同状态"><display/></default-field></field>
             <field name="agreementDate">
                 <header-field show-order-by="true"><date-find/></header-field>
-                <default-field title="合同签订日期"><display/></default-field></field>
+                <default-field title="合同签订日期"><display format="yyyy-MM-dd"/></default-field></field>
             <field name="fromDate">
                 <header-field show-order-by="true"><date-find/></header-field>
-                <default-field title="合同起始日期"><display/></default-field></field>
+                <default-field title="合同起始日期"><display format="yyyy-MM-dd"/></default-field></field>
             <field name="thruDate" >
                 <header-field show-order-by="true"><date-find/></header-field>
-                <default-field title="合同结束日期"><display/></default-field></field>
+                <default-field title="合同结束日期"><display format="yyyy-MM-dd"/></default-field></field>
             <field name="find"><header-field container-style="row justify-end"><submit/></header-field><default-field><ignored/></default-field></field>
         </form-list><!--</container>-->
     </widgets>
