@@ -66,7 +66,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </entity-find>
             </row-actions>
 
-            <field name="image"><default-field>
+            <field name="image" align="center"><default-field title="图片">
                 <image url="/westatic/image/coming-soon.png" url-type="screen"/>
             </default-field></field>
 
