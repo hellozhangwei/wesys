@@ -15,7 +15,7 @@ along with this software (see the LICENSE.md file). If not, see
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
         default-menu-title="合同管理" default-menu-index="9" menu-image="o_menu_book" menu-image-type="icon">
 
-    <subscreens default-item="FindAgreement"/>
+    <subscreens default-item="AgreementFind"/>
 
     <actions>
         <entity-find-one entity-name="mantle.party.agreement.Agreement" value-field="agreement"/>
