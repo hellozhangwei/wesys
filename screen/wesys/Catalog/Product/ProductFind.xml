@@ -111,7 +111,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <conditional-field condition="ownerPartyId == '_NA_'"><display text=" "/></conditional-field>
                 <default-field><display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/></default-field>
             </field>
-            <field name="prodIdents"><default-field title="条形码">
+            <field name="prodIdents"><default-field title="唯一标识">
                 <section-iterate name="OtherProductIdSection" list="prodIdentList" entry="prodIdent"><widgets>
                     <label text="${prodIdent.idValue} (${prodIdent.type?.description ?: ''})" type="div"/>
                 </widgets></section-iterate>
