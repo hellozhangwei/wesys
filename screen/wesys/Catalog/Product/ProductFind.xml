@@ -116,7 +116,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <label text="${prodIdent.idValue} (${prodIdent.type?.description ?: ''})" type="div"/>
                 </widgets></section-iterate>
             </default-field></field>
-            <field name="idValue"><header-field title="条形码"><text-find default-operator="begins"/></header-field></field>
+            <field name="idValue"><header-field title="唯一标识"><text-find default-operator="begins"/></header-field></field>
 
             <!--<field name="productCategoryId">
                 <header-field title="类别">
