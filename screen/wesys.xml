@@ -48,7 +48,7 @@ along with this software (see the LICENSE.md file). If not, see
         <subscreens-item name="Task" location="component://SimpleScreens/screen/SimpleScreens/Project.xml" menu-index="12" menu-title="工程管理"/>
 
         <!--<subscreens-item name="Return" location="component://SimpleScreens/screen/SimpleScreens/Return.xml" menu-index="10"/>-->
-        <subscreens-item name="Shipment" location="component://SimpleScreens/screen/SimpleScreens/Shipment.xml" menu-index="13" menu-title="出库入库"/>
+        <!--<subscreens-item name="Shipment" location="component://SimpleScreens/screen/SimpleScreens/Shipment.xml" menu-index="13" menu-title="出库入库"/>-->
         <subscreens-item name="PackageTracking" location="component://SimpleScreens/screen/SimpleScreens/Shipment/PackageTracking.xml" menu-index="13" menu-title="包裹追踪"/>
         <subscreens-item name="Shipping" location="component://SimpleScreens/screen/SimpleScreens/Shipping.xml" menu-index="13" menu-title="拣货管理"/>
         <subscreens-item name="Accounting" location="component://SimpleScreens/screen/SimpleScreens/Accounting.xml" menu-index="14" menu-title="财务管理"/>

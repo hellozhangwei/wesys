@@ -1,0 +1,14 @@
+<q-field label="Shipment Destination Address" borderless stack-label class="q-pl-lg">
+  <template v-slot:control>
+    <div class="q-pt-sm q-gutter-sm">
+      <%if (contactInfo?.postalAddress?.toName) {%><div>${ec.l10n.localize('To')}: ${contactInfo.postalAddress.toName}</div><%}%>
+      <%if (contactInfo?.postalAddress?.attnName) {%><div>${ec.l10n.localize('Attn')}: ${contactInfo.postalAddress.attnName}</div><%}%>
+      <%if (contactInfo?.postalAddress?.address1) {%><div>${contactInfo.postalAddress.address1}<%if (contactInfo.postalAddress.unitNumber) {%> #${contactInfo.postalAddress.unitNumber}<%}%></div><%}%>
+      <%if (contactInfo?.postalAddress?.address2) {%><div>${contactInfo.postalAddress.address2}</div><%}%>
+      <%if (contactInfo?.postalAddress) {%><div>${contactInfo.postalAddress.city ?: ''}<%if (contactInfo.postalAddressStateGeo?.geoCodeAlpha2) {%>, ${contactInfo.postalAddressStateGeo.geoCodeAlpha2} <%} else if (contactInfo.postalAddressStateGeo?.geoName) {%> ${contactInfo.postalAddressStateGeo.geoName} <%}%>${contactInfo.postalAddress.postalCode ?: ''}<%if (contactInfo.postalAddress.postalCodeExt) {%>-${contactInfo.postalAddress.postalCodeExt}<%}%><%if (contactInfo.postalAddressCountryGeo?.geoCodeAlpha3) {%> ${contactInfo.postalAddressCountryGeo.geoCodeAlpha3}<%}%></div><%}%>
+      <%if (contactInfo?.telecomNumber) {%><div>${ec.l10n.localize('Phone')}: <%if (contactInfo.telecomNumber.countryCode) {%>${contactInfo.telecomNumber.countryCode}-<%}%><%if (contactInfo.telecomNumber.areaCode) {%>${contactInfo.telecomNumber.areaCode}-<%}%>${contactInfo.telecomNumber.contactNumber ?: ''}<%if (contactInfo.telecomPartyContactMech?.extension) {%> x${contactInfo.telecomPartyContactMech.extension}<%}%></div><%}%>
+      <%if (contactInfo?.emailAddress) {%><div><a href="mailto:${contactInfo.emailAddress}">${contactInfo.emailAddress}</a></div><%}%>
+      <%if (contactInfo?.webAddress) {%><div><a href="${contactInfo.webAddress}" target="_blank">${contactInfo.webAddress}</a></div><%}%>
+    </div>
+  </template>
+</q-field>
