@@ -787,7 +787,7 @@ along with this software (see the LICENSE.md file). If not, see
                         </widgets></section>
                     </widgets></section>
                     <section-iterate name="ShipmentLinks" list="new ArrayList(orderPartInfo.partShipmentIdSet).reverse()" entry="shipmentId"><widgets>
-                        <link url="shipmentDetail" text="Shipment ${shipmentId}" link-type="anchor-button"/>
+                        <link url="shipmentDetail" text="Shipment ${shipmentId}" link-type="anchor-button" button-outline="false" button-flat="true"/>
                     </widgets></section-iterate>
 
                     <section name="EditPartSection" condition="orderPartInfo.partEditable"><widgets>
