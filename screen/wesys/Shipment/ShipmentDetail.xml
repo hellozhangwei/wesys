@@ -264,10 +264,13 @@ along with this software (see the LICENSE.md file). If not, see
                 <section name="ShipInputSection" condition="shipment.statusId == 'ShipInput'"><widgets>
                     <section name="ShipInputInOutSection" condition="isIncoming"><widgets>
                         <link url="scheduleShipment" text="Set Scheduled" link-type="hidden-form-link" btn-type="success" button-outline="false" button-flat="true"/>
+                        <vertical-separator/>
                     </widgets><fail-widgets>
                         <!-- isOutgoing || isTransfer -->
                         <link url="scheduleShipment" text="Set Scheduled" link-type="hidden-form-link" btn-type="success" button-outline="false" button-flat="true"/>
+                        <vertical-separator/>
                         <link url="pickShipment" text="Set Picked" link-type="hidden-form-link" btn-type="secondary" button-outline="false" button-flat="true"/><!--see linkFormForm-->
+                        <vertical-separator/>
                     </fail-widgets></section>
                 </widgets></section>
                 <section name="ShipScheduledSection" condition="shipment.statusId == 'ShipScheduled'"><widgets>
@@ -277,8 +280,10 @@ along with this software (see the LICENSE.md file). If not, see
                     </widgets><fail-widgets>
                         <!-- isOutgoing || isTransfer -->
                         <link url="pickShipment" text="Set Picked" condition="!hasNoItems" button-outline="false" button-flat="true"/>
+                        <vertical-separator/>
                         <!-- for no product outgoing shipments used to get labels -->
                         <link url="shipShipment" text="Set Shipped" condition="hasNoItems" button-outline="false" button-flat="true"/>
+                        <vertical-separator/>
                     </fail-widgets></section>
                 </widgets></section>
 
@@ -324,7 +329,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <label text="Are you sure you want to cancel this shipment?"/>
                     <link url="cancelShipment" text="Cancel Shipment"/>
                 </container-dialog>
-
+                <vertical-separator/>
                 <container-dialog id="EditShipmentDialog" button-text="Edit Shipment" button-outline="false" button-flat="true" button-size="sm" type="secondary">
                     <form-single name="EditShipment" transition="updateShipment" map="shipment">
                         <field name="shipmentId"><default-field><hidden/></default-field></field>
@@ -443,32 +448,33 @@ along with this software (see the LICENSE.md file). If not, see
                         </field-layout>
                     </form-single>
                 </container-dialog>
-                <container>
+                <vertical-separator/>
+<!--                <container>-->
                     <section name="OutgoingTransferSection" condition="isOutgoing || isTransfer"><widgets>
-                        <link url="ShipmentPick.pdf" text="Pick" icon="fa fa-download" style="${shipment.statusId in ['ShipScheduled', 'ShipPicked'] ? 'btn-info' : ''}" button-outline="false" button-flat="true"/>
+                        <link url="ShipmentPick.pdf" text="Pick" icon="fa fa-download" btn-type="secondary" style="${shipment.statusId in ['ShipScheduled', 'ShipPicked'] ? 'btn-info' : ''}" button-outline="false" button-flat="true"/><vertical-separator/>
                         <render-mode><text type="vuet,qvt"><![CDATA[<button v-if="$root.qzVue" class="btn btn-default btn-sm" onclick="moqui.printUrlMain('/fop/apps/${appRoot}/Shipment/ShipmentPick?shipmentId=${shipmentId}')"><i class="fa fa-print"></i> Pick</button>]]></text></render-mode>
-                        <link url="ShipmentPack.pdf" text="Pack" icon="fa fa-download" style="${shipment.statusId in ['ShipShipped', 'ShipPacked'] ? 'btn-info' : ''}" button-outline="false" button-flat="true"/>
+                        <link url="ShipmentPack.pdf" text="Pack" icon="fa fa-download" btn-type="secondary" style="${shipment.statusId in ['ShipShipped', 'ShipPacked'] ? 'btn-info' : ''}" button-outline="false" button-flat="true"/><vertical-separator/>
                         <render-mode><text type="vuet,qvt"><![CDATA[<button v-if="$root.qzVue" class="btn btn-default btn-sm" onclick="moqui.printUrlMain('/fop/apps/${appRoot}/Shipment/ShipmentPack?shipmentId=${shipmentId}')"><i class="fa fa-print"></i> Pack</button>]]></text></render-mode>
-                        <link url="ShipmentByPackage.pdf" text="Package##Shipment" icon="fa fa-download" style="${shipment.statusId in ['ShipScheduled', 'ShipPicked'] ? 'btn-info' : ''}" button-outline="false" button-flat="true"/>
+                        <link url="ShipmentByPackage.pdf" text="Package##Shipment" icon="fa fa-download" btn-type="secondary" style="${shipment.statusId in ['ShipScheduled', 'ShipPicked'] ? 'btn-info' : ''}" button-outline="false" button-flat="true"/><vertical-separator/>
                         <render-mode><text type="vuet,qvt"><![CDATA[<button v-if="$root.qzVue" class="btn btn-default btn-sm" onclick="moqui.printUrlMain('/fop/apps/${appRoot}/Shipment/ShipmentByPackage?shipmentId=${shipmentId}')"><i class="fa fa-print"></i> Package</button>]]></text></render-mode>
-                        <link url="ShipmentInsert.pdf" text="Insert" icon="fa fa-download" style="${shipment.statusId in ['ShipShipped', 'ShipPacked'] ? 'btn-info' : ''}" button-outline="false" button-flat="true"/>
+                        <link url="ShipmentInsert.pdf" text="Insert" icon="fa fa-download" btn-type="secondary" style="${shipment.statusId in ['ShipShipped', 'ShipPacked'] ? 'btn-info' : ''}" button-outline="false" button-flat="true"/><vertical-separator/>
                         <render-mode><text type="vuet,qvt"><![CDATA[<button v-if="$root.qzVue" class="btn btn-default btn-sm" onclick="moqui.printUrlMain('/fop/apps/${appRoot}/Shipment/ShipmentInsert?shipmentId=${shipmentId}')"><i class="fa fa-print"></i> Insert</button>]]></text></render-mode>
                     </widgets></section>
-
+                    <vertical-separator/>
                     <section-iterate name="OrderLinks" list="orderIdSet" entry="orderId"><widgets>
-                        <link url="orderDetail" text="Order ${orderId}" link-type="anchor-button" button-outline="false" button-flat="true"/></widgets></section-iterate>
+                        <link url="orderDetail" text="Order ${orderId}" link-type="anchor-button" btn-type="secondary" button-outline="false" button-flat="true"/></widgets></section-iterate>
                     <section-iterate name="ReturnLinks" list="returnIdSet" entry="returnId"><widgets>
-                        <link url="editReturn" text="Return ${returnId}" link-type="anchor-button"/></widgets></section-iterate>
+                        <link url="editReturn" text="Return ${returnId}" btn-type="secondary" link-type="anchor-button"/></widgets></section-iterate>
                     <section-iterate name="InvoiceLinks" list="invoiceIdSet" entry="invoiceId"><widgets>
-                        <link url="editInvoice" text="Invoice ${invoiceId}" link-type="anchor-button"/></widgets></section-iterate>
+                        <link url="editInvoice" text="Invoice ${invoiceId}" btn-type="secondary" link-type="anchor-button"/></widgets></section-iterate>
                     <!-- no value in this as shown in better context in issuance or receipt list:
                     <section-iterate name="AcctgTransLinks" list="acctgTransIdSet" entry="acctgTransId"><widgets>
                         <link url="editTransaction" text="TX ${acctgTransId}" link-type="anchor-button"/>
                     </widgets></section-iterate>
                     -->
-
-                    <link url="packShipmentScreen" text="Pack Screen" button-outline="false" button-flat="true"/>
-                </container>
+                <vertical-separator/>
+                    <link url="packShipmentScreen" text="Pack Screen" btn-type="secondary" button-outline="false" button-flat="true"/>
+<!--                </container>-->
             </box-toolbar>
             <box-body>
                 <!--<section name="ShippedShippingDestInfo" condition="curDestPaInfo"><actions>
@@ -666,7 +672,7 @@ along with this software (see the LICENSE.md file). If not, see
                 change the status to Delivered, and generally makes no sense as the system won't have data needed for responding
                 to returns, knowing that order items were returned, etc -->
             <section name="ShipItemInputSection" condition="shipment.statusId in ['ShipInput', 'ShipScheduled'] &amp;&amp; !(shipment.shipmentTypeEnumId in ['ShpTpSalesReturn', 'ShpTpPurchaseReturn'])"><widgets>
-                <container-dialog id="AddItemContainer" button-text="Add Item" button-outline="false" button-flat="true" button-size="sm">
+                <container-dialog id="AddItemContainer" button-text="Add Item" type="secondary" button-outline="false" button-flat="true" button-size="sm">
                     <label text="WARNING: items added this way will not be associated with an order and will not count toward order item shipped quantity." type="strong" style="text-warning"/>
                     <form-single name="AddItemForm" transition="addItem">
                         <field name="shipmentId"><default-field><hidden/></default-field></field>
@@ -677,6 +683,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field name="submitButton"><default-field title="Add Item"><submit/></default-field></field>
                     </form-single>
                 </container-dialog>
+                <vertical-separator/>
             </widgets></section>
             <link url="../ShipmentItems" text="Pack/Issue Items" btn-type="success" button-outline="false" button-flat="true" />
         </box-toolbar><box-body>
@@ -700,7 +707,7 @@ along with this software (see the LICENSE.md file). If not, see
             <container-box><box-header title="Packages##Shipment"/><box-toolbar>
                 <link url="createShipmentAutoPackages" text="Auto Packages" condition="shippingGatewayConfig?.getAutoPackageInfoName"
                     parameter-map="[resetExisting:true]" confirmation="Remove existing packages and create new based on auto-package data?"/>
-                <link url="createPackage" text="Add Package" link-type="anchor-button" button-outline="false" button-flat="true"/>
+                <link url="createPackage" text="Add Package" btn-type="secondary" link-type="anchor-button" button-outline="false" button-flat="true"/>
             </box-toolbar><box-body>
                 <label text="Showing ${pageSize} of ${shipmentPackageList.size()} Packages" type="strong" style="text-danger"
                         condition="shipmentPackageList.size() &gt; (pageSize as Integer)"/>
