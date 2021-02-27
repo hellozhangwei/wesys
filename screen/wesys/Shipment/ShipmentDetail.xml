@@ -18,7 +18,7 @@ along with this software (see the LICENSE.md file). If not, see
     <parameter name="shipmentId" required="true"/>
 
     <transition name="packShipmentScreen"><default-response url="//${appRoot}/Shipping/PackShipment"/></transition>
-    <transition name="orderDetail"><default-response url="//${appRoot}/Order/OrderDetail"/></transition>
+    <transition name="orderDetail"><default-response url="//${appRoot}/SalesOrder/SalesOrderDetail"/></transition>
     <transition name="editReturn"><default-response url="//${appRoot}/Return/EditReturn"/></transition>
     <transition name="editInvoice"><default-response url="//${appRoot}/Accounting/Invoice/EditInvoice"/></transition>
     <transition name="editPayment"><default-response url="//${appRoot}/Accounting/Payment/EditPayment"/></transition>
@@ -267,7 +267,7 @@ along with this software (see the LICENSE.md file). If not, see
                     </widgets><fail-widgets>
                         <!-- isOutgoing || isTransfer -->
                         <link url="scheduleShipment" text="Set Scheduled" link-type="hidden-form-link" btn-type="success" button-outline="false" button-flat="true"/>
-                        <link url="pickShipment" text="Set Picked" link-type="hidden-form-link" button-outline="false" button-flat="true"/><!--see linkFormForm-->
+                        <link url="pickShipment" text="Set Picked" link-type="hidden-form-link" btn-type="secondary" button-outline="false" button-flat="true"/><!--see linkFormForm-->
                     </fail-widgets></section>
                 </widgets></section>
                 <section name="ShipScheduledSection" condition="shipment.statusId == 'ShipScheduled'"><widgets>
@@ -310,7 +310,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </widgets></section>
 
                 <container-dialog id="CancelDialog" button-text="Cancel Shipment" condition="!(shipment.statusId in ['ShipDelivered', 'ShipRejected', 'ShipCancelled'])"
-                                  button-outline="false" button-flat="true" button-size="sm">
+                                  button-outline="false" button-flat="true" button-size="sm" type="secondary">
                     <label text="Invoices associated with this shipment will be CANCELLED: ${invoiceIdSet.join(', ')}"
                            condition="isOutgoing &amp;&amp; invoiceIdSet" type="p" style="text-danger"/>
                     <label text="Invoices (found ${invoiceIdSet.size()} associated with this shipment) will not be changed, must be cancelled manually"
@@ -325,6 +325,124 @@ along with this software (see the LICENSE.md file). If not, see
                     <link url="cancelShipment" text="Cancel Shipment"/>
                 </container-dialog>
 
+                <container-dialog id="EditShipmentDialog" button-text="Edit Shipment" button-outline="false" button-flat="true" button-size="sm" type="secondary">
+                    <form-single name="EditShipment" transition="updateShipment" map="shipment">
+                        <field name="shipmentId"><default-field><hidden/></default-field></field>
+
+                        <field name="destPostalContactMechId" from="lastRouteSegment.destPostalContactMechId">
+                            <conditional-field title="Destination Address"
+                                               condition="(isOutgoing || isTransfer) &amp;&amp; (allowUpdate || shipment.statusId == 'ShipPacked')">
+                                <drop-down allow-empty="true">
+                                    <list-options list="shippingPostalAddressList" key="${postalContactMechId}" text="PostalAddressInfoTemplate"/>
+                                </drop-down>
+                            </conditional-field>
+                            <default-field><hidden/></default-field>
+                        </field>
+
+                        <field name="carrierAndShipmentMethod">
+                            <conditional-field title="Ship By" condition="!hasAllLabels || !packageRouteSegList">
+                                <drop-down allow-empty="true" no-current-selected-key="${firstRouteSegment.carrierPartyId ? firstRouteSegment.carrierPartyId + ':' + firstRouteSegment.shipmentMethodEnumId : ''}">
+                                    <list-options list="shippingOptions" key="${carrierPartyId}:${shipmentMethodEnumId}"
+                                                  text="${description ? description : (carrierPartyId != '_NA_' ? (carrierName + ' - ') : '') + shipmentMethodDescription}${shippingTotal != null ? ' ' + ec.l10n.formatCurrency(shippingTotal, orderHeader.currencyUomId) : ''}"/>
+                                    <dynamic-options transition="getShippingOptions"/>
+                                </drop-down>
+                            </conditional-field>
+                            <default-field title="Ship By">
+                                <display text="${curCarrierShipmentMethod?.description ? curCarrierShipmentMethod?.description : (curCarrierDetail ? curCarrierDetail.pseudoId : 'N/A') + (curShipmentMethodEnum ? curShipmentMethodEnum.description : 'None')}"/>
+                            </default-field>
+                        </field>
+
+                        <field name="shipWorkEffortId"><conditional-field condition="shipWorkEffortId" title="Picklist">
+                            <link url="picklistDetail" text="${shipWorkEffortId}" link-type="anchor"
+                                  parameter-map="[workEffortId:shipWorkEffortId]" condition="shipWorkEffortId"/>
+                        </conditional-field></field>
+
+                        <!--<field name="fromPartyId">
+                            <conditional-field title="From Party" condition="isIncoming &amp;&amp; allowUpdate">
+                                <drop-down allow-empty="true"><dynamic-options transition="searchPartyList" server-search="true" min-length="2"/></drop-down>
+                                <link url="editSupplier" text="${ec.resource.expand('PartyNameTemplate', '', fromPartyDetail)}" link-type="anchor"
+                                      condition="toPartyDetail" parameter-map="[partyId:fromPartyId]"/>
+                            </conditional-field>
+                            <conditional-field title="From Party" condition="fromPartyId">
+                                <link url="editSupplier" text="${ec.resource.expand('PartyNameTemplate', '', fromPartyDetail)}" link-type="anchor"
+                                      condition="toPartyDetail" parameter-map="[partyId:fromPartyId]"/>
+                            </conditional-field>
+                        </field>-->
+                        <field name="toPartyId">
+                            <conditional-field title="To Party" condition="(isOutgoing || isTransfer) &amp;&amp; allowUpdate">
+                                <drop-down allow-empty="true"><dynamic-options transition="searchPartyList" server-search="true" min-length="2"/></drop-down>
+                                <!--<link url="editCustomer" text="${ec.resource.expand('PartyNameTemplate', '', toPartyDetail)}" link-type="anchor"
+                                      condition="toPartyDetail" parameter-map="[partyId:toPartyId]"/>-->
+                            </conditional-field>
+                            <!--<conditional-field condition="toPartyId" title="To Party">
+                                <link url="editCustomer" text="${ec.resource.expand('PartyNameTemplate', '', toPartyDetail)}" link-type="anchor"
+                                      condition="toPartyDetail" parameter-map="[partyId:toPartyId]"/>
+                            </conditional-field>-->
+                        </field>
+
+                        <field name="originFacilityId" from="firstRouteSegment.originFacilityId">
+                            <conditional-field title="Origin Facility" condition="(isOutgoing || isTransfer) &amp;&amp; allowUpdate">
+                                <drop-down><list-options list="facilityList" key="${facilityId}" text="FacilityNameTemplate"/></drop-down>
+                            </conditional-field>
+                            <conditional-field title="Origin Facility" condition="isOutgoing || isTransfer">
+                                <link url="editFacility" text="${ec.resource.expand('FacilityNameTemplate', '', originFacility)}" link-type="anchor"
+                                      parameter-map="[facilityId:firstRouteSegment.originFacilityId]"/>
+                            </conditional-field>
+                        </field>
+                        <!--<field name="destinationFacilityId" from="lastRouteSegment.destinationFacilityId">
+                            <conditional-field title="Destination Facility" condition="(isIncoming || isTransfer) &amp;&amp; allowUpdate">
+                                <drop-down><list-options list="facilityList" key="${facilityId}" text="FacilityNameTemplate"/></drop-down>
+                                <link url="editFacility" text="${ec.resource.expand('FacilityNameTemplate', '', destinationFacility)}" link-type="anchor"
+                                      parameter-map="[facilityId:lastRouteSegment.destinationFacilityId]"/>
+                            </conditional-field>
+                            <conditional-field title="Destination Facility" condition="isIncoming || isTransfer">
+                                <link url="editFacility" text="${ec.resource.expand('FacilityNameTemplate', '', destinationFacility)}" link-type="anchor"
+                                      parameter-map="[facilityId:lastRouteSegment.destinationFacilityId]"/>
+                            </conditional-field>
+                        </field>-->
+
+                        <field name="priority"><default-field><radio no-current-selected-key="5">
+                            <option key="1"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
+                            <option key="6"/><option key="7"/><option key="8"/><option key="9"/>
+                        </radio></default-field></field>
+                        <field name="handlingInstructions"><default-field title="Shipping Instructions">
+                            <text-area rows="3" cols="80"/></default-field></field>
+                        <field name="otherPartyOrderId"><conditional-field condition="!isTransfer" title="Their Order" tooltip="Other party purchase or sales order ID">
+                            <text-line size="40"/></conditional-field></field>
+                        <field name="signatureRequiredEnumId"><conditional-field title="Sign Req." condition="isOutgoing">
+                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                <set field="enumTypeId" value="SignatureRequired"/><set field="allowEmpty" value="true"/></widget-template-include>
+                        </conditional-field></field>
+                        <field name="shipAfterDate"><default-field title="Ship After"><date-time/></default-field></field>
+                        <field name="shipBeforeDate"><default-field title="Ship Before"><date-time/></default-field></field>
+
+                        <field name="estimatedReadyDate"><conditional-field condition="isOutgoing || isTransfer" title="Est Ready"><date-time/></conditional-field></field>
+<!--                        <field name="entryDate"><default-field title="Entry"><display/></default-field></field>-->
+<!--                        <field name="packedDate"><default-field title="Packed"><display/></default-field></field>-->
+                        <field name="estimatedShipDate"><default-field title="Est Ship"><date-time/></default-field></field>
+                        <field name="estimatedArrivalDate"><default-field title="Est Arrival"><date-time/></default-field></field>
+
+<!--                        <field name="actualStartDate" from="firstRouteSegment.actualStartDate"><default-field title="Actual Start"><display/></default-field></field>-->
+<!--                        <field name="actualArrivalDate" from="lastRouteSegment.actualArrivalDate"><default-field title="Actual Arrival"><display/></default-field></field>-->
+
+                        <field name="submitButton"><default-field title="Update Shipment" container-style="row justify-end"><submit/></default-field></field>
+
+                        <field-layout>
+<!--                            <field-ref name="originPostalContactMechId"/>-->
+                            <field-ref name="destPostalContactMechId"/>
+                            <field-ref name="carrierAndShipmentMethod"/>
+<!--                            <field-row><field-ref name="shipmentTypeEnumId"/><field-ref name="statusId"/></field-row>-->
+                            <fields-not-referenced/>
+                            <field-row><field-ref name="otherPartyOrderId"/><field-ref name="signatureRequiredEnumId"/></field-row>
+                            <field-row><field-ref name="shipAfterDate"/><field-ref name="shipBeforeDate"/></field-row>
+                            <field-row><field-ref name="estimatedReadyDate"/></field-row>
+                            <field-row><field-ref name="estimatedShipDate"/><field-ref name="estimatedArrivalDate"/></field-row>
+<!--                            <field-row><field-ref name="entryDate"/><field-ref name="packedDate"/></field-row>-->
+<!--                            <field-row><field-ref name="actualStartDate"/><field-ref name="actualArrivalDate"/></field-row>-->
+                            <field-ref name="submitButton"/>
+                        </field-layout>
+                    </form-single>
+                </container-dialog>
                 <container>
                     <section name="OutgoingTransferSection" condition="isOutgoing || isTransfer"><widgets>
                         <link url="ShipmentPick.pdf" text="Pick" icon="fa fa-download" style="${shipment.statusId in ['ShipScheduled', 'ShipPicked'] ? 'btn-info' : ''}" button-outline="false" button-flat="true"/>
@@ -338,7 +456,7 @@ along with this software (see the LICENSE.md file). If not, see
                     </widgets></section>
 
                     <section-iterate name="OrderLinks" list="orderIdSet" entry="orderId"><widgets>
-                        <link url="orderDetail" text="Order ${orderId}" link-type="anchor-button"/></widgets></section-iterate>
+                        <link url="orderDetail" text="Order ${orderId}" link-type="anchor-button" button-outline="false" button-flat="true"/></widgets></section-iterate>
                     <section-iterate name="ReturnLinks" list="returnIdSet" entry="returnId"><widgets>
                         <link url="editReturn" text="Return ${returnId}" link-type="anchor-button"/></widgets></section-iterate>
                     <section-iterate name="InvoiceLinks" list="invoiceIdSet" entry="invoiceId"><widgets>
@@ -362,9 +480,12 @@ along with this software (see the LICENSE.md file). If not, see
                 <form-single name="ViewShipment" map="shipment">
                     <field name="shipmentId"><default-field><hidden/></default-field></field>
 
-                   <field name="destPostalContactMechId" from="lastRouteSegment.destPostalContactMechId">
-                        <default-field title="Shipment Destination Address">
+                   <field name="destPostalContactMechId">
+                        <conditional-field title="Shipment Destination Address" condition="curDestPaInfo">
                             <display text="${ec.resource.expand('PostalAddressInfoTemplate', '', curDestPaInfo)}"/>
+                        </conditional-field>
+                       <default-field title="Shipment Destination Address">
+                            <display text="Not Specified"/>
                         </default-field>
                     </field>
 
@@ -430,7 +551,15 @@ along with this software (see the LICENSE.md file). If not, see
 
                     <field name="actualStartDate" from="firstRouteSegment.actualStartDate"><default-field title="Actual Start"><display/></default-field></field>
                     <field name="actualArrivalDate" from="lastRouteSegment.actualArrivalDate"><default-field title="Actual Arrival"><display/></default-field></field>
-
+                    <field name="shipWorkEffortId">
+                        <conditional-field condition="shipWorkEffortId" title="Picklist">
+                            <link url="picklistDetail" text="${shipWorkEffortId}" link-type="anchor"
+                                  parameter-map="[workEffortId:shipWorkEffortId]" condition="shipWorkEffortId"/>
+                        </conditional-field>
+                        <default-field>
+                            <display text="NONE"/>
+                        </default-field>
+                    </field>
 <!--                    <field name="submitButton"><default-field title="Update Shipment"><submit/></default-field></field>-->
 
                     <field-layout>
@@ -461,7 +590,12 @@ along with this software (see the LICENSE.md file). If not, see
                             <field-col md="3"><field-ref name="entryDate"/></field-col>
                             <field-col md="3"><field-ref name="packedDate"/></field-col>
                         </field-col-row>
-                        <field-row><field-ref name="estimatedReadyDate"/></field-row>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="estimatedReadyDate"/></field-col>
+                            <field-col md="3"><field-ref name="shipWorkEffortId"/></field-col>
+                            <field-col md="3"></field-col>
+                            <field-col md="3"></field-col>
+                        </field-col-row>
 
                         <fields-not-referenced/>
                     </field-layout>
