@@ -334,6 +334,16 @@ along with this software (see the LICENSE.md file). If not, see
                     <form-single name="EditShipment" transition="updateShipment" map="shipment">
                         <field name="shipmentId"><default-field><hidden/></default-field></field>
 
+                        <field name="originPostalContactMechId" from="firstRouteSegment.originPostalContactMechId">
+                            <conditional-field title="Origin Address"
+                                               condition="isIncoming &amp;&amp; (allowUpdate || shipment.statusId == 'ShipPacked')">
+                                <drop-down allow-empty="true">
+                                    <list-options list="shippingPostalAddressList" key="${postalContactMechId}" text="PostalAddressInfoTemplate"/>
+                                </drop-down>
+                            </conditional-field>
+                            <default-field><hidden/></default-field>
+                        </field>
+
                         <field name="destPostalContactMechId" from="lastRouteSegment.destPostalContactMechId">
                             <conditional-field title="Destination Address"
                                                condition="(isOutgoing || isTransfer) &amp;&amp; (allowUpdate || shipment.statusId == 'ShipPacked')">
@@ -433,7 +443,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field name="submitButton"><default-field title="Update Shipment" container-style="row justify-end"><submit/></default-field></field>
 
                         <field-layout>
-<!--                            <field-ref name="originPostalContactMechId"/>-->
+                            <field-ref name="originPostalContactMechId"/>
                             <field-ref name="destPostalContactMechId"/>
                             <field-ref name="carrierAndShipmentMethod"/>
 <!--                            <field-row><field-ref name="shipmentTypeEnumId"/><field-ref name="statusId"/></field-row>-->
@@ -486,13 +496,18 @@ along with this software (see the LICENSE.md file). If not, see
                 <form-single name="ViewShipment" map="shipment">
                     <field name="shipmentId"><default-field><hidden/></default-field></field>
 
+                    <field name="originPostalContactMechId">
+                        <conditional-field title="Shipment Origin Address" condition="curOriginPaInfo">
+                            <display text="${ec.resource.expand('PostalAddressInfoTemplate', '', curOriginPaInfo)}"/>
+                        </conditional-field>
+<!--                        <default-field><display text="Not Specified"/></default-field>-->
+                    </field>
+
                    <field name="destPostalContactMechId">
                         <conditional-field title="Shipment Destination Address" condition="curDestPaInfo">
                             <display text="${ec.resource.expand('PostalAddressInfoTemplate', '', curDestPaInfo)}"/>
                         </conditional-field>
-                       <default-field title="Shipment Destination Address">
-                            <display text="Not Specified"/>
-                        </default-field>
+<!--                       <default-field title="Shipment Destination Address"><display text="Not Specified"/></default-field>-->
                     </field>
 
                     <field name="carrierAndShipmentMethod">
@@ -569,7 +584,7 @@ along with this software (see the LICENSE.md file). If not, see
 <!--                    <field name="submitButton"><default-field title="Update Shipment"><submit/></default-field></field>-->
 
                     <field-layout>
-<!--                        <field-ref name="originPostalContactMechId"/>-->
+                        <field-ref name="originPostalContactMechId"/>
                         <field-ref name="destPostalContactMechId"/>
                         <field-col-row>
                             <field-col md="3"><field-ref name="toPartyId"/></field-col>
