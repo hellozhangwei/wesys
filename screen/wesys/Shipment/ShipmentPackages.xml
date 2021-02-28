@@ -102,7 +102,9 @@ along with this software (see the LICENSE.md file). If not, see
             <container-box><box-header title="Packages##Shipment"/><box-toolbar>
                 <section name="ShipShipmentSection" condition="(isIncoming &amp;&amp; shipment.statusId in ['ShipInput', 'ShipScheduled', 'ShipPicked', 'ShipPacked']) ||
                         ((isOutgoing || isTransfer) &amp;&amp; shipment.statusId == 'ShipPacked')"><widgets>
-                    <container-dialog id="SetShippedDialog" button-text="Set Shipped" type="${isOutgoing || isTransfer ? (!hasAllTrackingCodes ? 'danger' : (!hasAllLabels ? 'warning' : 'success')) : 'primary'}">
+                    <container-dialog id="SetShippedDialog" button-text="Set Shipped"
+                                      type="${isOutgoing || isTransfer ? (!hasAllTrackingCodes ? 'danger' : (!hasAllLabels ? 'warning' : 'success')) : 'primary'}"
+                                      button-outline="false" button-flat="true" button-size="sm">
                         <label text="Set as Shipped? If a Shipment Shipped email is configured it will be sent to the Customer." condition="isOutgoing" style="text-success" type="p"/>
                         <container><label text="Not all packages have Labels" type="strong" style="text-warning" condition="!hasAllLabels"/></container>
                         <container><label text="Not all packages have Tracking Codes" type="strong" style="text-danger" condition="!hasAllTrackingCodes"/></container>
