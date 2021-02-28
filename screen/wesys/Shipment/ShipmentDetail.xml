@@ -287,14 +287,14 @@ along with this software (see the LICENSE.md file). If not, see
                     </fail-widgets></section>
                 </widgets></section>
 
-                <section-include name="PackShipmentSection" location="component://SimpleScreens/screen/SimpleScreens/Shipment/ShipmentItems.xml"/>
-                <section-include name="ShipShipmentSection" location="component://SimpleScreens/screen/SimpleScreens/Shipment/ShipmentPackages.xml"/>
-                <section-include name="DeliverShipmentSection" location="component://SimpleScreens/screen/SimpleScreens/Shipment/ShipmentItems.xml"/>
+                <section-include name="PackShipmentSection" location="component://wesys/screen/wesys/Shipment/ShipmentItems.xml"/>
+                <section-include name="ShipShipmentSection" location="component://wesys/screen/wesys/Shipment/ShipmentPackages.xml"/>
+                <section-include name="DeliverShipmentSection" location="component://wesys/screen/wesys/Shipment/ShipmentItems.xml"/>
 
-                <section-include name="RequestLabelsSection" location="component://SimpleScreens/screen/SimpleScreens/Shipment/ShipmentPackages.xml"/>
+                <section-include name="RequestLabelsSection" location="component://wesys/screen/wesys/Shipment/ShipmentPackages.xml"/>
                 <link url="trackShipmentLabels" text="Track Labels" condition="shippingGatewayConfigId &amp;&amp; hasAnyLabels"/>
-                <section-include name="PrintLabelsSection" location="component://SimpleScreens/screen/SimpleScreens/Shipment/ShipmentPackages.xml"/>
-                <section-include name="QzPrintLabelsSection" location="component://SimpleScreens/screen/SimpleScreens/Shipment/ShipmentPackages.xml"/>
+                <section-include name="PrintLabelsSection" location="component://wesys/screen/wesys/Shipment/ShipmentPackages.xml"/>
+                <section-include name="QzPrintLabelsSection" location="component://wesys/screen/wesys/Shipment/ShipmentPackages.xml"/>
 
                 <section name="ShipPackedSection" condition="shipment.statusId == 'ShipPacked'"><widgets>
                     <section name="ShipPackedInSection" condition="isIncoming"><widgets>
@@ -728,7 +728,7 @@ along with this software (see the LICENSE.md file). If not, see
                         condition="shipmentPackageList.size() &gt; (pageSize as Integer)"/>
                 <link url="../ShipmentPackages" text="See All ${shipmentPackageList.size()} Packages" btn-type="success"
                         condition="shipmentPackageList.size() &gt; (pageSize as Integer)"/>
-                <section-include name="PackageListSection" location="component://SimpleScreens/screen/SimpleScreens/Shipment/ShipmentPackages.xml"/>
+                <section-include name="PackageListSection" location="component://wesys/screen/wesys/Shipment/ShipmentPackages.xml"/>
             </box-body></container-box>
         </widgets></section>
     </widgets>
