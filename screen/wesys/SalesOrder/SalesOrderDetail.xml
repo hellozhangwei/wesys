@@ -968,7 +968,7 @@ along with this software (see the LICENSE.md file). If not, see
                                     </drop-down>
                                 </default-field></field>
 
-                                <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                                <field name="submitButton"><default-field title="Add" container-style="row justify-end"><submit/></default-field></field>
                             </form-single>
                         </container-dialog >
                         <vertical-separator/>
@@ -1327,23 +1327,23 @@ along with this software (see the LICENSE.md file). If not, see
                             <conditional-field condition="isProductItemType &amp;&amp; orderPartInfo.partEditable">
                                 <text-line size="25"/></conditional-field>
                             <default-field><display/></default-field></field>-->
-                        <!--<field name="itemDescription">
-                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" title="Description">
+                        <field name="itemDescription">
+                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" title="Description" container-style="small-input hide-input-label">
                                 <text-line size="30"/>
-                                <label text="Promo Code: ${promoCodeText}" condition="promoCodeText" type="div"/>
+<!--                                <label text="Promo Code: ${promoCodeText}" condition="promoCodeText" type="div"/>-->
                             </conditional-field>
                             <default-field title="Description">
                                 <display/>
-                                <label text="Promo Code: ${promoCodeText}" condition="promoCodeText" type="div"/>
+<!--                                <label text="Promo Code: ${promoCodeText}" condition="promoCodeText" type="div"/>-->
                             </default-field></field>
-                        <field name="comments"><conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'">
-                            <text-line size="30"/></conditional-field>
-                            <default-field><display/></default-field></field>-->
-                        <!-- <field name="requiredByDate">
-                             <conditional-field condition="isProductItemType &amp;&amp; orderPartInfo.partEditable">
-                                 <date-time/></conditional-field>
-                             <default-field><display/></default-field>
-                         </field>-->
+                    <!--<field name="comments"><conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'">
+                        <text-line size="30"/></conditional-field>
+                        <default-field><display/></default-field></field>
+                     <field name="requiredByDate">
+                         <conditional-field condition="isProductItemType &amp;&amp; orderPartInfo.partEditable">
+                             <date-time/></conditional-field>
+                         <default-field><display/></default-field>
+                     </field>-->
 
                         <!-- <field name="unitListPrice"><default-field title="List Price">
                              <display currency-unit-field="orderHeader.currencyUomId"/></default-field></field>-->
@@ -1352,7 +1352,7 @@ along with this software (see the LICENSE.md file). If not, see
                                 <text-line size="8" format="#,##0.00#"/></conditional-field>
                             <default-field title="Price"><display currency-unit-field="orderHeader.currencyUomId"/></default-field>
                         </field>
-                        <field name="unitAmountHist"><default-field title="">
+                        <!--<field name="unitAmountHist"><default-field title="">
                             <render-mode><text type="html,vuet"><![CDATA[
                         <#assign popoverContent>
                             <table style="width:100%;"><#list itemUnitAmountAuditList as auditInfo><tr>
@@ -1374,7 +1374,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </tr></#list></table>
                         </q-tooltip></div>
                     ]]></text></render-mode>
-                        </default-field></field>
+                        </default-field></field>-->
                         <field name="quantity">
                             <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" container-style="small-input hide-input-label"><text-line size="5"/></conditional-field>
                             <default-field><display/></default-field>
@@ -1386,7 +1386,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </conditional-field>
                             <default-field title="Quantity Reason"><ignored/></default-field>
                         </field>-->
-                        <field name="quantityHist"><default-field title="">
+                        <!--<field name="quantityHist"><default-field title="">
                             <render-mode><text type="html,vuet"><![CDATA[
                         <#assign popoverContent>
                             <table style="width:100%;"><#list itemQuantityAuditList as auditInfo><tr>
@@ -1408,7 +1408,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </tr></#list></table>
                         </q-tooltip></div>
                     ]]></text></render-mode>
-                        </default-field></field>
+                        </default-field></field>-->
                         <!--<field name="standardCost">
                             <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isProductItemType &amp;&amp; orderPartInfo.isCustomerInternalOrg">
                                 <text-line size="10" format="#,##0.00#"/></conditional-field>
@@ -1473,7 +1473,7 @@ along with this software (see the LICENSE.md file). If not, see
                             <submit text="Update" button-size="sm" type="secondary"/>
                             <link url="deleteItem" text="删除" btn-type="secondary" button-outline="false" button-flat="false" condition="itemCanDelete" confirmation="Delete item ${orderItemSeqId}?"/>
                         </conditional-field><conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo == 'Y'">
-                            <link url="deleteItem" text="删除" btn-type="danger" condition="itemCanDelete" confirmation="Delete item ${orderItemSeqId}?"/>
+                            <link url="deleteItem" text="删除" btn-type="secondary" button-outline="false" button-flat="false" condition="itemCanDelete" confirmation="Delete item ${orderItemSeqId}?"/>
                         </conditional-field><default-field title=""/></field>
 
                         <field name="closeButton"><default-field title="">
