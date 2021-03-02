@@ -766,12 +766,12 @@ along with this software (see the LICENSE.md file). If not, see
                             <order-by field-name="shipmentId"/>
                         </entity-find>
                     </actions><widgets>
-                        <link url="shipOrderPart" text="Create Shipment" link-type="hidden-form-link" btn-type="success">
+                        <link url="shipOrderPart" text="Create Shipment" link-type="hidden-form-link" btn-type="success" style="q-pa-xs">
                             <parameter name="orderId"/><parameter name="orderPartSeqId" from="orderPart.orderPartSeqId"/></link>
-
-                        <link url="quickShipOrder" text="Quick Ship Entire Order" link-type="hidden-form-link" btn-type="success">
+                        <vertical-separator/>
+                        <link url="quickShipOrder" text="Quick Ship Entire Order" link-type="hidden-form-link" btn-type="success" style="q-pa-xs">
                             <parameter name="orderId"/><parameter name="orderPartSeqId" from="orderPart.orderPartSeqId"/></link>
-
+                        <vertical-separator/>
                         <section name="AddPartToShipmentSection" condition="ssfsList"><widgets>
                             <container-dialog id="AddOrderPartToShipmentDialog" button-text="Add Part to Shipment" button-size="sm" button-outline="false" button-flat="true" type="secondary">
                                 <form-single name="AddOrderPartToShipmentForm" transition="addOrderPartToShipment">
