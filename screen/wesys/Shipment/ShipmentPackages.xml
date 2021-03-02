@@ -120,7 +120,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <section name="RequestLabelsSection" condition="shippingGatewayConfigId &amp;&amp; !hasAllLabels &amp;&amp; (isOutgoing || isTransfer) &amp;&amp;
                     ((shipment.statusId == 'ShipScheduled' &amp;&amp; hasNoItems) || (shipment.statusId in ['ShipPacked', 'ShipShipped']))"><widgets>
                     <link url="requestShipmentLabels" text="Get Labels" condition="destContactMechValid"/>
-                    <container-dialog id="RequestLabelsDialog" button-text="Get Labels" type="warning" condition="!destContactMechValid">
+                    <container-dialog id="RequestLabelsDialog" button-text="Get Labels" type="warning" condition="!destContactMechValid" button-outline="false" button-flat="true" button-size="sm">
                         <label text="Warning: destination address is incomplete or invalid according to address validation." style="text-warning"/>
                         <link url="requestShipmentLabels" text="Get Labels Anyway"/>
                     </container-dialog>

@@ -303,11 +303,11 @@ along with this software (see the LICENSE.md file). If not, see
                 </widgets></section>
                 <section name="ShipShippedSection" condition="shipment.statusId == 'ShipShipped'"><widgets>
                     <section name="ShipShippedInOutSection" condition="isIncoming"><widgets>
-                        <link url="unshipShipment" text="Set Packed (Un-Ship)"><parameter name="shipmentId"/></link>
+                        <link url="unshipShipment" text="Set Packed (Un-Ship)" button-outline="false" button-flat="true"><parameter name="shipmentId"/></link>
                         <link url="receiveEntireShipment" text="Receive Entire Shipment" confirmation="Receive full quantity of all items with defaults?">
                             <parameter name="shipmentId"/></link>
                     </widgets><fail-widgets>
-                        <link url="unshipShipment" text="Set Packed (Un-Ship)" confirmation="Set shipment status back to Packed?"/>
+                        <link url="unshipShipment" text="Set Packed (Un-Ship)" confirmation="Set shipment status back to Packed?" button-outline="false" button-flat="true"/>
                     </fail-widgets></section>
                 </widgets></section>
                 <section name="ShipDeliveredSection" condition="shipment.statusId == 'ShipDelivered'"><widgets>
@@ -474,9 +474,9 @@ along with this software (see the LICENSE.md file). If not, see
                     <section-iterate name="OrderLinks" list="orderIdSet" entry="orderId"><widgets>
                         <link url="orderDetail" text="Order ${orderId}" link-type="anchor-button" btn-type="secondary" button-outline="false" button-flat="true"/></widgets></section-iterate>
                     <section-iterate name="ReturnLinks" list="returnIdSet" entry="returnId"><widgets>
-                        <link url="editReturn" text="Return ${returnId}" btn-type="secondary" link-type="anchor-button"/></widgets></section-iterate>
+                        <link url="editReturn" text="Return ${returnId}" btn-type="secondary" link-type="anchor-button" button-outline="false" button-flat="true"/></widgets></section-iterate>
                     <section-iterate name="InvoiceLinks" list="invoiceIdSet" entry="invoiceId"><widgets>
-                        <link url="editInvoice" text="Invoice ${invoiceId}" btn-type="secondary" link-type="anchor-button"/></widgets></section-iterate>
+                        <link url="editInvoice" text="Invoice ${invoiceId}" btn-type="secondary" link-type="anchor-button" button-outline="false" button-flat="true"/></widgets></section-iterate>
                     <!-- no value in this as shown in better context in issuance or receipt list:
                     <section-iterate name="AcctgTransLinks" list="acctgTransIdSet" entry="acctgTransId"><widgets>
                         <link url="editTransaction" text="TX ${acctgTransId}" link-type="anchor-button"/>
