@@ -766,10 +766,10 @@ along with this software (see the LICENSE.md file). If not, see
                             <order-by field-name="shipmentId"/>
                         </entity-find>
                     </actions><widgets>
-                        <link url="shipOrderPart" text="Create Shipment" link-type="hidden-form-link" btn-type="success" style="q-pa-xs">
+                        <link url="shipOrderPart" text="Create Shipment" link-type="hidden-form-link" btn-type="success">
                             <parameter name="orderId"/><parameter name="orderPartSeqId" from="orderPart.orderPartSeqId"/></link>
                         <vertical-separator/>
-                        <link url="quickShipOrder" text="Quick Ship Entire Order" link-type="hidden-form-link" btn-type="success" style="q-pa-xs">
+                        <link url="quickShipOrder" text="Quick Ship Entire Order" link-type="hidden-form-link" btn-type="success">
                             <parameter name="orderId"/><parameter name="orderPartSeqId" from="orderPart.orderPartSeqId"/></link>
                         <vertical-separator/>
                         <section name="AddPartToShipmentSection" condition="ssfsList"><widgets>
@@ -888,7 +888,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <vertical-separator/>
                     <link url="createReturnFromOrder" text="Create Return" condition="!orderPartInfo.openReturnList &amp;&amp; !orderHeader.recurCronExpression"
                           confirmation="Really create return for this order part?"
-                          parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId]" link-type="hidden-form-link" style="q-pa-xs"/>
+                          parameter-map="[orderId:orderId, orderPartSeqId:orderPart.orderPartSeqId]" link-type="hidden-form-link"/>
                     <vertical-separator/>
                     <container-dialog id="ClosePartDialog" button-text="Close Part" type="warning"
                                       condition="orderPartInfo.orderPart.statusId in ['OrderOpen', 'OrderPlaced', 'OrderProcessing', 'OrderApproved', 'OrderHold']"
