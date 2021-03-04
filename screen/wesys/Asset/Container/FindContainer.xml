@@ -32,24 +32,29 @@ along with this software (see the LICENSE.md file). If not, see
             <econdition field-name="facilityTypeEnumId" value="FcTpWarehouse"/><order-by field-name="facilityName"/></entity-find>
     </actions>
     <widgets>
-        <container-dialog id="CreateContainerDialog" button-text="Create Container">
-            <form-single name="CreateContainerForm" transition="createContainer">
-                <field name="containerTypeEnumId"><default-field title="Type">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="ContainerType"/><set field="allowEmpty" value="true"/></widget-template-include>
-                </default-field></field>
-                <field name="description"><default-field><text-line size="40"/></default-field></field>
-                <field name="serialNumber"><default-field><text-line size="40"/></default-field></field>
-                <field name="externalId"><default-field><text-line size="20"/></default-field></field>
-                <field name="facilityId"><default-field title="Facility"><drop-down allow-empty="true">
-                    <dynamic-options transition="getFacilityList" server-search="true" min-length="0"/></drop-down></default-field></field>
-                <field name="locationSeqId"><default-field title="Location"><drop-down allow-empty="true">
-                    <dynamic-options transition="getLocationList" server-search="true" min-length="0" depends-optional="true">
-                        <depends-on field="facilityId"/></dynamic-options>
-                </drop-down></default-field></field>
-                <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
-            </form-single>
-        </container-dialog>
+        <container style="row q-mb-md">
+            <label text="返回容器列表" style="text-h3" />
+            <container type="q-space"/>
+            <container-dialog id="CreateContainerDialog" button-text="Create Container" button-flat="false">
+                <form-single name="CreateContainerForm" transition="createContainer">
+                    <field name="containerTypeEnumId"><default-field title="Type">
+                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                            <set field="enumTypeId" value="ContainerType"/><set field="allowEmpty" value="true"/></widget-template-include>
+                    </default-field></field>
+                    <field name="description"><default-field><text-line size="40"/></default-field></field>
+                    <field name="serialNumber"><default-field><text-line size="40"/></default-field></field>
+                    <field name="externalId"><default-field><text-line size="20"/></default-field></field>
+                    <field name="facilityId"><default-field title="Facility"><drop-down allow-empty="true">
+                        <dynamic-options transition="getFacilityList" server-search="true" min-length="0"/></drop-down></default-field></field>
+                    <field name="locationSeqId"><default-field title="Location"><drop-down allow-empty="true">
+                        <dynamic-options transition="getLocationList" server-search="true" min-length="0" depends-optional="true">
+                            <depends-on field="facilityId"/></dynamic-options>
+                    </drop-down></default-field></field>
+                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </container>
+
 
         <form-list name="ContainerList" list="containerList" skip-form="true" header-dialog="true">
             <entity-find entity-name="mantle.product.asset.ContainerAndAsset" list="containerList">
