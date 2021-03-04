@@ -37,10 +37,10 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
 
-        <container style="row q-mb-md">
+        <container style="row q-mb-md q-gutter-xs">
             <label text="库存资产列表" style="text-h3" />
             <container type="q-space"/>
-            <container-dialog id="ReceiveAssetDialog" button-text="Receive Direct" width="800">
+            <container-dialog id="ReceiveAssetDialog" button-text="Receive Direct" width="800" button-flat="false">
                 <label text="NOTE: only receive inventory here if there is no Purchase Order and no Incoming Shipment for the inventory." type="p" style="text-warning"/>
                 <form-single name="ReceiveAssetForm" transition="receiveAsset">
                     <field name="productId"><default-field title="Product*"><drop-down>
@@ -115,7 +115,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </form-single>
             </container-dialog>
 
-            <container-dialog id="PhysicalManualDialog" button-text="Physical Diff" title="Physical Inventory Difference">
+            <container-dialog id="PhysicalManualDialog" button-text="Physical Diff" title="Physical Inventory Difference" button-flat="false">
                 <form-single name="PhysicalManualChange" transition="recordChange">
                     <field name="productId"><default-field title="Product"><drop-down>
                         <dynamic-options transition="getProductList" server-search="true"/></drop-down></default-field></field>

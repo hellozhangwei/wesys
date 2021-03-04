@@ -97,7 +97,7 @@ along with this software (see the LICENSE.md file). If not, see
         <container style="row  q-mb-md">
             <label text="Purchase Orders" style="text-h3" />
             <container type="q-space"/>
-            <container-dialog id="CreatePurchaseOrderDialog" button-text="Create Purchase Order">
+            <container-dialog id="CreatePurchaseOrderDialog" button-text="Create Purchase Order" button-flat="false">
                 <form-single name="CreatePurchaseOrder" transition="createOrder">
                     <field name="vendorPartyId"><default-field title="Supplier"><drop-down allow-empty="true">
                         <dynamic-options transition="searchPartyList" server-search="true" min-length="0" parameter-map="[roleTypeId:vendorRole]"/>
