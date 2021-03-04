@@ -123,6 +123,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field name="submitButton"><default-field title="Set Delivered"><submit/></default-field></field>
                     </form-single>
                 </container-dialog>
+                <vertical-separator/>
             </widgets></section>
 
             <!-- NOTE: don't show this dialog for Sales Return and Purchase Return type shipments, causes issues when trying to
