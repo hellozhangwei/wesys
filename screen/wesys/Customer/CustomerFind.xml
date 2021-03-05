@@ -128,7 +128,7 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="stateProvinceGeoId"><header-field title="State">
                 <drop-down allow-empty="true"><entity-options key="${toGeoId}" text="${geoName}">
                     <entity-find entity-name="moqui.basic.GeoAssocAndToDetail">
-                        <econdition field-name="geoId" value="USA"/>
+                        <econdition field-name="geoId" value="CHN"/>
                         <econdition field-name="geoAssocTypeEnumId" value="GAT_REGIONS"/>
                         <order-by field-name="geoName"/>
                     </entity-find>
