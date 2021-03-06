@@ -196,6 +196,7 @@ along with this software (see the LICENSE.md file). If not, see
                     </default-field></field>
 
                     <field name="requestName"><default-field title="Name"><display/></default-field></field>
+                    <field name="statusId"><default-field title="Request Status"><display-entity entity-name="moqui.basic.StatusItem"/></default-field></field>
                     <field name="description"><default-field><text-area read-only="true"/></default-field></field>
 
                     <field-layout>
@@ -217,7 +218,12 @@ along with this software (see the LICENSE.md file). If not, see
                             <field-col md="3"><field-ref name="requestTypeEnumId"/></field-col>
                             <field-col md="3"><field-ref name="requestResolutionEnumId"/></field-col>
                         </field-col-row>
-                        <field-row><field-ref name="rootWorkEffortId"/></field-row>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="statusId"/></field-col>
+                            <field-col md="3"><field-ref name="rootWorkEffortId"/></field-col>
+                            <field-col md="3"></field-col>
+                            <field-col md="3"></field-col>
+                        </field-col-row>
                         <fields-not-referenced/>
                     </field-layout>
                 </form-single>
@@ -271,7 +277,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </widgets></section-iterate>
             </box-body></container-box>
         </widgets></section>
-        <section-include name="StatusHistorySection" location="component://SimpleScreens/template/basic/StatusWidgets.xml"/>
+<!--        <section-include name="StatusHistorySection" location="component://SimpleScreens/template/basic/StatusWidgets.xml"/>-->
 
         <container-box initial="closed"><box-header title="Parties"/><box-toolbar>
             <container-dialog id="AddPartyDialog" button-text="Add Party" type="secondary">
