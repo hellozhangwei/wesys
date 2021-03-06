@@ -448,7 +448,7 @@ along with this software (see the LICENSE.md file). If not, see
 
         <section name="MeterSection" condition="isEquipment"><widgets>
             <container-box initial="closed" type="secondary"><box-header title="Meters"/><box-toolbar>
-                <container-dialog id="AddMeterDialog" button-text="Add Meter">
+                <container-dialog id="AddMeterDialog" button-text="Add Meter" type="secondary">
                     <form-single name="CreateProductMeter" transition="createProductMeter">
                         <field name="productId"><default-field><hidden/></default-field></field>
 
