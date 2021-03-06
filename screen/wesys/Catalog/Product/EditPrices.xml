@@ -33,7 +33,8 @@ along with this software (see the LICENSE.md file). If not, see
         </entity-find>
     </actions>
     <widgets>
-        <container-dialog id="NewPriceDialog" button-text="New Price">
+        <container style="row justify-end">
+        <container-dialog id="NewPriceDialog" button-text="New Price" type="secondary">
             <form-single name="NewPriceForm" transition="createProductPrice">
                 <field name="productId"><default-field title="Product"><display-entity entity-name="mantle.product.Product" text="${productName} [${pseudoId}]"/></default-field></field>
                 <field name="priceTypeEnumId"><default-field title="Type">
@@ -83,7 +84,7 @@ along with this software (see the LICENSE.md file). If not, see
 
                 <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
             </form-single>
-        </container-dialog>
+        </container-dialog></container>
 
         <form-list name="PricesForm" list="priceList" transition="updateProductPrice" header-dialog="true">
             <field name="productPriceId"><default-field><hidden/></default-field></field>
