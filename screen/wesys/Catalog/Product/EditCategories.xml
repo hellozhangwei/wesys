@@ -59,11 +59,11 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="fromDate"><header-field show-order-by="true"><date-period allow-empty="true"/></header-field>
                 <default-field><display/></default-field></field>
             <field name="thruDate"><header-field show-order-by="true"><date-period allow-empty="true"/></header-field>
-                <default-field><date-time/></default-field></field>
+                <default-field container-style="hide-field-label"><date-time/></default-field></field>
             <field name="sequenceNum"><header-field show-order-by="true"/>
-                <default-field><text-line size="4"/></default-field></field>
+                <default-field container-style="hide-field-label"><text-line size="4"/></default-field></field>
             <field name="quantity"><header-field show-order-by="true"/>
-                <default-field><text-line size="4"/></default-field></field>
+                <default-field container-style="hide-field-label"><text-line size="4"/></default-field></field>
             <field name="submitButton"><header-field title="Find"><submit/></header-field>
                 <default-field title="Update"><submit/></default-field></field>
         </form-list>

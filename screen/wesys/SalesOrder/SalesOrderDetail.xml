@@ -1328,7 +1328,7 @@ along with this software (see the LICENSE.md file). If not, see
                                 <text-line size="25"/></conditional-field>
                             <default-field><display/></default-field></field>-->
                         <field name="itemDescription">
-                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" title="Description" container-style="small-input hide-input-label">
+                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" title="Description" container-style="small-input hide-field-label">
                                 <text-line size="30"/>
 <!--                                <label text="Promo Code: ${promoCodeText}" condition="promoCodeText" type="div"/>-->
                             </conditional-field>
@@ -1348,7 +1348,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <!-- <field name="unitListPrice"><default-field title="List Price">
                              <display currency-unit-field="orderHeader.currencyUomId"/></default-field></field>-->
                         <field name="unitAmount">
-                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" title="Price" container-style="small-input hide-input-label">
+                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" title="Price" container-style="small-input hide-field-label">
                                 <text-line size="8" format="#,##0.00#"/></conditional-field>
                             <default-field title="Price"><display currency-unit-field="orderHeader.currencyUomId"/></default-field>
                         </field>
@@ -1376,7 +1376,7 @@ along with this software (see the LICENSE.md file). If not, see
                     ]]></text></render-mode>
                         </default-field></field>-->
                         <field name="quantity">
-                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" container-style="small-input hide-input-label"><text-line size="5"/></conditional-field>
+                            <conditional-field condition="orderPartInfo.partEditable &amp;&amp; isPromo != 'Y'" container-style="small-input hide-field-label"><text-line size="5"/></conditional-field>
                             <default-field><display/></default-field>
                         </field>
                         <!--<field name="quantity_changeReason">
