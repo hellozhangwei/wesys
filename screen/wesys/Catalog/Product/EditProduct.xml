@@ -85,234 +85,286 @@ along with this software (see the LICENSE.md file). If not, see
         <set field="isInventory" from="product.assetTypeEnumId == 'AstTpInventory'"/>
     </actions>
     <widgets>
-        <container-dialog id="CloneProductDialog" button-text="Clone Product">
-            <form-single name="CloneProductForm" transition="cloneProduct">
-                <field name="productId"><default-field><hidden/></default-field></field>
-                <field name="baseProductId" from="productId"><default-field><hidden/></default-field></field>
-                <field name="pseudoId"><default-field title="New ID"><text-line size="10"/></default-field></field>
-                <field name="productName"><default-field title="New Name"><text-line size="50"/></default-field></field>
-                <field name="submitButton"><default-field title="Clone"><submit/></default-field></field>
-            </form-single>
-        </container-dialog>
-        <link url="findAssetSummary" text="Find Assets" parameter-map="[productId:productId]"/>
-
-        <container-row><row-col lg="6">
-            <form-single name="EditProductForm" map="product" transition="updateProduct">
-                <field name="productId"><default-field><hidden/></default-field></field>
-                <field name="pseudoId"><default-field title="ID"><text-line size="40"/></default-field></field>
-                <field name="productName"><default-field title="Name"><text-line size="80"/></default-field></field>
-                <field name="description"><default-field><text-area cols="80" rows="8"/></default-field></field>
-                <field name="comments"><default-field title="Internal Comments"><text-area cols="80" rows="4"/></default-field></field>
-
-                <field name="productTypeEnumId"><default-field title="Type">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="ProductType"/></widget-template-include>
-                </default-field></field>
-                <field name="productClassEnumId"><default-field title="Class">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="ProductClass"/><set field="allowEmpty" value="true"/></widget-template-include>
-                </default-field></field>
-                <field name="assetTypeEnumId"><conditional-field title="Asset Type" condition="productTypeEnumId in ['PtAsset', 'PtDigitalAsset', 'PtAssetUse']">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="AssetType"/><set field="allowEmpty" value="true"/></widget-template-include>
-                </conditional-field></field>
-                <field name="assetClassEnumId"><conditional-field title="Asset Class" condition="productTypeEnumId in ['PtAsset', 'PtDigitalAsset', 'PtAssetUse']">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="AssetClass"/><set field="allowEmpty" value="true"/></widget-template-include>
-                </conditional-field></field>
-
-                <field name="ownerPartyId"><default-field title="Owned By Org"><drop-down allow-empty="true">
-                    <option key="_NA_" text="N/A"/>
-                    <entity-options key="${partyId}" text="PartyNameTemplate">
-                        <entity-find entity-name="mantle.party.PartyDetailAndRole">
-                            <econdition field-name="roleTypeId" value="OrgInternal"/>
-                            <econdition field-name="disabled" value="N" or-null="true"/>
-                            <order-by field-name="organizationName"/>
-                        </entity-find>
-                    </entity-options>
-                </drop-down></default-field></field>
-
-                <field name="amountFixed"><default-field title="Amount Included"><text-line size="10" format="0.######"/></default-field></field>
-                <field name="amountUomId">
-                    <default-field title="UOM">
-                        <drop-down allow-empty="true">
-                            <entity-options key="${uomId}" text="${description} [${abbreviation}]">
-                                <entity-find entity-name="moqui.basic.Uom">
-                                    <econdition field-name="uomId" operator="in" value="OTH_ct,OTH_ea"/>
-                                    <order-by field-name="description"/>
-                                </entity-find>
-                            </entity-options>
-                            <entity-options key="${uomId}" text="${description} [${abbreviation}]">
-                                <entity-find entity-name="moqui.basic.Uom">
-                                    <econdition field-name="uomTypeEnumId" operator="in" value="UT_VOLUME_DRY_MEAS,UT_VOLUME_LIQ_MEAS,UT_WEIGHT_MEASURE,UT_LENGTH_MEASURE"/>
-                                    <order-by field-name="description"/>
-                                </entity-find>
-                            </entity-options>
-                        </drop-down>
-                    </default-field>
-                </field>
-
-                <field name="salesIntroductionDate"><default-field title="Sales Intro"><date-time/></default-field></field>
-                <field name="salesDiscontinuationDate"><default-field title="Sales Discontinue"><date-time/></default-field></field>
-                <field name="signatureRequiredEnumId"><default-field title="Sign Req.">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="SignatureRequired"/><set field="allowEmpty" value="true"/></widget-template-include>
-                </default-field></field>
-                <field name="originGeoId"><default-field title="Country of Origin">
-                    <drop-down allow-empty="true">
-                        <entity-options key="${geoId}" text="${geoCodeAlpha3} - ${geoName}">
-                            <entity-find entity-name="moqui.basic.Geo" list="geoList">
-                                <econdition field-name="geoTypeEnumId" value="GEOT_COUNTRY"/>
-                                <order-by field-name="geoCodeAlpha2"/>
-                            </entity-find>
-                        </entity-options>
-                    </drop-down>
-                </default-field></field>
-
-                <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-
-                <field-layout>
-                    <fields-not-referenced/>
-                    <field-row><field-ref name="productTypeEnumId"/><field-ref name="productClassEnumId"/></field-row>
-                    <field-row><field-ref name="assetTypeEnumId"/><field-ref name="assetClassEnumId"/></field-row>
-                    <field-ref name="ownerPartyId"/>
-                    <field-row><field-ref name="amountFixed"/><field-ref name="amountUomId"/></field-row>
-                    <field-row><field-ref name="salesIntroductionDate"/><field-ref name="salesDiscontinuationDate"/></field-row>
-                    <field-row><field-ref name="signatureRequiredEnumId"/><field-ref name="originGeoId"/></field-row>
-                    <field-ref name="submitButton"/>
-                </field-layout>
-
-            </form-single>
-
-        </row-col><row-col lg="6">
-
-            <container-box><box-header title="Identification"/><box-toolbar>
-                <container-dialog id="AddIdentificationDialog" button-text="Add Identification">
-                    <form-single name="AddIdentificationForm" transition="createProductIdentification">
+        <container-box>
+            <box-header title="基本信息"/>
+            <box-toolbar>
+                <container-dialog id="EditProductDialog" button-text="编辑" type="secondary">
+                    <form-single name="EditProductForm" map="product" transition="updateProduct">
                         <field name="productId"><default-field><hidden/></default-field></field>
-                        <field name="productIdTypeEnumId"><default-field title="ID Type">
-                            <drop-down><entity-options key="${enumId}" text="${description}">
-                                <entity-find entity-name="moqui.basic.Enumeration">
-                                    <econdition field-name="enumTypeId" value="ProductIdentificationType"/>
-                                    <econdition field-name="enumId" operator="not-in" from="productIdTypeEnumIds" ignore-if-empty="true"/>
-                                    <order-by field-name="description"/>
-                                </entity-find>
-                            </entity-options></drop-down>
+                        <field name="pseudoId"><default-field title="ID"><text-line size="40"/></default-field></field>
+                        <field name="productName"><default-field title="Name"><text-line size="80"/></default-field></field>
+                        <field name="description"><default-field><text-area /></default-field></field>
+                        <field name="comments"><default-field title="Internal Comments"><text-area /></default-field></field>
+
+                        <field name="productTypeEnumId"><default-field title="Type">
+                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                <set field="enumTypeId" value="ProductType"/></widget-template-include>
                         </default-field></field>
-                        <field name="idValue"><default-field><text-line size="20"/></default-field></field>
-                        <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                        <field name="productClassEnumId"><default-field title="Class">
+                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                <set field="enumTypeId" value="ProductClass"/><set field="allowEmpty" value="true"/></widget-template-include>
+                        </default-field></field>
+                        <field name="assetTypeEnumId"><conditional-field title="Asset Type" condition="productTypeEnumId in ['PtAsset', 'PtDigitalAsset', 'PtAssetUse']">
+                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                <set field="enumTypeId" value="AssetType"/><set field="allowEmpty" value="true"/></widget-template-include>
+                        </conditional-field></field>
+                        <field name="assetClassEnumId"><conditional-field title="Asset Class" condition="productTypeEnumId in ['PtAsset', 'PtDigitalAsset', 'PtAssetUse']">
+                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                <set field="enumTypeId" value="AssetClass"/><set field="allowEmpty" value="true"/></widget-template-include>
+                        </conditional-field></field>
+
+                        <field name="ownerPartyId"><default-field title="Owned By Org"><drop-down allow-empty="true">
+                            <option key="_NA_" text="N/A"/>
+                            <entity-options key="${partyId}" text="PartyNameTemplate">
+                                <entity-find entity-name="mantle.party.PartyDetailAndRole">
+                                    <econdition field-name="roleTypeId" value="OrgInternal"/>
+                                    <econdition field-name="disabled" value="N" or-null="true"/>
+                                    <order-by field-name="organizationName"/>
+                                </entity-find>
+                            </entity-options>
+                        </drop-down></default-field></field>
+
+                        <field name="amountFixed"><default-field title="Amount Included"><text-line size="10" format="0.######"/></default-field></field>
+                        <field name="amountUomId">
+                            <default-field title="UOM">
+                                <drop-down allow-empty="true">
+                                    <entity-options key="${uomId}" text="${description} [${abbreviation}]">
+                                        <entity-find entity-name="moqui.basic.Uom">
+                                            <econdition field-name="uomId" operator="in" value="OTH_ct,OTH_ea"/>
+                                            <order-by field-name="description"/>
+                                        </entity-find>
+                                    </entity-options>
+                                    <entity-options key="${uomId}" text="${description} [${abbreviation}]">
+                                        <entity-find entity-name="moqui.basic.Uom">
+                                            <econdition field-name="uomTypeEnumId" operator="in" value="UT_VOLUME_DRY_MEAS,UT_VOLUME_LIQ_MEAS,UT_WEIGHT_MEASURE,UT_LENGTH_MEASURE"/>
+                                            <order-by field-name="description"/>
+                                        </entity-find>
+                                    </entity-options>
+                                </drop-down>
+                            </default-field>
+                        </field>
+
+                        <field name="salesIntroductionDate"><default-field title="Sales Intro"><date-time/></default-field></field>
+                        <field name="salesDiscontinuationDate"><default-field title="Sales Discontinue"><date-time/></default-field></field>
+                        <field name="signatureRequiredEnumId"><default-field title="Sign Req.">
+                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                                <set field="enumTypeId" value="SignatureRequired"/><set field="allowEmpty" value="true"/></widget-template-include>
+                        </default-field></field>
+                        <field name="originGeoId"><default-field title="Country of Origin">
+                            <drop-down allow-empty="true">
+                                <entity-options key="${geoId}" text="${geoCodeAlpha3} - ${geoName}">
+                                    <entity-find entity-name="moqui.basic.Geo" list="geoList">
+                                        <econdition field-name="geoTypeEnumId" value="GEOT_COUNTRY"/>
+                                        <order-by field-name="geoCodeAlpha2"/>
+                                    </entity-find>
+                                </entity-options>
+                            </drop-down>
+                        </default-field></field>
+
+                        <field name="submitButton"><default-field title="Update" container-style="row justify-end"><submit/></default-field></field>
+
+                        <field-layout>
+                            <fields-not-referenced/>
+                            <field-row><field-ref name="productTypeEnumId"/><field-ref name="productClassEnumId"/></field-row>
+                            <field-row><field-ref name="assetTypeEnumId"/><field-ref name="assetClassEnumId"/></field-row>
+                            <field-ref name="ownerPartyId"/>
+                            <field-row><field-ref name="amountFixed"/><field-ref name="amountUomId"/></field-row>
+                            <field-row><field-ref name="salesIntroductionDate"/><field-ref name="salesDiscontinuationDate"/></field-row>
+                            <field-row><field-ref name="signatureRequiredEnumId"/><field-ref name="originGeoId"/></field-row>
+                            <field-ref name="description"/>
+                            <field-ref name="comments"/>
+                            <field-ref name="submitButton"/>
+                        </field-layout>
+
                     </form-single>
                 </container-dialog>
-            </box-toolbar><box-body>
-                <form-list name="IdentificationsForm" list="productIdentificationList" transition="updateProductIdentification">
+                <container-dialog id="CloneProductDialog" button-text="Clone Product" type="secondary">
+                    <form-single name="CloneProductForm" transition="cloneProduct">
+                        <field name="productId"><default-field><hidden/></default-field></field>
+                        <field name="baseProductId" from="productId"><default-field><hidden/></default-field></field>
+                        <field name="pseudoId"><default-field title="New ID"><text-line size="10"/></default-field></field>
+                        <field name="productName"><default-field title="New Name"><text-line size="50"/></default-field></field>
+                        <field name="submitButton"><default-field title="Clone"><submit/></default-field></field>
+                    </form-single>
+                </container-dialog>
+                <link url="findAssetSummary" text="Find Assets" parameter-map="[productId:productId]" btn-type="secondary"/>
+            </box-toolbar>
+            <box-body>
+                <form-single name="ViewProductForm" map="product">
+                    <field name="productId"><default-field title="ID"><display/></default-field></field>
+                    <field name="productName"><default-field title="Name"><display/></default-field></field>
+                    <field name="description"><default-field><text-area read-only="true"/></default-field></field>
+                    <field name="comments"><default-field title="Internal Comments"><text-area read-only="true"/></default-field></field>
+
+                    <field name="productTypeEnumId"><default-field title="Product Type">
+                        <display-entity entity-name="moqui.basic.Enumeration"/>
+                    </default-field></field>
+                    <field name="productClassEnumId"><default-field title="Product Class">
+                        <display-entity entity-name="moqui.basic.Enumeration"/>
+                    </default-field></field>
+                    <field name="assetTypeEnumId"><conditional-field title="Asset Type" condition="productTypeEnumId in ['PtAsset', 'PtDigitalAsset', 'PtAssetUse']">
+                        <display-entity entity-name="moqui.basic.Enumeration"/>
+                    </conditional-field></field>
+                    <field name="assetClassEnumId"><conditional-field title="Asset Class" condition="productTypeEnumId in ['PtAsset', 'PtDigitalAsset', 'PtAssetUse']">
+                        <display-entity entity-name="moqui.basic.Enumeration"/>
+                    </conditional-field></field>
+
+                    <field name="ownerPartyId"><default-field title="Owned By Org">
+<!--                        <display text="${ec.resource.expand('PartyNameTemplate', '', it)}"/>-->
+                        <display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/>
+                    </default-field></field>
+
+                    <field name="amountFixed"><default-field title="Amount Included"><display format="0.######"/></default-field></field>
+                    <field name="amountUomId">
+                        <default-field title="UOM">
+                            <display-entity entity-name="moqui.basic.Uom"/>
+                        </default-field>
+                    </field>
+
+                    <field name="salesIntroductionDate"><default-field title="Sales Intro"><display/></default-field></field>
+                    <field name="salesDiscontinuationDate"><default-field title="Sales Discontinue"><display/></default-field></field>
+                    <field name="signatureRequiredEnumId"><default-field title="Sign Req.">
+                        <display-entity entity-name="moqui.basic.Enumeration"/>
+                    </default-field></field>
+                    <field name="originGeoId"><default-field title="Country of Origin">
+                        <display-entity entity-name="moqui.basic.Geo"/>
+                    </default-field></field>
+
+                    <field-layout>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="productId"/></field-col>
+                            <field-col md="3"><field-ref name="productName"/></field-col>
+                            <field-col md="3"><field-ref name="productTypeEnumId"/></field-col>
+                            <field-col md="3"><field-ref name="productClassEnumId"/></field-col>
+                        </field-col-row>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="amountUomId"/></field-col>
+                            <field-col md="3"><field-ref name="amountFixed"/></field-col>
+                            <field-col md="3"><field-ref name="assetTypeEnumId"/></field-col>
+                            <field-col md="3"><field-ref name="assetClassEnumId"/></field-col>
+                        </field-col-row>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="salesIntroductionDate"/></field-col>
+                            <field-col md="3"><field-ref name="salesDiscontinuationDate"/></field-col>
+                            <field-col md="3"><field-ref name="signatureRequiredEnumId"/></field-col>
+                            <field-col md="3"><field-ref name="originGeoId"/></field-col>
+                        </field-col-row>
+                        <field-ref name="ownerPartyId"/>
+                        <fields-not-referenced/>
+                    </field-layout>
+
+                </form-single>
+            </box-body>
+        </container-box>
+        <container-box initial="closed"><box-header title="Identification"/><box-toolbar>
+            <container-dialog id="AddIdentificationDialog" button-text="Add Identification" type="secondary">
+                <form-single name="AddIdentificationForm" transition="createProductIdentification">
                     <field name="productId"><default-field><hidden/></default-field></field>
                     <field name="productIdTypeEnumId"><default-field title="ID Type">
-                        <display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
+                        <drop-down><entity-options key="${enumId}" text="${description}">
+                            <entity-find entity-name="moqui.basic.Enumeration">
+                                <econdition field-name="enumTypeId" value="ProductIdentificationType"/>
+                                <econdition field-name="enumId" operator="not-in" from="productIdTypeEnumIds" ignore-if-empty="true"/>
+                                <order-by field-name="description"/>
+                            </entity-find>
+                        </entity-options></drop-down>
+                    </default-field></field>
                     <field name="idValue"><default-field><text-line size="20"/></default-field></field>
-                    <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-                    <field name="removeButton"><default-field title=""><link url="deleteProductIdentification"
-                            icon="fa fa-trash" confirmation="Delete this ID?"/></default-field></field>
-                </form-list>
-            </box-body></container-box>
+                    <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </box-toolbar><box-body>
+            <form-list name="IdentificationsForm" list="productIdentificationList" transition="updateProductIdentification">
+                <field name="productId"><default-field><hidden/></default-field></field>
+                <field name="productIdTypeEnumId"><default-field title="ID Type">
+                    <display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
+                <field name="idValue"><default-field><text-line size="20"/></default-field></field>
+                <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                <field name="removeButton"><default-field title=""><link url="deleteProductIdentification"
+                                                                         icon="fa fa-trash" confirmation="Delete this ID?"/></default-field></field>
+            </form-list>
+        </box-body></container-box>
 
-            <container-box><box-header title="Features"/><box-toolbar>
-                <container-dialog id="NewFeatureDialog" button-text="Apply New Feature">
-                    <form-single name="NewFeatureForm" transition="createProductFeature">
-                        <field name="productId"><default-field><hidden/></default-field></field>
-                        <field name="productFeatureTypeEnumId"><default-field title="Feature Type">
-                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                                <set field="enumTypeId" value="ProductFeatureType"/></widget-template-include>
-                        </default-field></field>
-                        <field name="abbrev"><default-field title="Abbreviation"><text-line size="10"/></default-field></field>
-                        <field name="description"><default-field><text-line/></default-field></field>
-                        <field name="applTypeEnumId"><default-field title="Appl. Type"><drop-down no-current-selected-key="PfatStandard">
-                            <entity-options key="${enumId}" text="${description}"><entity-find entity-name="moqui.basic.Enumeration">
-                                <econdition field-name="enumTypeId" value="ProductFeatureApplType"/>
-                                <order-by field-name="description"/>
-                            </entity-find></entity-options></drop-down>
-                        </default-field></field>
-                        <field name="sequenceNum"><default-field title="Seq #"><text-line size="4"/></default-field></field>
-                        <field name="amount"><default-field><text-line size="6"/></default-field></field>
-                        <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
-                    </form-single>
-                </container-dialog>
-                <container-dialog id="AddFeatureDialog" button-text="Apply Feature">
-                    <form-single name="AddFeatureForm" transition="applyProductFeatures">
-                        <field name="productId"><default-field><hidden/></default-field></field>
-                        <field name="productFeatureTypeEnumId"><default-field title="Type">
-                            <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                                <set field="enumTypeId" value="ProductFeatureType"/><set field="allowEmpty" value="true"/></widget-template-include>
-                        </default-field></field>
-                        <field name="productFeatureIdList"><default-field title="Feature">
-                            <drop-down allow-multiple="true"><dynamic-options transition="getFeatureList" server-search="true" min-length="0">
-                                <depends-on field="productFeatureTypeEnumId"/></dynamic-options></drop-down>
-                        </default-field></field>
-                        <field name="applTypeEnumId"><default-field title="Appl. Type"><drop-down no-current-selected-key="PfatStandard">
-                            <entity-options key="${enumId}" text="${description}"><entity-find entity-name="moqui.basic.Enumeration">
-                                <econdition field-name="enumTypeId" value="ProductFeatureApplType"/>
-                                <order-by field-name="description"/>
-                            </entity-find></entity-options></drop-down>
-                        </default-field></field>
-                        <field name="sequenceNum"><default-field title="Seq #"><text-line size="4"/></default-field></field>
-                        <field name="amount"><default-field><text-line size="6"/></default-field></field>
-                        <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-                    </form-single>
-                </container-dialog>
-            </box-toolbar><box-body-nopad>
-                <form-list name="FeaturesForm" list="pfaaList" transition="updateProductFeatureAppl" multi="true">
-                    <entity-find entity-name="mantle.product.feature.ProductFeatureAndAppl" list="pfaaList">
-                        <date-filter/><econdition field-name="productId"/>
-                        <select-field field-name="productId,description,abbrev"/>
-                        <order-by field-name="typeDescription,sequenceNum,description"/>
-                    </entity-find>
-                    <hidden-parameters><parameter name="productId"/></hidden-parameters>
-                    <field name="fromDate"><default-field><hidden/></default-field></field>
-
-                    <field name="typeDescription"><default-field title="Type"><display/></default-field></field>
-                    <field name="sequenceNum"><default-field title="Seq #"><text-line size="4"/></default-field></field>
-                    <field name="productFeatureId"><default-field title="Feature"><display text=" "/>
-                        <link url="editFeature" text="ProductFeatureNameTemplate" link-type="anchor"/>
-                    </default-field></field>
-                    <field name="applTypeEnumId"><default-field title="Appl. Type">
-                        <display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
-                    <field name="amount"><default-field><text-line size="6"/></default-field></field>
-
-                    <field name="removeButton"><default-field title="">
-                        <link url="updateProductFeatureAppl" icon="fa fa-trash" confirmation="Remove this feature?"
-                                parameter-map="[productId:productId, productFeatureId:productFeatureId, fromDate:fromDate, thruDate:ec.user.nowTimestamp]"/>
-                    </default-field></field>
-                    <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-                </form-list>
-            </box-body-nopad></container-box>
-
-            <container-box><box-header title="Dimensions"/><box-toolbar>
-                <container-dialog id="AddDimensionDialog" button-text="Add Dimension">
-                    <form-single name="AddDimensionForm" transition="createProductDimension">
-                        <field name="productId"><default-field><hidden/></default-field></field>
-                        <field name="dimensionTypeId"><default-field title="Type">
-                            <drop-down><entity-options key="${dimensionTypeId}" text="${description}">
-                                <entity-find entity-name="mantle.product.ProductDimensionType">
-                                    <order-by field-name="description"/></entity-find>
-                            </entity-options></drop-down>
-                        </default-field></field>
-                        <field name="value"><default-field><text-line size="8"/></default-field></field>
-                        <field name="valueUomId"><default-field title="Unit">
-                            <drop-down allow-empty="true"><entity-options key="${uomId}" text="${typeDescription}: ${description}">
-                                <entity-find entity-name="moqui.basic.UomAndType">
-                                    <order-by field-name="typeDescription,description"/></entity-find>
-                            </entity-options></drop-down>
-                        </default-field></field>
-                        <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-                    </form-single>
-                </container-dialog>
-            </box-toolbar><box-body-nopad>
-                <form-list name="DimensionsForm" list="dimensionList" transition="updateProductDimension">
-                    <entity-find entity-name="mantle.product.ProductDimensionAndType" list="dimensionList">
-                        <econdition field-name="productId"/><order-by field-name="description"/></entity-find>
-
+        <container-box initial="closed"><box-header title="Features"/><box-toolbar>
+            <container-dialog id="NewFeatureDialog" button-text="Apply New Feature" type="secondary">
+                <form-single name="NewFeatureForm" transition="createProductFeature">
                     <field name="productId"><default-field><hidden/></default-field></field>
-                    <field name="dimensionTypeId"><default-field><hidden/></default-field></field>
-                    <field name="description"><default-field title="Type"><display/></default-field></field>
+                    <field name="productFeatureTypeEnumId"><default-field title="Feature Type">
+                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                            <set field="enumTypeId" value="ProductFeatureType"/></widget-template-include>
+                    </default-field></field>
+                    <field name="abbrev"><default-field title="Abbreviation"><text-line size="10"/></default-field></field>
+                    <field name="description"><default-field><text-line/></default-field></field>
+                    <field name="applTypeEnumId"><default-field title="Appl. Type"><drop-down no-current-selected-key="PfatStandard">
+                        <entity-options key="${enumId}" text="${description}"><entity-find entity-name="moqui.basic.Enumeration">
+                            <econdition field-name="enumTypeId" value="ProductFeatureApplType"/>
+                            <order-by field-name="description"/>
+                        </entity-find></entity-options></drop-down>
+                    </default-field></field>
+                    <field name="sequenceNum"><default-field title="Seq #"><text-line size="4"/></default-field></field>
+                    <field name="amount"><default-field><text-line size="6"/></default-field></field>
+                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+            <container-dialog id="AddFeatureDialog" button-text="Apply Feature" type="secondary">
+                <form-single name="AddFeatureForm" transition="applyProductFeatures">
+                    <field name="productId"><default-field><hidden/></default-field></field>
+                    <field name="productFeatureTypeEnumId"><default-field title="Type">
+                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                            <set field="enumTypeId" value="ProductFeatureType"/><set field="allowEmpty" value="true"/></widget-template-include>
+                    </default-field></field>
+                    <field name="productFeatureIdList"><default-field title="Feature">
+                        <drop-down allow-multiple="true"><dynamic-options transition="getFeatureList" server-search="true" min-length="0">
+                            <depends-on field="productFeatureTypeEnumId"/></dynamic-options></drop-down>
+                    </default-field></field>
+                    <field name="applTypeEnumId"><default-field title="Appl. Type"><drop-down no-current-selected-key="PfatStandard">
+                        <entity-options key="${enumId}" text="${description}"><entity-find entity-name="moqui.basic.Enumeration">
+                            <econdition field-name="enumTypeId" value="ProductFeatureApplType"/>
+                            <order-by field-name="description"/>
+                        </entity-find></entity-options></drop-down>
+                    </default-field></field>
+                    <field name="sequenceNum"><default-field title="Seq #"><text-line size="4"/></default-field></field>
+                    <field name="amount"><default-field><text-line size="6"/></default-field></field>
+                    <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </box-toolbar><box-body-nopad>
+            <form-list name="FeaturesForm" list="pfaaList" transition="updateProductFeatureAppl" multi="true">
+                <entity-find entity-name="mantle.product.feature.ProductFeatureAndAppl" list="pfaaList">
+                    <date-filter/><econdition field-name="productId"/>
+                    <select-field field-name="productId,description,abbrev"/>
+                    <order-by field-name="typeDescription,sequenceNum,description"/>
+                </entity-find>
+                <hidden-parameters><parameter name="productId"/></hidden-parameters>
+                <field name="fromDate"><default-field><hidden/></default-field></field>
+
+                <field name="typeDescription"><default-field title="Type"><display/></default-field></field>
+                <field name="sequenceNum"><default-field title="Seq #"><text-line size="4"/></default-field></field>
+                <field name="productFeatureId"><default-field title="Feature"><display text=" "/>
+                    <link url="editFeature" text="ProductFeatureNameTemplate" link-type="anchor"/>
+                </default-field></field>
+                <field name="applTypeEnumId"><default-field title="Appl. Type">
+                    <display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
+                <field name="amount"><default-field><text-line size="6"/></default-field></field>
+
+                <field name="removeButton"><default-field title="">
+                    <link url="updateProductFeatureAppl" icon="fa fa-trash" confirmation="Remove this feature?"
+                          parameter-map="[productId:productId, productFeatureId:productFeatureId, fromDate:fromDate, thruDate:ec.user.nowTimestamp]"/>
+                </default-field></field>
+                <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+            </form-list>
+        </box-body-nopad></container-box>
+
+        <container-box initial="closed"><box-header title="Dimensions"/><box-toolbar>
+            <container-dialog id="AddDimensionDialog" button-text="Add Dimension" type="secondary">
+                <form-single name="AddDimensionForm" transition="createProductDimension">
+                    <field name="productId"><default-field><hidden/></default-field></field>
+                    <field name="dimensionTypeId"><default-field title="Type">
+                        <drop-down><entity-options key="${dimensionTypeId}" text="${description}">
+                            <entity-find entity-name="mantle.product.ProductDimensionType">
+                                <order-by field-name="description"/></entity-find>
+                        </entity-options></drop-down>
+                    </default-field></field>
                     <field name="value"><default-field><text-line size="8"/></default-field></field>
                     <field name="valueUomId"><default-field title="Unit">
                         <drop-down allow-empty="true"><entity-options key="${uomId}" text="${typeDescription}: ${description}">
@@ -320,93 +372,85 @@ along with this software (see the LICENSE.md file). If not, see
                                 <order-by field-name="typeDescription,description"/></entity-find>
                         </entity-options></drop-down>
                     </default-field></field>
-                    <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-                    <field name="deleteButton"><default-field title=""><link url="deleteProductDimension" confirmation="Remove dimension?"
-                            icon="fa fa-trash" parameter-map="[productId:productId, dimensionTypeId:dimensionTypeId]"/></default-field></field>
-                </form-list>
-            </box-body-nopad></container-box>
+                    <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </box-toolbar><box-body-nopad>
+            <form-list name="DimensionsForm" list="dimensionList" transition="updateProductDimension">
+                <entity-find entity-name="mantle.product.ProductDimensionAndType" list="dimensionList">
+                    <econdition field-name="productId"/><order-by field-name="description"/></entity-find>
 
-            <section name="FacilityLocationSection" condition="isInventory"><widgets>
-                <container-box><box-header title="Facility Locations"/><box-toolbar>
-                    <container-dialog id="AddLocationDialog" button-text="Add Location">
-                        <form-single name="CreateProductLocation" transition="createProductLocation">
-                            <field name="productId"><default-field><hidden/></default-field></field>
+                <field name="productId"><default-field><hidden/></default-field></field>
+                <field name="dimensionTypeId"><default-field><hidden/></default-field></field>
+                <field name="description"><default-field title="Type"><display/></default-field></field>
+                <field name="value"><default-field><text-line size="8"/></default-field></field>
+                <field name="valueUomId"><default-field title="Unit">
+                    <drop-down allow-empty="true"><entity-options key="${uomId}" text="${typeDescription}: ${description}">
+                        <entity-find entity-name="moqui.basic.UomAndType">
+                            <order-by field-name="typeDescription,description"/></entity-find>
+                    </entity-options></drop-down>
+                </default-field></field>
+                <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                <field name="deleteButton"><default-field title=""><link url="deleteProductDimension" confirmation="Remove dimension?"
+                                                                         icon="fa fa-trash" parameter-map="[productId:productId, dimensionTypeId:dimensionTypeId]"/></default-field></field>
+            </form-list>
+        </box-body-nopad></container-box>
 
-                            <field name="facilityId"><default-field title="Facility"><drop-down>
-                                <dynamic-options transition="getFacilityList" server-search="true" min-length="0"/>
-                            </drop-down></default-field></field>
-                            <field name="locationSeqId"><default-field title="Location"><drop-down>
-                                <dynamic-options transition="getLocationList" server-search="true" min-length="0">
-                                    <depends-on field="facilityId"/></dynamic-options>
-                            </drop-down></default-field></field>
+        <section name="FacilityLocationSection" condition="isInventory"><widgets>
+        <container-box initial="closed"><box-header title="Facility Locations"/><box-toolbar>
+            <container-dialog id="AddLocationDialog" button-text="Add Location" type="secondary">
+                <form-single name="CreateProductLocation" transition="createProductLocation">
+                    <field name="productId"><default-field><hidden/></default-field></field>
 
-                            <field name="minimumStock"><default-field><text-line size="4"/></default-field></field>
-                            <field name="moveQuantity"><default-field><text-line size="4"/></default-field></field>
+                    <field name="facilityId"><default-field title="Facility"><drop-down>
+                        <dynamic-options transition="getFacilityList" server-search="true" min-length="0"/>
+                    </drop-down></default-field></field>
+                    <field name="locationSeqId"><default-field title="Location"><drop-down>
+                        <dynamic-options transition="getLocationList" server-search="true" min-length="0">
+                            <depends-on field="facilityId"/></dynamic-options>
+                    </drop-down></default-field></field>
 
-                            <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-                        </form-single>
-                    </container-dialog>
-                </box-toolbar><box-body-nopad>
-                    <form-list name="ProductLocationList" list="productLocationList" transition="updateProductLocation">
-                        <entity-find entity-name="mantle.facility.ProductFacilityLocation" list="productLocationList">
-                            <econdition field-name="productId"/><order-by field-name="facilityId,locationSeqId"/></entity-find>
-                        <row-actions>
-                            <entity-find-one entity-name="mantle.facility.FacilityLocation" value-field="facLoc" cache="true">
-                                <field-map field-name="facilityId"/><field-map field-name="locationSeqId"/></entity-find-one>
-                        </row-actions>
+                    <field name="minimumStock"><default-field><text-line size="4"/></default-field></field>
+                    <field name="moveQuantity"><default-field><text-line size="4"/></default-field></field>
 
+                    <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </box-toolbar><box-body-nopad>
+            <form-list name="ProductLocationList" list="productLocationList" transition="updateProductLocation">
+                <entity-find entity-name="mantle.facility.ProductFacilityLocation" list="productLocationList">
+                    <econdition field-name="productId"/><order-by field-name="facilityId,locationSeqId"/></entity-find>
+                <row-actions>
+                    <entity-find-one entity-name="mantle.facility.FacilityLocation" value-field="facLoc" cache="true">
+                        <field-map field-name="facilityId"/><field-map field-name="locationSeqId"/></entity-find-one>
+                </row-actions>
+
+                <field name="productId"><default-field><hidden/></default-field></field>
+
+                <field name="facilityId"><default-field><hidden/></default-field></field>
+                <field name="locationSeqId"><default-field><hidden/></default-field></field>
+
+                <field name="facility" from="facilityId"><default-field title="Facility">
+                    <link url="editFacility" text="FacilityNameTemplate" entity-name="mantle.facility.Facility" link-type="anchor"/>
+                </default-field></field>
+                <field name="location"><default-field>
+                    <label text="FacilityLocationNameTemplate" text-map="facLoc"/></default-field></field>
+
+                <field name="minimumStock"><default-field title="Min Stock"><text-line size="4"/></default-field></field>
+                <field name="moveQuantity"><default-field title="Move Qty"><text-line size="4"/></default-field></field>
+
+                <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                <field name="deleteButton"><default-field title=""><link url="deleteProductLocation" confirmation="Remove location?"
+                                                                         icon="fa fa-trash" parameter-map="[productId:productId, facilityId:facilityId, locationSeqId:locationSeqId]"/></default-field></field>
+            </form-list>
+        </box-body-nopad></container-box>
+    </widgets></section>
+
+        <section name="MeterSection" condition="isEquipment"><widgets>
+            <container-box initial="closed" type="secondary"><box-header title="Meters"/><box-toolbar>
+                <container-dialog id="AddMeterDialog" button-text="Add Meter">
+                    <form-single name="CreateProductMeter" transition="createProductMeter">
                         <field name="productId"><default-field><hidden/></default-field></field>
-
-                        <field name="facilityId"><default-field><hidden/></default-field></field>
-                        <field name="locationSeqId"><default-field><hidden/></default-field></field>
-
-                        <field name="facility" from="facilityId"><default-field title="Facility">
-                            <link url="editFacility" text="FacilityNameTemplate" entity-name="mantle.facility.Facility" link-type="anchor"/>
-                        </default-field></field>
-                        <field name="location"><default-field>
-                            <label text="FacilityLocationNameTemplate" text-map="facLoc"/></default-field></field>
-
-                        <field name="minimumStock"><default-field title="Min Stock"><text-line size="4"/></default-field></field>
-                        <field name="moveQuantity"><default-field title="Move Qty"><text-line size="4"/></default-field></field>
-
-                        <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-                        <field name="deleteButton"><default-field title=""><link url="deleteProductLocation" confirmation="Remove location?"
-                                icon="fa fa-trash" parameter-map="[productId:productId, facilityId:facilityId, locationSeqId:locationSeqId]"/></default-field></field>
-                    </form-list>
-                </box-body-nopad></container-box>
-            </widgets></section>
-
-            <section name="MeterSection" condition="isEquipment"><widgets>
-                <container-box><box-header title="Meters"/><box-toolbar>
-                    <container-dialog id="AddMeterDialog" button-text="Add Meter">
-                        <form-single name="CreateProductMeter" transition="createProductMeter">
-                            <field name="productId"><default-field><hidden/></default-field></field>
-
-                            <field name="productMeterTypeId"><default-field title="Type">
-                                <drop-down><entity-options key="${productMeterTypeId}" text="${description}">
-                                    <entity-find entity-name="mantle.product.maintenance.ProductMeterType">
-                                        <order-by field-name="description"/></entity-find>
-                                </entity-options></drop-down>
-                            </default-field></field>
-                            <field name="meterUomId"><default-field title="UOM">
-                                <drop-down allow-empty="true"><entity-options key="${uomId}" text="${description}">
-                                    <entity-find entity-name="moqui.basic.Uom">
-                                        <econdition field-name="uomTypeEnumId" operator="in" value="UT_LENGTH_MEASURE,UT_TIME_FREQ_MEASURE"/>
-                                        <order-by field-name="description"/></entity-find>
-                                </entity-options></drop-down>
-                            </default-field></field>
-                            <field name="meterName"><default-field><text-line size="40"/></default-field></field>
-
-                            <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
-                        </form-single>
-                    </container-dialog>
-                </box-toolbar><box-body-nopad>
-                    <form-list name="ProductMeterList" list="productMeterList" transition="updateProductMeter">
-                        <entity-find entity-name="mantle.product.maintenance.ProductMeter" list="productMeterList">
-                            <econdition field-name="productId"/><order-by field-name="productMeterTypeId"/></entity-find>
-
-                        <field name="productId"><default-field><hidden/></default-field></field>
-                        <field name="productMeterId"><default-field><hidden/></default-field></field>
 
                         <field name="productMeterTypeId"><default-field title="Type">
                             <drop-down><entity-options key="${productMeterTypeId}" text="${description}">
@@ -421,20 +465,44 @@ along with this software (see the LICENSE.md file). If not, see
                                     <order-by field-name="description"/></entity-find>
                             </entity-options></drop-down>
                         </default-field></field>
-                        <field name="meterName"><default-field><text-line size="20"/></default-field></field>
+                        <field name="meterName"><default-field><text-line size="40"/></default-field></field>
 
-                        <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
-                        <field name="deleteButton"><default-field title=""><link url="deleteProductMeter" confirmation="Remove meter?"
-                                icon="fa fa-trash" parameter-map="[productMeterId:productMeterId]"/></default-field></field>
-                    </form-list>
-                </box-body-nopad></container-box>
-            </widgets></section>
+                        <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                    </form-single>
+                </container-dialog>
+            </box-toolbar><box-body-nopad>
+                <form-list name="ProductMeterList" list="productMeterList" transition="updateProductMeter">
+                    <entity-find entity-name="mantle.product.maintenance.ProductMeter" list="productMeterList">
+                        <econdition field-name="productId"/><order-by field-name="productMeterTypeId"/></entity-find>
 
-        </row-col></container-row>
+                    <field name="productId"><default-field><hidden/></default-field></field>
+                    <field name="productMeterId"><default-field><hidden/></default-field></field>
+
+                    <field name="productMeterTypeId"><default-field title="Type">
+                        <drop-down><entity-options key="${productMeterTypeId}" text="${description}">
+                            <entity-find entity-name="mantle.product.maintenance.ProductMeterType">
+                                <order-by field-name="description"/></entity-find>
+                        </entity-options></drop-down>
+                    </default-field></field>
+                    <field name="meterUomId"><default-field title="UOM">
+                        <drop-down allow-empty="true"><entity-options key="${uomId}" text="${description}">
+                            <entity-find entity-name="moqui.basic.Uom">
+                                <econdition field-name="uomTypeEnumId" operator="in" value="UT_LENGTH_MEASURE,UT_TIME_FREQ_MEASURE"/>
+                                <order-by field-name="description"/></entity-find>
+                        </entity-options></drop-down>
+                    </default-field></field>
+                    <field name="meterName"><default-field><text-line size="20"/></default-field></field>
+
+                    <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                    <field name="deleteButton"><default-field title=""><link url="deleteProductMeter" confirmation="Remove meter?"
+                                                                             icon="fa fa-trash" parameter-map="[productMeterId:productMeterId]"/></default-field></field>
+                </form-list>
+            </box-body-nopad></container-box>
+        </widgets></section>
 
         <section name="MaintenanceSection" condition="isEquipment"><widgets>
-            <container-box><box-header title="Scheduled Maintenance"/><box-toolbar>
-                <container-dialog id="AddMaintenanceDialog" button-text="Add Maintenance">
+            <container-box initial="closed"><box-header title="Scheduled Maintenance"/><box-toolbar>
+                <container-dialog id="AddMaintenanceDialog" button-text="Add Maintenance" type="secondary">
                     <form-single name="CreateProductMaintenance" transition="createProductMaintenance">
                         <field name="productId"><default-field><hidden/></default-field></field>
                         <field name="productMaintenanceId"><default-field><hidden/></default-field></field>
@@ -498,9 +566,10 @@ along with this software (see the LICENSE.md file). If not, see
 
                     <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
                     <field name="deleteButton"><default-field title=""><link url="deleteProductMaintenance" confirmation="Remove scheduled maintenance?"
-                            icon="fa fa-trash" parameter-map="[productMaintenanceId:productMaintenanceId]"/></default-field></field>
+                                                                             icon="fa fa-trash" parameter-map="[productMaintenanceId:productMaintenanceId]"/></default-field></field>
                 </form-list>
             </box-body-nopad></container-box>
         </widgets></section>
+
     </widgets>
 </screen>
