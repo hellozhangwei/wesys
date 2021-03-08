@@ -179,6 +179,73 @@ along with this software (see the LICENSE.md file). If not, see
             </box-body>
         </container-box>
 
+        <section name="ParentDepartmentRelListSection"><actions>
+            <entity-find entity-name="mantle.party.PartyToAndRelationship" list="parentAccountRelList">
+                <date-filter/><econdition field-name="fromPartyId" from="partyId"/>
+                <econdition field-name="relationshipTypeEnumId" value="PrtOrgRollup"/>
+            </entity-find>
+        </actions><widgets>
+            <container-box initial="closed"><box-header title="上级部门"/><box-toolbar>
+                <container-dialog id="AddParentAccountDialog" button-text="Add Parent Department" type="secondary">
+                    <form-single name="AddParentAccount" transition="createPartyRelationship">
+                        <field name="partyId"><default-field><hidden/></default-field></field>
+                        <field name="fromPartyId" from="partyId"><default-field><hidden/></default-field></field>
+                        <field name="fromRoleTypeId" from="'OrgDepartment'"><default-field><hidden/></default-field></field>
+                        <field name="relationshipTypeEnumId" from="'PrtOrgRollup'"><default-field><hidden/></default-field></field>
+                        <field name="toRoleTypeId" from="'OrgDepartment'"><default-field><hidden/></default-field></field>
+                        <field name="fromDate" from="ec.user.nowTimestamp"><default-field><hidden/></default-field></field>
 
+                        <field name="toPartyId"><default-field title="Parent Department"><drop-down>
+                            <dynamic-options transition="searchPartyList" server-search="true" min-length="0"
+                                             parameter-map="[roleTypeId:'OrgDepartment']"/><!--todo pseudoId_not:partyId-->
+                        </drop-down></default-field></field>
+
+                        <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                    </form-single>
+                </container-dialog>
+            </box-toolbar><box-body>
+                <form-list name="ParentAccountRelList" list="parentAccountRelList" list-entry="accountRel" skip-form="true" skip-header="true">
+                    <field name="toPartyId"><default-field><link url="." text="PartyNameTemplate" text-map="accountRel"
+                                                                 link-type="anchor" parameter-map="[partyId:accountRel.toPartyId]"/></default-field></field>
+                    <field name="removeButton" align="right"><default-field title="">
+                        <link url="removeContact" icon="fa fa-trash" parameter-map="[partyRelationshipId:accountRel.partyRelationshipId]"
+                              confirmation="Are you sure you want to remove this account from the parent account?"/></default-field></field>
+                </form-list>
+            </box-body></container-box>
+        </widgets></section>
+        <section name="ChildDepartmentRelListSection" ><actions>
+            <entity-find entity-name="mantle.party.PartyFromAndRelationship" list="childAccountRelList">
+                <date-filter/><econdition field-name="toPartyId" from="partyId"/>
+                <econdition field-name="relationshipTypeEnumId" value="PrtOrgRollup"/>
+            </entity-find>
+        </actions><widgets>
+            <container-box initial="closed"><box-header title="下级部门"/><box-toolbar>
+                <container-dialog id="AddChildAccountDialog" button-text="Add Child Department" type="secondary">
+                    <form-single name="AddChildAccount" transition="createPartyRelationship">
+                        <field name="partyId"><default-field><hidden/></default-field></field>
+                        <field name="toPartyId" from="partyId"><default-field><hidden/></default-field></field>
+                        <field name="fromRoleTypeId" from="'OrgDepartment'"><default-field><hidden/></default-field></field>
+                        <field name="relationshipTypeEnumId" from="'PrtOrgRollup'"><default-field><hidden/></default-field></field>
+                        <field name="toRoleTypeId" from="'OrgDepartment'"><default-field><hidden/></default-field></field>
+                        <field name="fromDate" from="ec.user.nowTimestamp"><default-field><hidden/></default-field></field>
+
+                        <field name="fromPartyId"><default-field title="Child Department"><drop-down>
+                            <dynamic-options transition="searchPartyList" server-search="true" min-length="0"
+                                             parameter-map="[roleTypeId:'OrgDepartment']"/>
+                        </drop-down></default-field></field>
+
+                        <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                    </form-single>
+                </container-dialog>
+            </box-toolbar><box-body>
+                <form-list name="ChildAccountRelList" list="childAccountRelList" list-entry="accountRel" skip-form="true" skip-header="true">
+                    <field name="fromPartyId"><default-field><link url="." text="PartyNameTemplate" text-map="accountRel" link-type="anchor"
+                                                                   parameter-map="[partyId:accountRel.fromPartyId]"/></default-field></field>
+                    <field name="removeButton" align="right"><default-field title="">
+                        <link url="removeContact" icon="fa fa-trash" parameter-map="[partyRelationshipId:accountRel.partyRelationshipId]"
+                              confirmation="Are you sure you want to remove this child account from the parent account?"/></default-field></field>
+                </form-list>
+            </box-body></container-box>
+        </widgets></section>
     </widgets>
 </screen>
