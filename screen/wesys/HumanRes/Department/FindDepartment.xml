@@ -68,7 +68,15 @@ along with this software (see the LICENSE.md file). If not, see
                 </header-field>
                 <default-field><display text="${classifications ? classifications.findAll({(it.classFromDate == null || it.classFromDate &lt; System.currentTimeMillis()) &amp;&amp; (it.classThruDate == null || it.classThruDate &gt; System.currentTimeMillis())})*.class.join(', ') : ''}"/></default-field>
             </field>-->
-
+            <field name="roleTypeId">
+                <header-field title="客户角色">
+                    <drop-down allow-empty="true"><entity-options key="${roleTypeId}" text="${description}">
+                        <entity-find entity-name="mantle.party.RoleType">
+                            <order-by field-name="description"/></entity-find>
+                    </entity-options></drop-down>
+                </header-field>
+                <default-field><display text="${roles ? roles*.role.join(', ') : ''}"/></default-field>
+            </field>
             <field name="disabled">
                 <header-field><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></header-field>
                 <default-field><display/></default-field>
