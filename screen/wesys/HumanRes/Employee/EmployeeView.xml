@@ -180,7 +180,38 @@ along with this software (see the LICENSE.md file). If not, see
         </container-box>
 
         <section-include name="PartyIdentificationSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
-
+        <section name="RolesSection"><actions>
+            <entity-find entity-name="mantle.party.PartyRole" list="partyRoleList">
+                <econdition field-name="partyId"/></entity-find>
+        </actions><widgets>
+            <container-box type="warning" initial="closed"><box-header title="Roles"/><box-toolbar>
+                <container-dialog id="AddOtherRoleDialog" button-text="Add Role" button-outline="false" button-flat="true" type="secondary">
+                    <label text="Roles applied directly describe how the system should treat the Party, or what the Party is to users of the system." type="p"/>
+                    <label text="Any Role may be added here to organize parties for searching, etc but many are used to describe a Party's relationship to, or involvement with, other things in the system and have no effect when applied directly." type="p"/>
+                    <form-single name="AddOtherRoleForm" transition="createPartyRole">
+                        <field name="partyId"><default-field><hidden/></default-field></field>
+                        <field name="roleTypeId"><default-field title="Role">
+                            <drop-down>
+                                <entity-options key="${roleTypeId}" text="${description}">
+                                    <entity-find entity-name="mantle.party.RoleGroupMemberAndType" cache="true">
+                                        <econdition field-name="roleGroupEnumId" value="RgpPerson"/>
+                                        <order-by field-name="description"/></entity-find>
+                                </entity-options>
+                            </drop-down>
+                        </default-field></field>
+                        <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                    </form-single>
+                </container-dialog>
+            </box-toolbar><box-body-nopad>
+                <form-list name="RolesForm" list="partyRoleList" transition="deletePartyRole" skip-header="true">
+                    <field name="partyId"><default-field><hidden/></default-field></field>
+                    <field name="roleTypeId"><default-field title="Role">
+                        <display-entity entity-name="mantle.party.RoleType"/>
+                    </default-field></field>
+                    <field name="submitButton"><default-field title=""><submit icon="fa fa-trash" confirmation="Delete role?"/></default-field></field>
+                </form-list>
+            </box-body-nopad></container-box>
+        </widgets></section>
         <section-include name="ContactInfoSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
 
 
