@@ -50,7 +50,7 @@ along with this software (see the LICENSE.md file). If not, see
         </container>
 
 
-        <form-list name="CategoriesForm" list="categoryList" skip-form="true" list-entry="category">
+        <form-list name="CategoriesForm" list="categoryList" skip-form="true" list-entry="category" header-dialog="true" saved-finds="true" show-csv-button="true">
             <entity-find entity-name="mantle.product.category.ProductCategory" list="categoryList" cache="false">
                 <search-form-inputs default-order-by="categoryName"/>
                 <select-field field-name="productCategoryId"/>
@@ -81,6 +81,7 @@ along with this software (see the LICENSE.md file). If not, see
                         </entity-find>
                     </entity-options>
                 </drop-down></header-field>
+                <conditional-field condition="ownerPartyId == '_NA_'"><display text=" "/></conditional-field>
                 <default-field><link url="editParty" entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"
                         link-type="anchor" parameter-map="[partyId:ownerPartyId]"/></default-field>
             </field>
