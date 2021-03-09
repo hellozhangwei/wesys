@@ -118,49 +118,6 @@ along with this software (see the LICENSE.md file). If not, see
                     </field-layout>
                 </form-single>
             </container-dialog>
-
-            <container-dialog id="PhysicalManualDialog" button-text="Physical Diff" title="Physical Inventory Difference" button-flat="false">
-                <form-single name="PhysicalManualChange" transition="recordChange">
-                    <field name="productId"><default-field title="Product"><drop-down>
-                        <dynamic-options transition="getProductList" server-search="true"/></drop-down></default-field></field>
-                    <field name="facilityId"><default-field title="Facility"><drop-down>
-                        <dynamic-options transition="getFacilityList" server-search="true" min-length="0"/></drop-down></default-field></field>
-                    <field name="locationSeqId"><default-field title="Location"><drop-down allow-empty="true">
-                        <dynamic-options transition="getLocationList" server-search="true" min-length="0" depends-optional="true">
-                            <depends-on field="facilityId"/></dynamic-options>
-                    </drop-down></default-field></field>
-                    <field name="lotId"><default-field title="Lot"><drop-down allow-empty="true">
-                        <dynamic-options transition="getLotList" server-search="true" min-length="2"/>
-                    </drop-down></default-field></field>
-
-                    <field name="ownerPartyId">
-                        <default-field title="Owner Party"><drop-down allow-empty="true">
-                            <dynamic-options transition="searchPartyList" server-search="true" min-length="2"/></drop-down></default-field>
-                    </field>
-                    <field name="assetPoolId"><default-field title="Pool"><drop-down allow-empty="true">
-                        <dynamic-options transition="getAssetPoolList" server-search="true" min-length="0" depends-optional="true">
-                            <depends-on field="ownerPartyId"/></dynamic-options></drop-down>
-                    </default-field></field>
-                    <field name="statusId"><default-field title="Status">
-                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#statusDropDown">
-                            <set field="statusTypeId" value="Asset"/><set field="noCurrentSelectedKey" value="AstAvailable"/></widget-template-include>
-                    </default-field></field>
-
-                    <!-- FUTURE: consider making this user selectable along with strictLocation and strictLot for 'None' vs 'All' behavior on null -->
-                    <field name="strictAll" from="'true'"><default-field><hidden/></default-field></field>
-
-                    <field name="quantityChange"><default-field title="Quantity Difference"><text-line size="6"/></default-field></field>
-                    <field name="comments"><default-field><text-area cols="60" rows="5"/></default-field></field>
-                    <field name="varianceReasonEnumId"><default-field title="Variance Reason">
-                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                            <set field="enumTypeId" value="InventoryVarianceReason"/><set field="allowEmpty" value="true"/></widget-template-include>
-                    </default-field></field>
-
-                    <field name="physicalInventoryDate" from="ec.user.nowTimestamp"><default-field title="Inventory Date"><date-time/></default-field></field>
-
-                    <field name="submitButton"><default-field title="Record"><submit/></default-field></field>
-                </form-single>
-            </container-dialog>
         </container>
 
         <form-list name="ListAssets" list="assetList" skip-form="true" header-dialog="true" select-columns="true" saved-finds="true"
@@ -199,42 +156,6 @@ along with this software (see the LICENSE.md file). If not, see
                 </header-field>
                 <default-field><link url="editProduct" entity-name="Product" link-type="anchor" condition="pseudoId"/></default-field>
             </field>
-            <!--<field name="ownerPartyId">
-                <header-field title="Owner Party"><drop-down allow-empty="true">
-                    <dynamic-options transition="searchPartyList" server-search="true" min-length="2"/></drop-down></header-field>
-                <default-field><display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/></default-field>
-            </field>-->
-            <!--<field name="acquireCost" align="right"><header-field><range-find size="5"/></header-field>
-                <default-field><display format="#,##0.00"/></default-field></field>-->
-<!--
-            <field name="assetTypeEnumId">
-                <header-field title="Asset Type" show-order-by="true">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="AssetType"/><set field="allowMultiple" value="true"/>
-                        <set field="allowEmpty" value="true"/></widget-template-include>
-                </header-field>
-                <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
-            </field>
-            <field name="classEnumId">
-                <header-field title="Asset Class" show-order-by="true">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
-                        <set field="enumTypeId" value="AssetClass"/><set field="allowMultiple" value="true"/>
-                        <set field="allowEmpty" value="true"/></widget-template-include>
-                </header-field>
-                <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
-            </field>-->
-           <!-- <field name="statusId">
-                <header-field title="Status" show-order-by="true">
-                    <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#statusDropDown">
-                        <set field="statusTypeId" value="Asset"/><set field="allowMultiple" value="true"/>
-                        <set field="allowEmpty" value="true"/></widget-template-include>
-                </header-field>
-                <default-field><display-entity entity-name="moqui.basic.StatusItem"/></default-field>
-            </field>-->
-            <!--<field name="acquireOrderId"><header-field><text-find hide-options="true" default-operator="begins"/></header-field>
-                <default-field><link url="orderDetail" text="PO ${acquireOrderId}" link-type="anchor" condition="acquireOrderId"
-                        parameter-map="[orderId:acquireOrderId]"/></default-field>
-            </field>-->
 
             <field name="facilityId">
                 <header-field title="Facility" show-order-by="case-insensitive"><drop-down allow-empty="true">
@@ -249,24 +170,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field><label condition="locationSeqId" text-map="facLoc" text="FacilityLocationNameTemplate"/></default-field>
             </field>
             <field name="onlyNoLocation"><header-field title="No Location"><check><option key="true" text="Only No Location"/></check></header-field></field>
-
-            <!--<field name="containerId">
-                <header-field title="Container" show-order-by="true"><drop-down allow-empty="true">
-                    <dynamic-options transition="getContainerList" server-search="true" min-length="0" depends-optional="true">
-                        <depends-on field="facilityId"/><depends-on field="locationSeqId"/></dynamic-options>
-                </drop-down></header-field>
-                <default-field><link url="editContainer" entity-name="mantle.product.asset.Container" text="ContainerNameTemplate" link-type="anchor"/></default-field>
-            </field>-->
-            <!--<field name="lotId">
-                <header-field title="Lot"><drop-down allow-empty="true">
-                    <dynamic-options transition="getLotList" server-search="true" min-length="0"/></drop-down></header-field>
-                <default-field><display-entity entity-name="mantle.product.asset.LotAndMfgParty" text="LotNameTemplate"/></default-field>
-            </field>-->
-            <!--<field name="assetPoolId">
-                <header-field title="Asset Pool"><drop-down allow-empty="true">
-                    <dynamic-options transition="getAssetPoolList" server-search="true" min-length="0"/></drop-down></header-field>
-                <default-field><display-entity entity-name="mantle.product.asset.AssetPool" text="${pseudoId}: ${description}"/></default-field>
-            </field>-->
 
             <field name="receivedDate"><header-field show-order-by="true"><date-period/></header-field>
                 <default-field><display/></default-field></field>
@@ -288,7 +191,12 @@ along with this software (see the LICENSE.md file). If not, see
                 <check><option key="true" text="Only Cost Matches PO Amount"/></check></header-field></field>
 
             <field name="physicalQuantity"><default-field title="PhI Qty">
-                <link url="." link-type="hidden-form-link" text="PhI Qty"/>
+                <dynamic-dialog id="PhysicalQuantityDialog" button-text="PhI Qty" title="Physical Inventory Quantity"
+                                transition="PhysicalQuantity" width="800" condition="productId &amp;&amp; facilityId" type="secondary"/>
+            </default-field></field>
+            <field name="physicalChange"><default-field title="PhI Diff">
+                <dynamic-dialog id="PhysicalChange" button-text="PhI Diff" title="Physical Inventory Difference"
+                                transition="PhysicalChange" width="800" condition="productId &amp;&amp; facilityId" type="secondary"/>
             </default-field></field>
             <field name="moveLink"><default-field title="Move">
                 <link url="../SelectAsset" text="Move" link-type="hidden-form-link" condition="quantityOnHandTotal"
@@ -296,13 +204,8 @@ along with this software (see the LICENSE.md file). If not, see
                             containerId:containerId, lotId:lotId, assetPoolId:assetPoolId]" style="text-secondary"/>
             </default-field></field>
             <field name="submitButton"><header-field title="Find"><submit/></header-field>
-                <default-field><ignored/><!--<link url="assetDetail" text="Detail" link-type="anchor-button" condition="assetId"/>--></default-field></field>
+                <default-field><ignored/></default-field></field>
 
-            <!--<form-list-column><field-ref name="submitButton"/></form-list-column>
-            <form-list-column><field-ref name="assetId"/><field-ref name="productId"/><field-ref name="assetTypeEnumId"/><field-ref name="classEnumId"/></form-list-column>
-            <form-list-column><field-ref name="statusId"/><field-ref name="ownerPartyId"/><field-ref name="assetPoolId"/><field-ref name="acquireOrderId"/></form-list-column>
-            <form-list-column><field-ref name="facilityId"/><field-ref name="locationSeqId"/><field-ref name="containerId"/><field-ref name="lotId"/></form-list-column>
-            <form-list-column><field-ref name="receivedDate"/><field-ref name="manufacturedDate"/><field-ref name="availableToPromiseTotal"/><field-ref name="quantityOnHandTotal"/></form-list-column>-->
         </form-list>
     </widgets>
 </screen>
