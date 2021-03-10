@@ -154,7 +154,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <header-field title="Product" show-order-by="case-insensitive"><drop-down allow-empty="true">
                     <dynamic-options transition="getProductList" server-search="true" min-length="2"/></drop-down>
                 </header-field>
-                <default-field><link url="editProduct" entity-name="Product" link-type="anchor" condition="pseudoId"/></default-field>
+                <default-field><link url="editProduct" entity-name="Product" text="ProductNameTemplate" link-type="anchor" condition="pseudoId"/></default-field>
             </field>
 
             <field name="facilityId">
