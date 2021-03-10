@@ -26,6 +26,6 @@ along with this software (see the LICENSE.md file). If not, see
         <link url="FindShipment" text="返回列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="shipment"/>
         <label text="${shipment.type.description} : ${shipmentId}" text-map="shipment" type="div" condition="shipment" style="row q-mb-md text-h3"/>
 
-        <subscreens-panel id="ShipmentPanel"/>
+        <subscreens-panel id="ShipmentPanel" type="popup"/>
     </widgets>
 </screen>
