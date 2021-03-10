@@ -32,4 +32,11 @@ along with this software (see the LICENSE.md file). If not, see
     <moqui.basic.Enumeration enumId="zapps_root_app" description="component://wesys/screen/wesys.xml"/>
     <moqui.basic.Enumeration enumId="zapps_root_app_path" description="/wesys"/>
 
+    <moqui.basic.Enumeration description="Consumable Shipment" enumId="ShpTpConsumable" parentEnumId="ShpTpOutgoing" enumTypeId="ShipmentType"/>
+    <moqui.basic.Enumeration description="Lend Shipment" enumId="ShpTpLend" parentEnumId="ShpTpTransfer" enumTypeId="ShipmentType"/>
+<!--    <moqui.basic.Enumeration description="Rent Out Shipment" enumId="ShpTpRentOut" parentEnumId="ShpTpTransfer" enumTypeId="ShipmentType"/>-->
+
+    <mantle.facility.Facility facilityId="WH_LEND_DEST" facilityTypeEnumId="FcTpWarehouse" assetAllowIssueOverQoh="Y" facilityName="Lend Dest Virtual Warehouse"/>
+
+
 </entity-facade-xml>
