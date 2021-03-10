@@ -763,8 +763,8 @@ along with this software (see the LICENSE.md file). If not, see
                         <link url="shipOrderPart" text="Create Shipment" link-type="hidden-form-link" btn-type="success">
                             <parameter name="orderId"/><parameter name="orderPartSeqId" from="orderPart.orderPartSeqId"/></link>
 
-                        <link url="quickShipOrder" text="Quick Ship Entire Order" link-type="hidden-form-link" btn-type="success">
-                            <parameter name="orderId"/><parameter name="orderPartSeqId" from="orderPart.orderPartSeqId"/></link>
+                        <!--<link url="quickShipOrder" text="Quick Ship Entire Order" link-type="hidden-form-link" btn-type="success">
+                            <parameter name="orderId"/><parameter name="orderPartSeqId" from="orderPart.orderPartSeqId"/></link>-->
 
                         <section name="AddPartToShipmentSection" condition="ssfsList"><widgets>
                             <container-dialog id="AddOrderPartToShipmentDialog" button-text="Add Part to Shipment" button-outline="false" button-flat="true" type="secondary">
