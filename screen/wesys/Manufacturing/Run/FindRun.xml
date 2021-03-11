@@ -57,13 +57,16 @@ along with this software (see the LICENSE.md file). If not, see
         </container>
 
         <form-list name="RunList" list="runList" skip-form="true" header-dialog="true" saved-finds="true" select-columns="true">
-            <entity-find entity-name="mantle.work.effort.WorkEffortProductionRunFind" list="runList" distinct="true">
+            <!--<entity-find entity-name="mantle.work.effort.WorkEffortProductionRunFind" list="runList" distinct="true">
                 <search-form-inputs default-order-by="estimatedStartDate,workEffortId">
                     <default-parameters statusId="WeInPlanning,WeApproved,WeInProgress,WeOnHold" statusId_op="in"/></search-form-inputs>
                 <econdition field-name="purposeEnumId" value="WepProductionRun"/>
                 <econdition field-name="consumeTypeEnumId" value="WeptConsume" ignore="!consumeProductId"/>
                 <econdition field-name="produceTypeEnumId" value="WeptProduce" ignore="!produceProductId"/>
                 <select-field field-name="workEffortName"/>
+            </entity-find>-->
+            <entity-find entity-name="mantle.work.effort.WorkEffort" list="runList" distinct="true">
+                <econdition field-name="purposeEnumId" value="WepProductionRun"/>
             </entity-find>
             <row-actions>
                 <entity-find entity-name="mantle.work.effort.WorkEffortProductDetail" list="allProdList">
