@@ -506,7 +506,7 @@ along with this software (see the LICENSE.md file). If not, see
 <!--                        <default-field><display text="Not Specified"/></default-field>-->
                     </field>
 
-                   <field name="destPostalContactMechId">
+                    <field name="destPostalContactMechId">
                         <conditional-field title="Shipment Destination Address" condition="curDestPaInfo">
                             <display text="${ec.resource.expand('PostalAddressInfoTemplate', '', curDestPaInfo)}"/>
                         </conditional-field>
@@ -544,17 +544,17 @@ along with this software (see the LICENSE.md file). If not, see
                     </field>
 
                     <field name="originFacilityId" from="firstRouteSegment.originFacilityId">
-                        <default-field title="Origin Facility" >
+                        <conditional-field title="Origin Facility" condition="isOutgoing || isTransfer">
                             <link url="editFacility" text="${ec.resource.expand('FacilityNameTemplate', '', originFacility)}" link-type="anchor"
                                   parameter-map="[facilityId:firstRouteSegment.originFacilityId]"/>
-                        </default-field>
+                        </conditional-field>
                     </field>
-                    <!--<field name="destinationFacilityId" from="lastRouteSegment.destinationFacilityId">
-                        <default-field title="Destination Facility">
+                    <field name="destinationFacilityId" from="lastRouteSegment.destinationFacilityId">
+                        <conditional-field title="Destination Facility" condition="isIncoming || isTransfer">
                             <link url="editFacility" text="${ec.resource.expand('FacilityNameTemplate', '', destinationFacility)}" link-type="anchor"
                                   parameter-map="[facilityId:lastRouteSegment.destinationFacilityId]"/>
-                        </default-field>
-                    </field>-->
+                        </conditional-field>
+                    </field>
 
                     <field name="priority"><default-field><display/></default-field></field>
                     <field name="handlingInstructions"><default-field title="Shipping Instructions">
@@ -593,7 +593,7 @@ along with this software (see the LICENSE.md file). If not, see
                             <field-col md="3"><field-ref name="toPartyId"/></field-col>
                             <field-col md="3"><field-ref name="fromPartyId"/></field-col>
                             <field-col md="3"><field-ref name="originFacilityId"/></field-col>
-                            <field-col md="3"><field-ref name="carrierAndShipmentMethod"/></field-col>
+                            <field-col md="3"><field-ref name="destinationFacilityId"/></field-col>
                         </field-col-row>
                         <field-col-row>
                             <field-col md="3"><field-ref name="statusId"/></field-col>
@@ -617,7 +617,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field-col-row>
                             <field-col md="3"><field-ref name="estimatedReadyDate"/></field-col>
                             <field-col md="3"><field-ref name="shipWorkEffortId"/></field-col>
-                            <field-col md="3"></field-col>
+                            <field-col md="3"><field-ref name="carrierAndShipmentMethod"/></field-col>
                             <field-col md="3"></field-col>
                         </field-col-row>
 
