@@ -646,43 +646,6 @@ along with this software (see the LICENSE.md file). If not, see
             </box-body>
         </container-box>-->
 
-        <container-box initial="closed"><box-header title="Payments"/><box-body-nopad>
-            <form-list name="ShipmentOrderPaymentList" list="shipmentPaymentList">
-                <entity-find entity-name="mantle.shipment.ShipmentOrderPayment" list="shipmentPaymentList" distinct="true">
-                    <econdition field-name="shipmentId"/>
-                    <select-field field-name="orderId,paymentId,paymentInstrumentEnumId,statusId,paymentRefNum,amountUomId"/>
-                    <order-by field-name="orderId,paymentId"/>
-                </entity-find>
-                <field name="orderId"><default-field title="Order">
-                    <link url="orderDetail" text="${orderId}" link-type="anchor"/></default-field></field>
-                <field name="paymentId"><default-field title="Payment">
-                    <link url="editPayment" text="${paymentId}" link-type="anchor"/></default-field></field>
-                <field name="amount"><default-field title="Amount"><display currency-unit-field="amountUomId"/></default-field></field>
-                <field name="paymentInstrumentEnumId"><default-field title="Instrument">
-                    <display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
-                <field name="statusId"><default-field title="Status" container-style="strong ${statusId in ['PmntDelivered','PmntConfirmed'] ? 'text-success' : 'text-danger'}">
-                    <display-entity entity-name="moqui.basic.StatusItem"/></default-field></field>
-                <field name="paymentRefNum" from="payment?.paymentRefNum"><default-field title="Ref"><display/></default-field></field>
-            </form-list>
-            <form-list name="ShipmentInvoicePaymentList" list="shipmentPaymentList">
-                <entity-find entity-name="mantle.shipment.ShipmentInvoicePayment" list="shipmentPaymentList" distinct="true">
-                    <econdition field-name="shipmentId"/>
-                    <select-field field-name="invoiceId,paymentId,amountApplied,appliedDate,paymentInstrumentEnumId,statusId,paymentRefNum,amountUomId"/>
-                    <order-by field-name="invoiceId,paymentId"/>
-                </entity-find>
-                <field name="invoiceId"><default-field title="Invoice">
-                    <link url="editInvoice" text="${invoiceId}" link-type="anchor"/></default-field></field>
-                <field name="paymentId"><default-field title="Payment">
-                    <link url="editPayment" text="${paymentId}" link-type="anchor"/></default-field></field>
-                <field name="amountApplied"><default-field title="Amount"><display currency-unit-field="amountUomId"/></default-field></field>
-                <field name="appliedDate"><default-field title="Applied"><display/></default-field></field>
-                <field name="paymentInstrumentEnumId"><default-field title="Instrument">
-                    <display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
-                <field name="statusId"><default-field title="Status" container-style="strong ${statusId in ['PmntDelivered','PmntConfirmed'] ? 'text-success' : 'text-danger'}">
-                    <display-entity entity-name="moqui.basic.StatusItem"/></default-field></field>
-                <field name="paymentRefNum" from="payment?.paymentRefNum"><default-field title="Ref"><display/></default-field></field>
-            </form-list>
-        </box-body-nopad></container-box>
 
         <!-- Items -->
         <container-box><box-header title="Shipment Items"/><box-toolbar>
@@ -706,8 +669,8 @@ along with this software (see the LICENSE.md file). If not, see
             <link url="../ShipmentItems" text="Pack/Issue Items" btn-type="success" button-outline="false" button-flat="true" />
         </box-toolbar><box-body>
 
-<!--            <section-include name="ShipmentItemsSection" location="component://SimpleScreens/screen/SimpleScreens/Shipment/ShipmentItems.xml"/>-->
-            <form-list name="ShipmentItemsForm" list="shipmentItemDetailList" list-entry="sid">
+            <section-include name="ShipmentItemsSection" location="component://wesys/screen/wesys/Shipment/ShipmentItems.xml"/>
+            <!--<form-list name="ShipmentItemsForm" list="shipmentItemDetailList" list-entry="sid">
                 <field name="productName">
                     <default-field>
                         <display text="${ec.resource.expand('ProductNameTemplate', '', sid)}"/>
@@ -717,7 +680,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <display/>
                     </default-field>
                 </field>
-            </form-list>
+            </form-list>-->
         </box-body></container-box>
 
         <!-- Packages -->
@@ -734,5 +697,44 @@ along with this software (see the LICENSE.md file). If not, see
                 <section-include name="PackageListSection" location="component://wesys/screen/wesys/Shipment/ShipmentPackages.xml"/>
             </box-body></container-box>
         </widgets></section>
+
+        <container-box initial="closed"><box-header title="Payments"/><box-body-nopad>
+        <form-list name="ShipmentOrderPaymentList" list="shipmentPaymentList">
+            <entity-find entity-name="mantle.shipment.ShipmentOrderPayment" list="shipmentPaymentList" distinct="true">
+                <econdition field-name="shipmentId"/>
+                <select-field field-name="orderId,paymentId,paymentInstrumentEnumId,statusId,paymentRefNum,amountUomId"/>
+                <order-by field-name="orderId,paymentId"/>
+            </entity-find>
+            <field name="orderId"><default-field title="Order">
+                <link url="orderDetail" text="${orderId}" link-type="anchor"/></default-field></field>
+            <field name="paymentId"><default-field title="Payment">
+                <link url="editPayment" text="${paymentId}" link-type="anchor"/></default-field></field>
+            <field name="amount"><default-field title="Amount"><display currency-unit-field="amountUomId"/></default-field></field>
+            <field name="paymentInstrumentEnumId"><default-field title="Instrument">
+                <display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
+            <field name="statusId"><default-field title="Status" container-style="strong ${statusId in ['PmntDelivered','PmntConfirmed'] ? 'text-success' : 'text-danger'}">
+                <display-entity entity-name="moqui.basic.StatusItem"/></default-field></field>
+            <field name="paymentRefNum" from="payment?.paymentRefNum"><default-field title="Ref"><display/></default-field></field>
+        </form-list>
+        <form-list name="ShipmentInvoicePaymentList" list="shipmentPaymentList">
+            <entity-find entity-name="mantle.shipment.ShipmentInvoicePayment" list="shipmentPaymentList" distinct="true">
+                <econdition field-name="shipmentId"/>
+                <select-field field-name="invoiceId,paymentId,amountApplied,appliedDate,paymentInstrumentEnumId,statusId,paymentRefNum,amountUomId"/>
+                <order-by field-name="invoiceId,paymentId"/>
+            </entity-find>
+            <field name="invoiceId"><default-field title="Invoice">
+                <link url="editInvoice" text="${invoiceId}" link-type="anchor"/></default-field></field>
+            <field name="paymentId"><default-field title="Payment">
+                <link url="editPayment" text="${paymentId}" link-type="anchor"/></default-field></field>
+            <field name="amountApplied"><default-field title="Amount"><display currency-unit-field="amountUomId"/></default-field></field>
+            <field name="appliedDate"><default-field title="Applied"><display/></default-field></field>
+            <field name="paymentInstrumentEnumId"><default-field title="Instrument">
+                <display-entity entity-name="moqui.basic.Enumeration"/></default-field></field>
+            <field name="statusId"><default-field title="Status" container-style="strong ${statusId in ['PmntDelivered','PmntConfirmed'] ? 'text-success' : 'text-danger'}">
+                <display-entity entity-name="moqui.basic.StatusItem"/></default-field></field>
+            <field name="paymentRefNum" from="payment?.paymentRefNum"><default-field title="Ref"><display/></default-field></field>
+        </form-list>
+    </box-body-nopad></container-box>
+
     </widgets>
 </screen>
