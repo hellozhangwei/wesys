@@ -57,8 +57,16 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="linkSet" operator="in" from="searchLinkSets"/>
                 </entity-find>
                 <set field="linksList" from="[]"/>
-                <iterate list="ddLinkList" entry="ddLink"><if condition="!ddLink.linkCondition || ec.resource.condition(ddLink.linkCondition, '')">
-                    <script>linksList.add(ddLink)</script></if></iterate>
+                <iterate list="ddLinkList" entry="ddLink">
+                    <if condition="!ddLink.linkCondition || ec.resource.condition(ddLink.linkCondition, '')">
+                        <script>
+                            def ddLinkMap = [:]
+                            ddLinkMap.putAll(ddLink)
+                            ddLinkMap.linkUrl = ddLinkMap.linkUrl.replace('apps/PopcAdmin', appRoot)
+                            linksList.add(ddLinkMap)
+                        </script>
+                    </if>
+                </iterate>
             </row-actions>
             <field name="type"><default-field><display text="${dataDocument.documentName}"/></default-field></field>
             <field name="id"><default-field><display text="${_id}"/></default-field></field>
