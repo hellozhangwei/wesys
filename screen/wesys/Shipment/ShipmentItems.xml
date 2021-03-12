@@ -269,7 +269,7 @@ along with this software (see the LICENSE.md file). If not, see
                                 </widgets></section>
                             </row-col>
                         </container-row>
-                    </box-body><box-body>
+<!--                    </box-body><box-body>-->
                         <!-- Pack and Issuance -->
                         <section name="ItemAssetPackSection" condition="isOutgoing || isTransfer"><widgets>
                             <form-list name="ItemSourceIssuanceList" list="sisList" transition="packItemSource">
