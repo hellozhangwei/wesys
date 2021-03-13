@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+
+    <service verb="ship" noun="EntireShipment">
+        <in-parameters>
+            <parameter name="shipmentId" required="true"/>
+            <parameter name="shipDate" type="Timestamp" default="ec.user.nowTimestamp"/>
+        </in-parameters>
+        <actions>
+            <entity-find entity-name="mantle.shipment.ShipmentItem" list="shipmentItemList">
+                <econdition field-name="shipmentId"/></entity-find>
+
+            <iterate list="shipmentItemList" entry="shipmentItem">
+
+                <if condition="shipmentItem.productId">
+                    <service-call name="mantle.shipment.ShipmentServices.pack#ShipmentProduct"
+                                  in-map="[productId:shipmentItem.productId, quantity:shipmentItem.quantity, shipmentId:shipmentId]"/>
+                </if>
+            </iterate>
+
+            <!-- set Shipment Packed -->
+            <service-call name="mantle.shipment.ShipmentServices.pack#Shipment" in-map="[shipmentId:shipmentId, packedDate:shipDate]"/>
+
+            <!-- NOTE: check order completed is done as items are packed, so by this point will be completed -->
+
+            <!-- set Shipment Shipped -->
+            <service-call name="mantle.shipment.ShipmentServices.ship#Shipment" in-map="[shipmentId:shipmentId]"/>
+        </actions>
+    </service>
+
+</services>

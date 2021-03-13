@@ -54,6 +54,9 @@ along with this software (see the LICENSE.md file). If not, see
     <transition name="cancelShipment"><service-call name="mantle.shipment.ShipmentServices.cancel#Shipment"/>
         <default-response url="."/></transition>
 
+    <transition name="quickShipment"><service-call name="wesys.ShipmentServices.ship#EntireShipment"/>
+        <default-response url="."/></transition>
+
     <transition name="validateAddress"><service-call name="mantle.shipment.CarrierServices.validate#PostalAddress"/>
         <default-response url="."/></transition>
 
@@ -261,6 +264,11 @@ along with this software (see the LICENSE.md file). If not, see
         <container-box>
             <box-header title="基本信息"/>
             <box-toolbar>
+                <section name="QuickShipSection" condition="isOutgoing || isTransfer">
+                    <widgets>
+                        <link url="quickShipment" text="Quick Ship" link-type="hidden-form-link" btn-type="success"/>
+                    </widgets>
+                </section>
                 <section name="ShipInputSection" condition="shipment.statusId == 'ShipInput'"><widgets>
                     <section name="ShipInputInOutSection" condition="isIncoming"><widgets>
                         <link url="scheduleShipment" text="Set Scheduled" link-type="hidden-form-link" btn-type="success" button-outline="false" button-flat="true"/>
