@@ -71,15 +71,15 @@ along with this software (see the LICENSE.md file). If not, see
                 </form-single>
             </container-dialog>
 
-            <container-dialog id="NewSerialAssetDialog" button-text="Receive Serial Asset" button-flat="false">
+            <!--<container-dialog id="NewSerialAssetDialog" button-text="Receive Serial Asset" button-flat="false">
                 <form-single name="CreateSerialAsset" transition="createSerialAsset">
                     <field name="assetName"><default-field><text-line size="40"/></default-field></field>
-                    <!--<field name="assetTypeEnumId"><default-field title="Asset Class">
+                    &lt;!&ndash;<field name="assetTypeEnumId"><default-field title="Asset Class">
                         <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
                             <set field="enumTypeId" value="AssetType"/>
                             <set field="parentEnumId" from="['AstTpFixed']"/>
                         </widget-template-include>
-                    </default-field></field>-->
+                    </default-field></field>&ndash;&gt;
 
                     <field name="classEnumId"><default-field title="Asset Class">
                         <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
@@ -89,8 +89,8 @@ along with this software (see the LICENSE.md file). If not, see
                     </default-field></field>
                     <field name="serialNumber"><default-field><text-line/></default-field></field>
                     <field name="productId"><default-field title="Model Product"><drop-down>
-                        <!--<dynamic-options transition="getProductList" server-search="true" min-length="0"
-                                         parameter-map="[assetTypeEnumId:'AstTpEquipment']"/></drop-down></default-field></field>-->
+                        &lt;!&ndash;<dynamic-options transition="getProductList" server-search="true" min-length="0"
+                                         parameter-map="[assetTypeEnumId:'AstTpEquipment']"/></drop-down></default-field></field>&ndash;&gt;
                         <entity-options text="${productName}" key="${productId}">
                             <entity-find entity-name="Product" list="productList">
                                 <econdition field-name="assetTypeEnumId" operator="not-in" from="['AstTpInventory', 'AstTpSupplies']"/>
@@ -113,7 +113,7 @@ along with this software (see the LICENSE.md file). If not, see
 
                     <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
                 </form-single>
-            </container-dialog>
+            </container-dialog>-->
         </container>
 
         <form-list name="ListAssets" list="assetList" skip-form="true" header-dialog="true" select-columns="true" saved-finds="true"
