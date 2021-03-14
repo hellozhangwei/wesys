@@ -22,6 +22,8 @@ along with this software (see the LICENSE.md file). If not, see
     <transition name="orderDetail"><default-response url="//${appRoot}/Order/OrderDetail"/></transition>
 
     <transition name="createEquipment"><service-call name="mantle.product.EquipmentServices.create#Equipment"/>
+        <default-response url="../FixedAssetDetail"/>
+    </transition><transition name="createSerialAsset"><service-call name="wesys.SerialAssetServices.create#SerialAsset"/>
         <default-response url="../FixedAssetDetail"/></transition>
     <transition name="updateProductAcquireCost"><service-call name="mantle.product.AssetServices.update#ProductAcquireCost"/>
         <default-response url="." parameter-map="[productId:productId, facilityId:facilityId]"/></transition>
@@ -36,7 +38,7 @@ along with this software (see the LICENSE.md file). If not, see
     <transition-include name="getContainerList" location="component://SimpleScreens/template/facility/FacilityTransitions.xml"/>
 
     <widgets>
-        <container style="row q-mb-md">
+        <container style="row q-mb-md q-gutter-xs">
             <label text="固定资产列表" style="text-h3" />
             <container type="q-space"/>
             <container-dialog id="NewEquipmentDialog" button-text="New Equipment" button-flat="false">
@@ -62,6 +64,50 @@ along with this software (see the LICENSE.md file). If not, see
                     <field name="ownerPartyId"><default-field title="Owner Party"><drop-down>
                         <dynamic-options transition="searchPartyList" server-search="true" min-length="2"/></drop-down></default-field></field>
                     <field name="facilityId"><default-field title="Facility"><drop-down allow-empty="true">
+                        <dynamic-options transition="getFacilityList" server-search="true" min-length="0"/></drop-down></default-field></field>
+                    <field name="acquiredDate"><default-field><date-time/></default-field></field>
+
+                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+
+            <container-dialog id="NewSerialAssetDialog" button-text="New Serial Asset" button-flat="false">
+                <form-single name="CreateEquipment" transition="createSerialAsset">
+                    <field name="assetName"><default-field><text-line size="40"/></default-field></field>
+                    <!--<field name="assetTypeEnumId"><default-field title="Asset Class">
+                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                            <set field="enumTypeId" value="AssetType"/>
+                            <set field="parentEnumId" from="['AstTpFixed']"/>
+                        </widget-template-include>
+                    </default-field></field>-->
+
+                    <field name="classEnumId"><default-field title="Asset Class">
+                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
+                            <set field="enumTypeId" value="AssetClass"/>
+                            <set field="parentEnumId" from="['AsClsCargoVehicle', 'AsClsComputerHard']"/>
+                        </widget-template-include>
+                    </default-field></field>
+                    <field name="serialNumber"><default-field><text-line/></default-field></field>
+                    <field name="productId"><default-field title="Model Product"><drop-down>
+                        <!--<dynamic-options transition="getProductList" server-search="true" min-length="0"
+                                         parameter-map="[assetTypeEnumId:'AstTpEquipment']"/></drop-down></default-field></field>-->
+                        <entity-options text="${productName}" key="${productId}">
+                            <entity-find entity-name="Product" list="productList">
+                                <econdition field-name="assetTypeEnumId" operator="not-in" from="['AstTpInventory', 'AstTpSupplies']"/>
+                            </entity-find>
+                        </entity-options>
+                    </drop-down>
+
+                    </default-field></field>
+
+                    <field name="statusId"><default-field title="Initial Status">
+                        <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#statusDropDown">
+                            <set field="statusTypeId" value="Asset"/><set field="noCurrentSelectedKey" value="AstInUse"/></widget-template-include>
+                    </default-field></field>
+
+                    <field name="ownerPartyId"><default-field title="Owner Party"><drop-down allow-empty="false">
+                        <dynamic-options transition="searchPartyList" server-search="true" min-length="0" parameter-map="[roleTypeId:'OrgInternal']"/></drop-down></default-field></field>
+                    <field name="facilityId"><default-field title="Facility"><drop-down allow-empty="false">
                         <dynamic-options transition="getFacilityList" server-search="true" min-length="0"/></drop-down></default-field></field>
                     <field name="acquiredDate"><default-field><date-time/></default-field></field>
 
@@ -129,6 +175,14 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field><display/></default-field></field>
             <field name="manufacturedDate"><header-field show-order-by="true" title="Mfg Date"><date-period/></header-field>
                 <default-field><display/></default-field></field>
+            <field name="availableToPromiseTotal" show-total="true" align="right">
+                <header-field title="Available" show-order-by="true"><range-find size="5"/></header-field>
+                <default-field><display text="${ec.l10n.format(availableToPromiseTotal, null)} (${amountUom?.description?:'each'})"/></default-field>
+            </field>
+            <field name="quantityOnHandTotal" show-total="true" align="right">
+                <header-field title="On Hand" show-order-by="true"><range-find size="5"/></header-field>
+                <default-field><display text="${ec.l10n.format(quantityOnHandTotal, null)} (${amountUom?.description?:'each'})"/></default-field>
+            </field>
 
             <field name="onlyNoAcquireCost"><header-field title="Acquire Cost">
                 <check><option key="true" text="Only No Cost"/></check></header-field></field>
