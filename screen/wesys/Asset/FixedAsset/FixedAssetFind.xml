@@ -71,8 +71,8 @@ along with this software (see the LICENSE.md file). If not, see
                 </form-single>
             </container-dialog>
 
-            <container-dialog id="NewSerialAssetDialog" button-text="New Serial Asset" button-flat="false">
-                <form-single name="CreateEquipment" transition="createSerialAsset">
+            <container-dialog id="NewSerialAssetDialog" button-text="Receive Serial Asset" button-flat="false">
+                <form-single name="CreateSerialAsset" transition="createSerialAsset">
                     <field name="assetName"><default-field><text-line size="40"/></default-field></field>
                     <!--<field name="assetTypeEnumId"><default-field title="Asset Class">
                         <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
