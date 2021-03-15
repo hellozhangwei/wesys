@@ -264,7 +264,7 @@ along with this software (see the LICENSE.md file). If not, see
         <container-box>
             <box-header title="基本信息"/>
             <box-toolbar>
-                <section name="QuickShipSection" condition="isOutgoing || isTransfer">
+                <section name="QuickShipSection" condition="isOutgoing">
                     <widgets>
                         <link url="quickShipment" text="Quick Ship" link-type="hidden-form-link" btn-type="success"/>
                     </widgets>
@@ -415,17 +415,20 @@ along with this software (see the LICENSE.md file). If not, see
                                       parameter-map="[facilityId:firstRouteSegment.originFacilityId]"/>
                             </conditional-field>
                         </field>
-                        <!--<field name="destinationFacilityId" from="lastRouteSegment.destinationFacilityId">
+                        <field name="destinationFacilityId" from="lastRouteSegment.destinationFacilityId">
                             <conditional-field title="Destination Facility" condition="(isIncoming || isTransfer) &amp;&amp; allowUpdate">
-                                <drop-down><list-options list="facilityList" key="${facilityId}" text="FacilityNameTemplate"/></drop-down>
+                                <drop-down>
+                                    <option key=""/>
+                                    <list-options list="facilityList" key="${facilityId}" text="FacilityNameTemplate"/>
+                                </drop-down>
                                 <link url="editFacility" text="${ec.resource.expand('FacilityNameTemplate', '', destinationFacility)}" link-type="anchor"
-                                      parameter-map="[facilityId:lastRouteSegment.destinationFacilityId]"/>
+                                      parameter-map="[facilityId:lastRouteSegment.destinationFacilityId]" condition="destinationFacility"/>
                             </conditional-field>
                             <conditional-field title="Destination Facility" condition="isIncoming || isTransfer">
                                 <link url="editFacility" text="${ec.resource.expand('FacilityNameTemplate', '', destinationFacility)}" link-type="anchor"
                                       parameter-map="[facilityId:lastRouteSegment.destinationFacilityId]"/>
                             </conditional-field>
-                        </field>-->
+                        </field>
 
                         <field name="priority"><default-field><radio no-current-selected-key="5">
                             <option key="1"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
