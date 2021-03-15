@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-title="My Account" default-menu-index="23" menu-image-type="icon" menu-image="manage_accounts">
+
+    <always-actions>
+        <set field="partyId" from="ec.user.userAccount.partyId"/>
+        <set field="userId" from="ec.user.userId"/>
+    </always-actions>
+
+
+    <transition name="updateUser"><service-call name="mantle.party.PartyServices.update#Account" in-map="context"/>
+        <default-response url="."/></transition>
+    <transition name="changePassword"><service-call name="org.moqui.impl.UserServices.update#Password"/>
+        <default-response url="."/><error-response url="."/></transition>
+
+
+    <actions>
+        <entity-find-one entity-name="mantle.party.PersonAndUserAccount" value-field="personAndUserAccount"/>
+        <if condition="personAndUserAccount == null"><set field="personAndUserAccount" from="ec.user.userAccount"/></if>
+
+        <if condition="partyId &amp;&amp; !personAndUserAccount?.emailAddress">
+            <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress" out-map="primaryEmail"
+                          in-map="[partyId:partyId]"/>
+        </if>
+
+        <set field="localeStringList" from="[]"/>
+        <iterate list="Locale.getAvailableLocales()" entry="lcl">
+            <script>if (lcl.toString()) localeStringList.add([locale:lcl.toString(), name:lcl.getDisplayName(ec.user.locale)])</script></iterate>
+        <order-map-list list="localeStringList"><order-by field-name="name"/></order-map-list>
+    </actions>
+
+    <widgets>
+        <container-box>
+            <box-header title="Basic Info"/>
+            <box-toolbar>
+                <container style="row q-gutter-xs">
+                    <container-dialog id="change-password" button-text="Change Password" button-flat="false" button-ouline="false">
+                        <form-single name="ChangePasswordForm" transition="changePassword">
+                            <field name="oldPassword"><default-field><password size="20"/></default-field></field>
+                            <field name="newPassword"><default-field><password size="20"/></default-field></field>
+                            <field name="newPasswordVerify"><default-field><password size="20"/></default-field></field>
+                            <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                        </form-single>
+                    </container-dialog>
+
+                    <container-dialog id="EditUserDialog" button-text="Edit User" button-flat="false" button-ouline="false">
+                        <form-single name="EditUser" transition="updateUser" map="personAndUserAccount">
+                            <field name="userId"><default-field><hidden/></default-field></field>
+                            <!-- NOTE: don't allow username change, too easy to fish for existing usernames -->
+                            <field name="username"><default-field><display/></default-field></field>
+                            <field name="firstName"><default-field><text-line size="15"/></default-field></field>
+                            <field name="middleName"><default-field><text-line size="15"/></default-field></field>
+                            <field name="lastName"><default-field><text-line size="15"/></default-field></field>
+                            <field name="emailAddress" from="emailAddress ?: primaryEmail?.emailAddress"><default-field><text-line/></default-field></field>
+
+                            <field name="locale"><default-field>
+                                <drop-down allow-empty="true"><list-options list="localeStringList" key="${locale}" text="${name}"/></drop-down>
+                            </default-field></field>
+                            <field name="timeZone"><default-field>
+                                <drop-down allow-empty="true"><list-options list="new TreeSet(TimeZone.getAvailableIDs().collect())"/></drop-down>
+                            </default-field></field>
+
+                            <field name="submitButton"><default-field title="Update" container-style="row justify-end"><submit/></default-field></field>
+                        </form-single>
+                    </container-dialog>
+                </container>
+            </box-toolbar>
+            <box-body>
+                <form-single name="ViewUser" map="personAndUserAccount">
+                    <field name="userId"><default-field><display/></default-field></field>
+                    <!-- NOTE: don't allow username change, too easy to fish for existing usernames -->
+                    <field name="username"><default-field><display/></default-field></field>
+                    <field name="firstName"><default-field><display/></default-field></field>
+                    <field name="middleName"><default-field><display/></default-field></field>
+                    <field name="lastName"><default-field><display/></default-field></field>
+                    <field name="emailAddress" from="emailAddress ?: primaryEmail?.emailAddress"><default-field><display/></default-field></field>
+
+                    <field name="locale"><default-field><display text="${ec.user.locale.getDisplayName()}"/></default-field></field>
+                    <field name="timeZone"><default-field><display/></default-field></field>
+                    <field-layout>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="username"/></field-col>
+                            <field-col md="3"><field-ref name="firstName"/></field-col>
+                            <field-col md="3"><field-ref name="lastName"/></field-col>
+                            <field-col md="3"><field-ref name="emailAddress"/></field-col>
+                        </field-col-row>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="userId"/></field-col>
+                            <field-col md="3"><field-ref name="firstName"/></field-col>
+                            <field-col md="3"><field-ref name="locale"/></field-col>
+                            <field-col md="3"><field-ref name="timeZone"/></field-col>
+                        </field-col-row>
+                    </field-layout>
+                </form-single>
+
+            </box-body>
+        </container-box>
+    </widgets>
+</screen>
