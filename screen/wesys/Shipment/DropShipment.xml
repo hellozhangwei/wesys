@@ -45,7 +45,9 @@ along with this software (see the LICENSE.md file). If not, see
 
     </actions>
     <widgets>
-        <container style="row justify-end q-gutter-sm">
+        <container style="row q-mb-md q-gutter-xs">
+            <label text="Drop Shipment List" style="text-h3" />
+            <container type="q-space"/>
             <container-dialog id="NewOutgoingShipmentDialog" button-text="New Drop Shipment" button-outline="false"  button-flat="false">
                 <form-single name="NewOutgoingShipment" transition="createShipment">
                     <field name="shipmentTypeEnumId"><default-field><hidden/></default-field></field>

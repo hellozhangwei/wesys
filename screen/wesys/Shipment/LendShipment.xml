@@ -46,7 +46,9 @@ along with this software (see the LICENSE.md file). If not, see
 
     </actions>
     <widgets>
-        <container style="row justify-end q-gutter-sm">
+        <container style="row q-mb-md q-gutter-xs">
+            <label text="Lend Shipment List" style="text-h3" />
+            <container type="q-space"/>
 
             <container-dialog id="NewTransferShipmentDialog" button-text="New Lend Shipment" button-outline="false"  button-flat="false">
                 <label text="The shipment will be transferred to Lend Dest Virtual Warehouse[WH_LEND_DEST]" type="p"/>

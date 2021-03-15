@@ -46,8 +46,9 @@ along with this software (see the LICENSE.md file). If not, see
 
     </actions>
     <widgets>
-        <container style="row justify-end q-gutter-sm">
-            <container-dialog id="NewTransferShipmentDialog" button-text="New Transfer Shipment" button-outline="false"  button-flat="false">
+        <container style="row q-mb-md q-gutter-xs">
+            <label text="Transfer Shipment List" style="text-h3" />
+            <container type="q-space"/>            <container-dialog id="NewTransferShipmentDialog" button-text="New Transfer Shipment" button-outline="false"  button-flat="false">
                 <form-single name="NewTransferShipment" transition="createShipment">
                     <field name="shipmentTypeEnumId" from="shipmentTypeEnumId"><default-field><hidden/></default-field></field>
                     <field name="originFacilityId" from="originFacilityId ?: defaultFacilityId"><default-field title="Origin Facility">

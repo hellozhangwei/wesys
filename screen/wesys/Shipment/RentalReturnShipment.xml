@@ -46,7 +46,7 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
         <container style="row q-mb-md q-gutter-xs">
-            <label text="Sales Return Shipment List" style="text-h3" />
+            <label text="Rental Return Shipment List" style="text-h3" />
             <container type="q-space"/>
             <container-dialog id="NewIncomingShipmentDialog" button-text="New Sales Return Shipment" button-outline="false"  button-flat="false">
                 <form-single name="NewIncomingShipment" transition="createShipment">
