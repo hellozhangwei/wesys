@@ -64,7 +64,7 @@ along with this software (see the LICENSE.md file). If not, see
         <form-list name="CustomerListForm" list="documentList" skip-form="true" header-dialog="true" saved-finds="true"
                    show-xlsx-button="true" show-csv-button="true" show-page-size="true">
             <field name="pseudoId">
-                <header-field title="客户ID" show-order-by="true"><text-line size="20"/></header-field>
+                <header-field title="Customer ID" show-order-by="true"><text-line size="20"/></header-field>
                 <default-field><link url="editCustomer" text="${pseudoId}" link-type="anchor"/></default-field>
             </field>
 <!--            <field name="combinedName"><default-field title="客户名称"><link url="editCustomer" text="PartyNameOnlyTemplate" text-map="party" link-type="anchor"/></default-field></field>-->
@@ -77,7 +77,7 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="lastName"><header-field title="名"><text-line size="40"/></header-field></field>
 
              <field name="combinedName">
-                <header-field title="客户名称" show-order-by="true"><text-line size="40"/></header-field>
+                <header-field title="Customer Name" show-order-by="true"><text-line size="40"/></header-field>
                 <default-field><link url="editCustomer" text="PartyNameOnlyTemplate" link-type="anchor"/></default-field>
             </field>
             <!--<field name="username">
@@ -86,7 +86,7 @@ along with this software (see the LICENSE.md file). If not, see
             </field>-->
             <field name="anyField"><header-field><text-line size="80"/></header-field></field>
             <field name="roleTypeId">
-                <header-field title="客户角色">
+                <header-field title="Customer Role">
                     <drop-down allow-empty="true"><entity-options key="${roleTypeId}" text="${description}">
                         <entity-find entity-name="mantle.party.RoleType">
                             <order-by field-name="description"/></entity-find>
@@ -95,13 +95,13 @@ along with this software (see the LICENSE.md file). If not, see
                 <default-field><display text="${roles ? roles*.role.join(', ') : ''}"/></default-field>
             </field>
 
-            <field name="classificationTypeEnumId"><header-field title="客户类型">
+            <field name="classificationTypeEnumId"><header-field title="Customer Class">
                 <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
                     <set field="enumTypeId" value="PartyClassificationType"/>
                     <set field="allowEmpty" value="true"/></widget-template-include>
             </header-field></field>
             <field name="partyClassificationId">
-                <header-field title="客户类型">
+                <header-field title="Customer Class">
                     <drop-down allow-empty="true"><dynamic-options transition="getPartyClassificationList"
                                                                    value-field="partyClassificationId" label-field="description">
                         <depends-on field="classificationTypeEnumId"/></dynamic-options></drop-down>
@@ -110,11 +110,11 @@ along with this software (see the LICENSE.md file). If not, see
             </field>
 
             <field name="disabled">
-                <header-field title="禁用状态"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></header-field>
+                <header-field title="Disabled"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></header-field>
                 <default-field><display/></default-field>
             </field>
             <field name="hasDuplicates">
-                <header-field title="重复标记"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></header-field>
+                <header-field title="Dups"><drop-down allow-empty="true"><option key="Y"/><option key="N"/></drop-down></header-field>
                 <default-field><display/></default-field>
             </field>
 
@@ -139,7 +139,7 @@ along with this software (see the LICENSE.md file). If not, see
             <field name="submitButton">
                 <header-field title="Find" container-style="row justify-end"><submit/></header-field>
                 <default-field>
-                    <link url="findOrder" text="销售订单" parameter-map="[customerPartyId:partyId]" link-type="anchor"/>
+                    <link url="findOrder" text="FindSalesOrdersLink" parameter-map="[customerPartyId:partyId]" link-type="anchor"/>
                 </default-field>
             </field>
         </form-list>
