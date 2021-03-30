@@ -44,18 +44,18 @@ along with this software (see the LICENSE.md file). If not, see
             <label text="Customer List" style="text-h3" />
             <container type="q-space"/>
 
-            <container-dialog id="CreatePersonDialog" button-text="新建个人客户" button-outline="false" button-flat="false">
+            <container-dialog id="CreatePersonDialog" button-text="New Person Customer" button-outline="false" button-flat="false">
                 <form-single name="CreatePersonForm" transition="createPersonCustomer"
                         extends="component://SimpleScreens/screen/SimpleScreens/Party/FindParty.xml#CreatePersonCustForm">
                     <field name="roleTypeId"><default-field><hidden/></default-field></field>
                 </form-single>
             </container-dialog>
 
-            <container-dialog id="CreateAccountDialog" button-text="新建公司客户" button-outline="false" button-flat="false">
+            <container-dialog id="CreateAccountDialog" button-text="New Sales Account" button-outline="false" button-flat="false">
                 <form-single name="CreateAccountForm" transition="createAccount"
                         extends="component://SimpleScreens/screen/SimpleScreens/Party/FindParty.xml#CreateAccountForm"/>
             </container-dialog>
-            <container-dialog id="CreateContactDialog" button-text="新建联系人" button-outline="false" button-flat="false">
+            <container-dialog id="CreateContactDialog" button-text="New Sales Contact" button-outline="false" button-flat="false">
                 <form-single name="CreateContactForm" transition="createContact"
                         extends="component://SimpleScreens/screen/SimpleScreens/Party/FindParty.xml#CreateContactForm"/>
             </container-dialog>
