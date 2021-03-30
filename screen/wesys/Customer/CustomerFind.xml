@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" default-menu-title="客户列表">
+        default-menu-include="false" default-menu-title="Customer List">
 
     <transition name="editCustomer"><default-response url="../CustomerView"/></transition>
     <transition name="findOrder"><default-response url="../../SalesOrder/SalesOrderFind"/></transition>
@@ -41,7 +41,7 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
         <container style="row q-mb-md q-gutter-xs">
-            <label text="客户列表" style="text-h3" />
+            <label text="Customer List" style="text-h3" />
             <container type="q-space"/>
 
             <container-dialog id="CreatePersonDialog" button-text="新建个人客户" button-outline="false" button-flat="false">

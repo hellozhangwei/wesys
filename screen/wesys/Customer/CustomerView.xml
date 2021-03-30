@@ -156,7 +156,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <q-btn flat @click.stop color="secondary" label="运单" icon="build" size="xs" />
                     ]]></text>
                 </render-mode>-->
-                <link url="findRequest" text="Requests" badge="${requestCount}" parameter-map="[partyId:partyId]" btn-type="secondary" button-outline="false" button-flat="true"/>
+                <link url="findRequest" link-type="anchor-button" text="Requests" badge="${requestCount}" parameter-map="[partyId:partyId]" btn-type="secondary" button-outline="false" button-flat="true"/>
                 <vertical-separator/>
                 <link url="findOrder" text="Orders" badge="${customerOrderPartCount}" parameter-map="[customerPartyId:partyId]" btn-type="secondary" button-outline="false" button-flat="true"/>
                 <vertical-separator/>
