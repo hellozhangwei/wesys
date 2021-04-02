@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" default-menu-title="产品列表" server-static="qvt">
+        default-menu-include="false" default-menu-title="产品列表">
 
     <transition name="editProduct"><default-response url="../EditProduct"/></transition>
     <transition name="createProduct"><service-call name="create#mantle.product.Product"/>
