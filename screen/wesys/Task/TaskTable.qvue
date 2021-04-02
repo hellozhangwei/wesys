@@ -9,6 +9,7 @@
         :loading="loading"
         :filter="filter"
         @request="onRequest"
+        :rows-per-page-options="[10,20,50,100,200,500]"
         binary-state-sort
         flat
         bordered
@@ -31,7 +32,7 @@
             return {
                 filter: "",
                 loading: false,
-                pagination: {sortBy: "workEffortId", descending: false, page: 1, rowsPerPage: 5, rowsNumber: 0},
+                pagination: {sortBy: "workEffortId", descending: false, page: 1, rowsPerPage: 10, rowsNumber: 0},
                 // pagination: {sortBy: "workEffortId", descending: false, page: 1, rowsPerPage: 5},
                 columns: [
                     {name: "workEffortId", required: true, label: "Task ID", align: "left", field: 'workEffortId', format: (val) => `${val}`, sortable: true},
