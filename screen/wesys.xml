@@ -45,7 +45,7 @@ along with this software (see the LICENSE.md file). If not, see
 <!--        <subscreens-item name="Manufacturing" location="component://SimpleScreens/screen/SimpleScreens/Manufacturing.xml" menu-index="9" menu-title="生产管理"/>-->
 
 <!--        <subscreens-item name="Party" location="component://SimpleScreens/screen/SimpleScreens/Party.xml" menu-index="11" menu-title="员工管理"/>-->
-        <subscreens-item name="Task" location="component://SimpleScreens/screen/SimpleScreens/Project.xml" menu-index="12" menu-title="ProjectTitle"/>
+<!--        <subscreens-item name="Task" location="component://SimpleScreens/screen/SimpleScreens/Project.xml" menu-index="12" menu-title="ProjectTitle"/>-->
 
         <!--<subscreens-item name="Return" location="component://SimpleScreens/screen/SimpleScreens/Return.xml" menu-index="10"/>-->
         <!--<subscreens-item name="Shipment" location="component://SimpleScreens/screen/SimpleScreens/Shipment.xml" menu-index="13" menu-title="出库入库"/>-->

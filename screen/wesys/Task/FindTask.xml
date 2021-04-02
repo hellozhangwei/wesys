@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-include="false" default-menu-title="Find Task">
+
+
+    <transition name="findTask" read-only="true">
+        <actions>
+            <log message="========findTask============="/>
+<!--            <set field="pageSize" from="3"/>-->
+            <entity-find entity-name="mantle.work.effort.PartyTaskSummary" list="taskList">
+                <search-form-inputs default-order-by="priority,workEffortId">
+                    <default-parameters statusId="WeInPlanning,WeApproved,WeInProgress,WeOnHold,WeComplete" statusId_op="in"/>
+                </search-form-inputs>
+                <econdition field-name="workEffortTypeEnumId" value="WetTask"/>
+<!--                <econdition field-name="rootWorkEffortId" operator="in" from="myProjectIds" or-null="true"/>-->
+                <select-field field-name="rootWorkEffortId,milestoneWorkEffortId,parentWorkEffortId,workEffortId"/>
+                <select-field field-name="workEffortName,priority,purposeEnumId,statusId,resolutionEnumId"/>
+                <select-field field-name="estimatedCompletionDate,estimatedWorkTime,remainingWorkTime,actualWorkTime,lastUpdatedStamp"/>
+            </entity-find>
+            <log message="========findTask=======${taskList.size()}======"/>
+            <log message="========taskListPageIndex=======${taskListPageIndex}======"/>
+            <log message="========taskListPageSize=======${taskListPageSize}======"/>
+            <log message="========taskListPageMaxIndex=======${taskListPageMaxIndex}======"/>
+
+            <script>
+                def responseMap = [:]
+                responseMap.taskList = taskList
+                responseMap.taskListCount = taskListCount
+                responseMap.taskListPageIndex = taskListPageIndex
+                responseMap.taskListPageSize = taskListPageSize
+                responseMap.taskListPageMaxIndex = taskListPageMaxIndex
+                responseMap.taskListPageRangeLow = taskListPageRangeLow
+                responseMap.taskListPageRangeHigh = taskListPageRangeHigh
+                ec.web.sendJsonResponse(responseMap)
+
+            </script>
+        </actions>
+        <default-response type="none"/>
+    </transition>
+    <widgets>
+<!--        <label text="xxx"/>-->
+<!--        <label text="xxx"/>-->
+        <dynamic-container id="TaskTableContainer" transition="../TaskTable.qvue" />
+    </widgets>
+</screen>

@@ -1,0 +1,95 @@
+<template>
+  <div class="q-pa-md">
+    <q-table
+        title="Treats"
+        :data="data"
+        :columns="columns"
+        row-key="id"
+        :pagination.sync="pagination"
+        :loading="loading"
+        :filter="filter"
+        @request="onRequest"
+        binary-state-sort
+    >
+      <template v-slot:top-right>
+        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+      </template>
+
+    </q-table>
+  </div>
+</template>
+
+<script>
+    module.exports = {
+        data () {
+            return {
+                filter: "",
+                loading: false,
+                pagination: {sortBy: "workEffortId", descending: false, page: 1, rowsPerPage: 5, rowsNumber: 10},
+                columns: [
+                    {name: "workEffortId", required: true, label: "Task ID", align: "left", field: 'workEffortId', format: (val) => `${val}`, sortable: true},
+                    {name: "workEffortName",align: "center",label: "Task Name", field: "workEffortName",sortable: true},
+                    { name: "rootWorkEffortId", label: "Project", field: "rootWorkEffortId", sortable: true },
+                    { name: "statusId", label: "Status", field: "statusId", sortable: true },
+                    {name: "lastUpdatedStamp", label: "Date", field: "lastUpdatedStamp",format: (val) => `${Quasar.utils.date.formatDate(val, 'YYYY-MM-DD HH:mm:ss')}`, sortable: true},
+                    {name: "sodium", label: "Assignee", field: "sodium", sortable: true},
+                    {name: "description", label: "Description", field: "description", sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)},
+                    {name: "facilityId", label: "Facility", field: "facilityId", sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)}
+                ],
+                data: [],
+            };
+            },
+        mounted () {
+            // get initial data from server (1st page)
+            this.onRequest({pagination: this.pagination, filter: undefined})
+        },
+        methods: {
+            onRequest (props) {
+                const { page, rowsPerPage, sortBy, descending } = props.pagination
+                const filter = props.filter
+
+                var vm = this
+                vm.loading = true
+
+                console.log('-------page--------------' + page)
+                console.log('-------filter--------------' + filter)
+                console.log('-------sortBy--------------' + sortBy)
+                console.log('-------descending--------------' + descending)
+
+                $.ajax({ type:"GET",
+                    url:'/wesys/Task/FindTask/findTask',
+                    dataType:"json",
+                    headers:{Accept:'application/json'},
+                    data: {
+                      pageSize:rowsPerPage,
+                      pageIndex:(page - 1),
+                      orderByField:sortBy
+                    },
+                    error:function (){
+                      console.log('-------error--------------')
+                      vm.loading = false
+                    },
+                    success: function(response, status, jqXHR) {
+                        console.log('-------findTask--509-----response.taskListCount-------' + response.taskListCount)
+                        vm.pagination.rowsNumber = response.taskListCount
+
+                        vm.pagination.rowsPerPage = response.taskListPageSize
+                        vm.pagination.page = response.taskListPageIndex + 1
+                        //vm.pagination.sortBy = sortBy
+                        //vm.pagination.descending = descending
+                        console.log('-------vm.pagination.page--------------' + vm.pagination.page)
+
+                        vm.data = response.taskList
+
+                        vm.loading = false
+                    }
+                  });
+            },
+
+        }
+    };
+</script>
