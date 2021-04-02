@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <q-table
-        title="Treats"
+        title="Task List"
         :data="data"
         :columns="columns"
         row-key="id"
@@ -10,6 +10,8 @@
         :filter="filter"
         @request="onRequest"
         binary-state-sort
+        flat
+        bordered
     >
       <template v-slot:top-right>
         <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
@@ -29,7 +31,8 @@
             return {
                 filter: "",
                 loading: false,
-                pagination: {sortBy: "workEffortId", descending: false, page: 1, rowsPerPage: 5, rowsNumber: 10},
+                pagination: {sortBy: "workEffortId", descending: false, page: 1, rowsPerPage: 5, rowsNumber: 0},
+                // pagination: {sortBy: "workEffortId", descending: false, page: 1, rowsPerPage: 5},
                 columns: [
                     {name: "workEffortId", required: true, label: "Task ID", align: "left", field: 'workEffortId', format: (val) => `${val}`, sortable: true},
                     {name: "workEffortName",align: "center",label: "Task Name", field: "workEffortName",sortable: true},
@@ -48,6 +51,7 @@
             this.onRequest({pagination: this.pagination, filter: undefined})
         },
         methods: {
+            //changing page index, changing page size, sorting, searching will call this method
             onRequest (props) {
                 const { page, rowsPerPage, sortBy, descending } = props.pagination
                 const filter = props.filter
@@ -55,10 +59,13 @@
                 var vm = this
                 vm.loading = true
 
-                console.log('-------page--------------' + page)
-                console.log('-------filter--------------' + filter)
-                console.log('-------sortBy--------------' + sortBy)
-                console.log('-------descending--------------' + descending)
+                console.log('----onRequest---page--------------' + page)
+                console.log('----onRequest---filter--------------' + filter)
+                console.log('----onRequest---sortBy--------------' + sortBy)
+                console.log('-----onRequest--descending--------------' + descending)
+                vm.pagination.sortBy = sortBy
+                vm.pagination.descending = descending
+                var orderByField = (descending?'-':'') + sortBy
 
                 $.ajax({ type:"GET",
                     url:'/wesys/Task/FindTask/findTask',
@@ -67,22 +74,16 @@
                     data: {
                       pageSize:rowsPerPage,
                       pageIndex:(page - 1),
-                      orderByField:sortBy
+                      orderByField:orderByField
                     },
                     error:function (){
                       console.log('-------error--------------')
                       vm.loading = false
                     },
                     success: function(response, status, jqXHR) {
-                        console.log('-------findTask--509-----response.taskListCount-------' + response.taskListCount)
                         vm.pagination.rowsNumber = response.taskListCount
-
                         vm.pagination.rowsPerPage = response.taskListPageSize
                         vm.pagination.page = response.taskListPageIndex + 1
-                        //vm.pagination.sortBy = sortBy
-                        //vm.pagination.descending = descending
-                        console.log('-------vm.pagination.page--------------' + vm.pagination.page)
-
                         vm.data = response.taskList
 
                         vm.loading = false
