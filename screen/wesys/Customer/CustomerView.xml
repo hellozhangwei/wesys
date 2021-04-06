@@ -230,8 +230,8 @@ along with this software (see the LICENSE.md file). If not, see
                     <field name="gatewayCimId"><default-field title="网关ID"><display/></default-field></field>
                     <field name="externalId"><default-field title="外部ID"><display/></default-field></field>
                     <field name="ownerPartyId"><default-field title="拥有者"><display/></default-field></field>
-                    <field name="comments"><default-field title="备注"><text-area rows="1" cols="120" read-only="true"/></default-field></field>
-                    <field name="shippingInstructions"><default-field title="配送说明"><text-area rows="1" cols="120" read-only="true"/></default-field></field>
+                    <field name="comments"><default-field title="备注"><display/></default-field></field>
+                    <field name="shippingInstructions"><default-field title="配送说明"><display/></default-field></field>
 
                     <field-layout>
                         <field-ref name="hasDuplicates"/>
