@@ -23,8 +23,8 @@ along with this software (see the LICENSE.md file). If not, see
 
     <transition-include name="searchPartyList" location="component://SimpleScreens/template/party/PartyForms.xml"/>
 
-    <transition name="updateParty"><service-call name="mantle.party.PartyServices.update#PartyDetail"/>
-        <default-response url="."/></transition>
+    <transition name="updateParty"><service-call name="mantle.party.PartyServices.update#PartyDetail" web-send-json-response="true"/>
+        <default-response type="none"/></transition>
 
     <transition name="createPartyRole"><service-call name="create#mantle.party.PartyRole"/><default-response url="."/></transition>
     <transition name="deletePartyRole"><service-call name="delete#mantle.party.PartyRole"/><default-response url="."/></transition>
@@ -217,7 +217,8 @@ along with this software (see the LICENSE.md file). If not, see
                 </render-mode>
             </box-toolbar>
             <box-body>
-                <form-single name="CustomerViewForm" map="party">
+                <dynamic-container id="CustomerBasicContainer" transition="../CustomerBasic" parameter-map="[partyId:partyId]"/>
+                <!--<form-single name="CustomerViewForm" map="party">
                     <field name="hasDuplicates">
                         <default-field>
                             <section-include name="HasDuplicatesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
@@ -250,7 +251,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field-ref name="comments"/>
                         <field-ref name="shippingInstructions"/>
                     </field-layout>
-                </form-single>
+                </form-single>-->
             </box-body>
         </container-box>
         <container-row><row-col lg="6">

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-include="false" standalone="true">
+
+    <parameter name="partyId" required="true"/>
+
+    <actions>
+        <entity-find-one entity-name="mantle.party.PartyDetail" value-field="party"/>
+        <if condition="party == null"><return error="true" message="Customer not found with ID ${partyId}"/></if>
+    </actions>
+    <widgets>
+        <form-single name="CustomerViewForm" map="party">
+            <field name="hasDuplicates">
+                <default-field>
+                    <section-include name="HasDuplicatesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+                </default-field>
+            </field>
+            <field name="pseudoId"><default-field title="客户ID"><display/></default-field></field>
+            <field name="customerName"><default-field title="客户名称"><display text="${ec.resource.expand('PartyNameOnlyTemplate','',party)}"/></default-field></field>
+
+            <field name="disabled"><default-field title="禁用状态"><display/></default-field></field>
+            <field name="gatewayCimId"><default-field title="网关ID"><display/></default-field></field>
+            <field name="externalId"><default-field title="外部ID"><display/></default-field></field>
+            <field name="ownerPartyId"><default-field title="拥有者"><display/></default-field></field>
+            <field name="comments"><default-field title="备注"><display/></default-field></field>
+            <field name="shippingInstructions"><default-field title="配送说明"><display/></default-field></field>
+
+            <field-layout>
+                <field-ref name="hasDuplicates"/>
+
+                <field-col-row>
+                    <field-col md="3"><field-ref name="pseudoId"/></field-col>
+                    <field-col md="3"><field-ref name="customerName"/></field-col>
+                    <field-col md="3"><field-ref name="externalId"/></field-col>
+                    <field-col md="3"><field-ref name="gatewayCimId"/></field-col>
+                </field-col-row>
+                <field-col-row>
+                    <field-col md="3"><field-ref name="ownerPartyId"/></field-col>
+                    <field-col md="3"><field-ref name="disabled"/></field-col>
+                </field-col-row>
+
+                <field-ref name="comments"/>
+                <field-ref name="shippingInstructions"/>
+            </field-layout>
+        </form-single>
+    </widgets>
+</screen>

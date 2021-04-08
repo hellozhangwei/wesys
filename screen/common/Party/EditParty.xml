@@ -23,7 +23,7 @@ along with this software (see the LICENSE.md file). If not, see
     <transition name="findPayment"><default-response url="//${appRoot}/Accounting/Payment/FindPayment"/></transition>
     <transition name="findRequest"><default-response url="//${appRoot}/Request/FindRequest"/></transition>
 
-    <transition name="systemUserAccount"><default-response url="//system/Security/UserAccount/UserAccountDetail"/></transition>
+    <transition name="systemUserAccount"><default-response url="//${appRoot}/system/Security/UserAccount/UserAccountDetail"/></transition>
 
     <transition-include name="searchPartyList" location="component://SimpleScreens/template/party/PartyForms.xml"/>
 
@@ -295,7 +295,10 @@ along with this software (see the LICENSE.md file). If not, see
                     <field name="submitButton"><default-field title="Update Organization"><submit/></default-field></field>
                 </form-single>
             </widgets><fail-widgets>
-                <form-single name="EditPersonForm" map="party" transition="updateParty">
+                <form-single name="EditPersonForm" map="party" transition="updateParty"
+                             background-submit="true"
+                             background-reload-id="CustomerBasicContainer"
+                             background-message="Update successful!!!" open-in-dialog="true">
                     <field name="partyId"><default-field><hidden/></default-field></field>
                     <field name="pseudoId"><default-field title="ID"><text-line size="15"/></default-field></field>
                     <field name="firstName"><default-field><text-line size="30"/></default-field></field>
@@ -825,8 +828,8 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="partyId"/><order-by field-name="-noteDate"/></entity-find>
             </actions><widgets>
                 <container-box initial="closed"><box-header title="Notes"/><box-toolbar>
-                    <container-dialog id="NewNoteDialog" button-text="Add Note"  button-outline="false" button-flat="true" type="secondary" button-size="sm" button-style="no-border-radius">
-                        <form-single name="NewNoteForm" transition="createPartyNote">
+                    <container-dialog id="NewNoteDialog" button-text="Add Note" type="secondary" button-size="sm" button-style="no-border-radius">
+                        <form-single name="NewNoteForm" transition="createPartyNote" background-submit="true" background-reload-id="PartyNoteListContainer">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="noteText"><default-field title="Note"><text-area cols="60" rows="6"/></default-field></field>
                             <field name="submitButton"><default-field title="Add Note"><submit/></default-field></field>
@@ -843,7 +846,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <q-separator  vertical style="height:20px" class="self-center" ></q-separator>
                         <q-btn size="xs" flat no-caps label="Four" color="secondary" class="no-border-radius" ></q-btn>
                         <q-separator vertical style="height:20px" class="self-center" ></q-separator>
-                        <q-btn size="xs" rounded="false" flat no-caps label="Five" color="secondary" class="no-border-radius" ></q-btn>
+                        <!--<q-btn size="xs" rounded="false" flat no-caps label="Five" color="secondary" class="no-border-radius" ></q-btn>-->
                         <q-separator vertical style="height:20px" class="self-center" ></q-separator>
                         <q-btn size="xs" dense color="grey-7" round flat icon="more_vert" @click.stop>
                             <q-menu auto-close>
