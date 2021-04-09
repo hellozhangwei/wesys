@@ -88,8 +88,11 @@ along with this software (see the LICENSE.md file). If not, see
         <default-response url="."/></transition>
     <transition-include name="getContactMechPurposesByType" location="component://SimpleScreens/template/party/PartyForms.xml"/>
 
-    <transition name="createPartyNote"><service-call name="create#mantle.party.PartyNote"/><default-response url="."/></transition>
-    <transition name="updatePartyNote"><service-call name="update#mantle.party.PartyNote"/><default-response url="."/></transition>
+    <transition name="createPartyNote"><service-call name="create#mantle.party.PartyNote"/>
+        <default-response url="." parameter-map="[_expandBox:'NoteListBox']"/></transition>
+
+    <transition name="updatePartyNote"><service-call name="update#mantle.party.PartyNote"/>
+        <default-response url="." parameter-map="[_expandBox:'NoteListBox']"/></transition>
 
     <transition-include name="createContent" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
     <transition-include name="updateContent" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
