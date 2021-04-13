@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false">
+        default-menu-include="false" default-menu-title="Find Supplier">
 
     <transition name="editSupplier"><default-response url="../EditSupplier"/></transition>
     <transition name="findOrder"><default-response url="../../Order/FindOrder"/></transition>
@@ -33,7 +33,7 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
         <container style="row q-mb-md q-gutter-xs">
-            <label text="供应商列表" style="text-h3" />
+            <label text="Find Supplier" style="text-h3" />
             <container type="q-space"/>
             <container-dialog id="CreatePersonDialog" button-text="新建个人供应商" button-outline="false" button-flat="false">
                 <form-single name="CreatePersonForm" transition="createPerson"
