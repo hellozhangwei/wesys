@@ -420,11 +420,11 @@ along with this software (see the LICENSE.md file). If not, see
                     <set field="partyIdTypeEnumIds" from="partyIdentificationList.partyIdTypeEnumId"/>
             </actions><widgets>
                 <container-box initial="closed"><box-header title="Identification"/><box-toolbar>
-                    <container-dialog id="AddIdentificationDialog" button-text="Add Identification" button-size="sm" button-outline="false" button-flat="true" type="secondary">
+                    <container-dialog id="AddIdentificationDialog" button-text="Add Identification" title="Add Party Identification" type="secondary">
                         <form-single name="AddIdentificationForm" transition="createPartyIdentification">
                             <field name="partyId"><default-field><hidden/></default-field></field>
-                            <field name="partyIdTypeEnumId"><default-field title="ID Type">
-                                <drop-down>
+                            <field name="partyIdTypeEnumId"><default-field title="Party ID Type">
+                                <drop-down allow-empty="true">
                                     <entity-options key="${enumId}" text="${description}">
                                         <entity-find entity-name="moqui.basic.Enumeration">
                                             <econdition field-name="enumTypeId" value="PartyIdType"/>
@@ -434,9 +434,9 @@ along with this software (see the LICENSE.md file). If not, see
                                     </entity-options>
                                 </drop-down>
                             </default-field></field>
-                            <field name="idValue"><default-field><text-line size="20"/></default-field></field>
+                            <field name="idValue"><default-field title="Party ID Value"><text-line size="20"/></default-field></field>
                             <field name="expireDate"><default-field><date-time type="date"/></default-field></field>
-                            <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+                            <field name="submitButton"><default-field title="Add" container-style="row justify-end"><submit/></default-field></field>
                         </form-single>
                     </container-dialog>
                 </box-toolbar><box-body-nopad>
@@ -447,9 +447,9 @@ along with this software (see the LICENSE.md file). If not, see
                         </default-field></field>
                         <field name="idValue"><default-field><text-line size="20"/></default-field></field>
                         <field name="expireDate"><default-field><date-time type="date"/></default-field></field>
-                        <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
+                        <field name="submitButton"><default-field title="Update"><submit button-flat="true" type="info"/></default-field></field>
                         <field name="removeButton"><default-field title="">
-                            <link url="deletePartyIdentification" text=" " icon="fa fa-trash" confirmation="Delete this ID?"/>
+                            <link url="deletePartyIdentification" text=" " icon="fa fa-trash" confirmation="Delete this ID?" btn-type="info"/>
                         </default-field></field>
                     </form-list>
                 </box-body-nopad></container-box>
@@ -500,7 +500,7 @@ along with this software (see the LICENSE.md file). If not, see
                     </button-menu>
 
                 </box-toolbar><box-body-nopad>
-                    <form-list name="SettingsForm" list="settingList" transition="deletePartySetting" skip-header="true">
+                    <form-list name="SettingsForm" list="settingList" transition="deletePartySetting">
                         <row-actions>
                             <entity-find-one entity-name="moqui.basic.Enumeration" value-field="valueEnum">
                                 <field-map field-name="enumId" from="settingValue"/></entity-find-one>
@@ -511,7 +511,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field name="settingValue"><default-field title="Value">
                             <display text="${valueEnum ? valueEnum.description : settingValue}"/></default-field></field>
                         <field name="submitButton"><default-field title="">
-                            <submit icon="fa fa-trash" confirmation="Really delete setting?"/></default-field></field>
+                            <submit icon="fa fa-trash" confirmation="Really delete setting?" button-flat="true" button-size="sm"/></default-field></field>
                     </form-list>
                 </box-body-nopad></container-box>
             </widgets></section>
