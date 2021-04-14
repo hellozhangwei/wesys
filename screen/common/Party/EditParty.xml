@@ -526,7 +526,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <link url="enableUserAccount" text="Enable Account" parameter-map="[userId:userAccount.userId]" condition="userAccount.disabled == 'Y'" link-type="hidden-form-link" style="q-pa-xs text-secondary"/>
                     <link url="disableUserAccount" text="Disable Account" parameter-map="[userId:userAccount.userId]" condition="userAccount.disabled != 'Y'" link-type="hidden-form-link" style="q-pa-xs text-secondary"/>
                     <link url="resetPassword" text="Reset Password" parameter-map="[userId:userAccount.userId]" condition="userAccount.emailAddress"
-                            confirmation="Generate reset password and send by email to ${userAccount.emailAddress}?" link-type="hidden-form-link" style="q-pa-xs"/>
+                            confirmation="Generate reset password and send by email to ${userAccount.emailAddress}?" link-type="hidden-form-link" style="q-pa-xs text-secondary"/>
                 </box-toolbar><box-body>
                     <form-single name="UpdateUserAccount" map="userAccount" transition="updateUserAccount">
                         <field name="partyId"><default-field><hidden/></default-field></field>
