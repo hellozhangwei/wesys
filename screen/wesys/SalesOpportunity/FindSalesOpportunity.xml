@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-include="false" default-menu-title="机会列表">
+
+    <transition name="createSalesOpportunity">
+        <service-call name="create#mantle.sales.opportunity.SalesOpportunity"/>
+        <default-response url="../SalesOpportunityView"/>
+    </transition>
+    <actions>
+
+    </actions>
+    <widgets>
+
+        <container style="row  q-mb-md">
+            <label text="机会列表" style="text-h3" />
+            <container type="q-space"/>
+            <container-dialog id="NewRequestContainer" button-text="新建机会" button-outline="false" button-flat="false">
+                <form-single name="NewRequestForm" transition="createSalesOpportunity">
+
+                    <field name="opportunityName"><default-field title="opportunityName"><text-line size="60"/></default-field></field>
+                    <field name="description"><default-field title="Description"><text-area/></default-field></field>
+                    <field name="nextStep"><default-field><text-area /></default-field></field>
+                    <field name="estimatedCloseDate"><default-field title="Close Date"><date-time /></default-field></field>
+                    <field name="opportunityStageId"><default-field title="Initial Stage"><drop-down allow-empty="true" /></default-field></field>
+                    <field name="Source"><default-field title="Source"><drop-down allow-empty="true" /></default-field></field>
+                    <field name="typeEnumId"><default-field title="Type"><drop-down allow-empty="true" /></default-field></field>
+                    <field name="accountPartyId"><default-field title="Account"><drop-down allow-empty="true" /></default-field></field>
+                    <field name="estimatedAmount"><default-field><text-line /></default-field></field>
+                    <field name="estimatedProbability"><default-field title="Probability(%)"><text-line /></default-field></field>
+                    <field name="marketingCampaignId"><default-field><text-line /></default-field></field>
+                    <field name="currencyUomId">
+                        <default-field><drop-down no-current-selected-key="USD"><entity-options key="${uomId}" text="${description} [${uomId}]">
+                        <entity-find entity-name="moqui.basic.Uom">
+                            <econdition field-name="uomTypeEnumId" value="UT_CURRENCY_MEASURE"/>
+                            <order-by field-name="description"/></entity-find></entity-options></drop-down></default-field>
+                    </field>
+
+                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+
+        </container>
+
+        <form-list name="ListOpportunities" list="salesOpportunityList" skip-form="true" header-dialog="true"
+                select-columns="true" saved-finds="true" show-page-size="true">
+            <entity-find entity-name="mantle.sales.opportunity.SalesOpportunity" list="salesOpportunityList" distinct="true">
+                <search-form-inputs default-order-by="salesOpportunityId">
+                </search-form-inputs>
+            </entity-find>
+
+            <field name="salesOpportunityId">
+                <header-field title="Opportunity ID"><text-find size="10" hide-options="true"/></header-field>
+                <default-field><link url="../SalesOpportunityView" text="${salesOpportunityId}" link-type="anchor"/></default-field>
+            </field>
+            <field name="opportunityName">
+                <header-field title="Opportunity Name" show-order-by="true"><text-find size="30"/></header-field>
+                <default-field><link url="editRequest" text="${opportunityName}" link-type="anchor"/></default-field>
+            </field>
+            <field name="opportunityStageId">
+                <default-field><display/></default-field>
+            </field>
+            <field name="accountPartyId">
+                <default-field title="Lead/Account"><display/></default-field>
+            </field>
+            <field name="nextStep">
+                <default-field ><display/></default-field>
+            </field>
+            <field name="estimatedAmount"><default-field><display /></default-field></field>
+            <field name="estimatedCloseDate"><default-field title="Close Date"><display /></default-field></field>
+
+            <field name="submitButton"><header-field container-style="row justify-end" title="Find"><submit/></header-field></field>
+
+        </form-list>
+    </widgets>
+</screen>
