@@ -34,7 +34,7 @@ along with this software (see the LICENSE.md file). If not, see
     
     <widgets>
 
-        <link url="CustomerFind" text="返回客户列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="partyDetail"/>
+        <link url="CustomerFind" text="Return to Customer List" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="partyDetail"/>
 
         <section name="PartyName">
             <condition><expression>partyDetail</expression></condition>

@@ -28,15 +28,15 @@ along with this software (see the LICENSE.md file). If not, see
                     <section-include name="HasDuplicatesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
                 </default-field>
             </field>
-            <field name="pseudoId"><default-field title="客户ID"><display/></default-field></field>
-            <field name="customerName"><default-field title="客户名称"><display text="${ec.resource.expand('PartyNameOnlyTemplate','',party)}"/></default-field></field>
+            <field name="pseudoId"><default-field title="Customer ID"><display/></default-field></field>
+            <field name="customerName"><default-field title="Customer Name"><display text="${ec.resource.expand('PartyNameOnlyTemplate','',party)}"/></default-field></field>
 
-            <field name="disabled"><default-field title="禁用状态"><display/></default-field></field>
-            <field name="gatewayCimId"><default-field title="网关ID"><display/></default-field></field>
-            <field name="externalId"><default-field title="外部ID"><display/></default-field></field>
-            <field name="ownerPartyId"><default-field title="拥有者"><display/></default-field></field>
-            <field name="comments"><default-field title="备注"><text-area read-only="true"/></default-field></field>
-            <field name="shippingInstructions"><default-field title="配送说明"><text-area read-only="true"/></default-field></field>
+            <field name="disabled"><default-field title="Disabled"><display/></default-field></field>
+            <field name="gatewayCimId"><default-field title="CIM ID"><display/></default-field></field>
+            <field name="externalId"><default-field title="External ID"><display/></default-field></field>
+            <field name="ownerPartyId"><default-field title="Owner"><display/></default-field></field>
+            <field name="comments"><default-field title="Comments"><text-area read-only="true"/></default-field></field>
+            <field name="shippingInstructions"><default-field title="Shipping Instructions"><text-area read-only="true"/></default-field></field>
 
             <field-layout>
                 <field-ref name="hasDuplicates"/>

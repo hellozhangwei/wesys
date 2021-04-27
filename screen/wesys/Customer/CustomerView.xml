@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-title="客户详情" default-menu-index="1">
+        default-menu-title="Customer Details" default-menu-index="1">
 
     <parameter name="partyId" required="true"/>
 
@@ -149,7 +149,7 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
         <container-box >
-            <box-header title="基本信息"/>
+            <box-header title="Customer Info"/>
             <box-toolbar>
 <!--                <link url="findRequest" text="Requests"  parameter-map="[partyId:partyId]" link-type="anchor-button"  />-->
 <!--                <link url="findOrder" text="销售订单"  parameter-map="[customerPartyId:partyId]" link-type="anchor-button" style="bg-blue-1 no-border text-grey"/>-->
@@ -167,7 +167,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <!--<link url="." text="运单" icon="build" parameter-map="[toPartyId:partyId]" link-type="anchor-button" style="no-border-radius" btn-type="secondary" button-outline="false" button-flat="true"/>-->
                 <!--<link url="receivableStatement" text="Statement PDF" parameter-map="[toPartyId:partyId]" link-type="anchor"/>-->
                 <vertical-separator/>
-                <container-dialog id="EditCustomerDialog" button-text="编辑" button-style="no-border-radius" button-outline="false" button-flat="true" button-size="sm" type="secondary">
+                <container-dialog id="EditCustomerDialog" button-text="Edit" button-style="no-border-radius" button-outline="false" button-flat="true" button-size="sm" type="secondary">
                     <section-include name="EditPartySection" location="component://wesys/screen/common/Party/EditParty.xml"/>
                 </container-dialog>
                 <vertical-separator/>

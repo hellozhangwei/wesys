@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" default-menu-title="产品列表">
+        default-menu-include="false" default-menu-title="Product List">
 
     <transition name="editProduct"><default-response url="../EditProduct"/></transition>
     <transition name="createProduct"><service-call name="create#mantle.product.Product"/>
@@ -25,9 +25,9 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
         <container style="row q-mb-md">
-            <label text="产品列表" style="text-h3" />
+            <label text="Product List" style="text-h3" />
             <container type="q-space"/>
-            <container-dialog id="NewProductDialog" button-text="新建产品" button-outline="false" button-flat="false">
+            <container-dialog id="NewProductDialog" button-text="New Product" button-outline="false" button-flat="false">
                 <form-single name="NewProductForm" transition="createProduct">
                     <field name="productName"><default-field title="产品名称"><text-line/></default-field></field>
                     <field name="productTypeEnumId"><default-field title="产品类型">
@@ -66,23 +66,23 @@ along with this software (see the LICENSE.md file). If not, see
                 </entity-find>
             </row-actions>
 
-            <field name="image" align="center"><default-field title="图片">
+            <field name="image" align="center"><default-field title="Image">
                 <link url="editProduct" link-type="anchor" parameter-map="[pseudoId:pseudoId]">
                     <image url="/westatic/image/coming-soon.png" url-type="screen" />
                 </link>
             </default-field></field>
 
             <field name="pseudoId">
-                <header-field title="产品ID" show-order-by="case-insensitive"><text-find size="20" default-operator="begins"/></header-field>
+                <header-field title="Product ID" show-order-by="case-insensitive"><text-find size="20" default-operator="begins"/></header-field>
                 <default-field><link url="editProduct" text="${pseudoId}" link-type="anchor"/></default-field>
             </field>
             <field name="productName">
-                <header-field title="产品名称" show-order-by="case-insensitive"><text-find size="25" default-operator="begins"/></header-field>
+                <header-field title="Product Name" show-order-by="case-insensitive"><text-find size="25" default-operator="begins"/></header-field>
                 <default-field><link url="editProduct" text="${productName}" link-type="anchor"/></default-field>
             </field>
 
             <field name="productTypeEnumId">
-                <header-field title="产品类型" show-order-by="true">
+                <header-field title="Product Type" show-order-by="true">
                     <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
                         <set field="enumTypeId" value="ProductType"/><set field="allowEmpty" value="true"/>
                         <set field="style" value=" "/></widget-template-include>
@@ -91,7 +91,7 @@ along with this software (see the LICENSE.md file). If not, see
             </field>
 
             <field name="assetTypeEnumId">
-                <header-field title="资产类型" show-order-by="true">
+                <header-field title="Asset Type" show-order-by="true">
                     <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
                         <set field="enumTypeId" value="AssetType"/><set field="allowEmpty" value="true"/>
                         <set field="style" value=" "/></widget-template-include>
@@ -109,7 +109,7 @@ along with this software (see the LICENSE.md file). If not, see
             </field>
 
             <field name="ownerPartyId">
-                <header-field title="拥有者"><drop-down allow-empty="true">
+                <header-field title="Owner"><drop-down allow-empty="true">
                     <option key="_NA_" text="N/A"/>
                     <entity-options key="${partyId}" text="PartyNameTemplate">
                         <entity-find entity-name="mantle.party.PartyDetailAndRole">
@@ -122,7 +122,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <conditional-field condition="ownerPartyId == '_NA_'"><display text=" "/></conditional-field>
                 <default-field><display-entity entity-name="mantle.party.PartyDetail" text="PartyNameTemplate"/></default-field>
             </field>
-            <field name="prodIdents"><default-field title="唯一标识">
+            <field name="prodIdents"><default-field title="Identification">
                 <section-iterate name="OtherProductIdSection" list="prodIdentList" entry="prodIdent"><widgets>
                     <label text="${prodIdent.idValue} (${prodIdent.type?.description ?: ''})" type="div"/>
                 </widgets></section-iterate>
