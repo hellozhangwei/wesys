@@ -7,8 +7,16 @@ Install moqui framework and mantle artifacts
 3. gradlew getComponentSet -PcomponentSet=demo
 4. Change def elasticSearchVersion = '7.4.2' to def elasticSearchVersion = '7.8.0' in build.gralde in line 28
 6. gradlew downloadElasticSearch
-7. Download elasticsearch-analysis-ik-7.8.0 from https://github.com/medcl/elasticsearch-analysis-ik/releases/tag/v7.8.0
-   to moqui-framework/runtime/elasticsearch/plugins
+7. Install elasticsearch-analysis-ik-7.8.0 
+   
+   a) Download https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.8.0/elasticsearch-analysis-ik-7.8.0.zip
+      
+   b) mkdir moqui-framework/runtime/elasticsearch/plugins
+
+   c) unzip elasticsearch-analysis-ik-7.8.0.zip -d elasticsearch-analysis-ik-7.8.0
+   
+   d) mv elasticsearch-analysis-ik-7.8.0 moqui-framework/runtime/elasticsearch/plugins
+
 8. Create elasticsearch user
 9. Add
    ```java
@@ -35,8 +43,8 @@ Create elasticsearch user for Linux
 
 * adduser elasticsearch
 * passwd elasticsearch
-* chown -R elasticsearch:elasticsearch elasticsearch-7.8.0
-* edit config/jvm.options and set Xms and Xmx
+* chown -R elasticsearch:elasticsearch moqui-framework/runtime/elasticsearch
+* edit moqui-framework/runtime/elasticsearch/config/jvm.options and set Xms and Xmx
 * su elasticsearch
 * ./elasticsearch -d
 
