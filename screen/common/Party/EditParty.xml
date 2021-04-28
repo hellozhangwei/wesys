@@ -1106,8 +1106,8 @@ along with this software (see the LICENSE.md file). If not, see
                     <section-iterate name="PostalInfoSection" list="contactOut.postalAddressList" entry="contactInfo"><widgets>
                         <container-row><row-col lg="6">
 
-                            <label text="${contactInfo.postalContactMechPurpose.description}:" type="strong"/>
-                            <label text="${ec.resource.expand('PostalAddressInfoTemplate', '', contactInfo)}"/>
+                            <label text="[${contactInfo.postalContactMechPurpose.description}] : " type="strong" style="text-weight-medium"/>
+                            <label text="${ec.resource.expand('PostalAddressInfoTemplate', '', contactInfo)}" style="text-grey-8 text-caption"/>
                             <!--<label text="${contactInfo.postalContactMech.validateMessage?:''}" type="div"/>-->
                         </row-col><row-col lg="6"><dynamic-dialog id="UpdatePostalInfo" button-text="Update" transition="UpdateContactInfo" width="840"
                                                                   parameter-map="[partyId:partyId, postalContactMechId:contactInfo.postalContactMechId,
@@ -1153,7 +1153,7 @@ along with this software (see the LICENSE.md file). If not, see
 
 <!--                            <render-mode><text type="html,vuet,qvt" location="component://SimpleScreens/template/party/ContactInfo.html.gstring"/></render-mode>-->
                         </row-col></container-row>
-                        <render-mode><text type="qvt"><![CDATA[
+                        <!--<render-mode><text type="qvt"><![CDATA[
                         <q-list bordered class="rounded-borders">
                           <q-item>
                             <q-item-section top>
@@ -1203,7 +1203,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </q-item-section>
                           </q-item>
                         </q-list>
-                        ]]></text></render-mode>
+                        ]]></text></render-mode>-->
 
                     </widgets></section-iterate>
                 </box-body></container-box>
