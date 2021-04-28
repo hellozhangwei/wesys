@@ -866,12 +866,14 @@ along with this software (see the LICENSE.md file). If not, see
                     ]]></text>
                     </render-mode>-->
                 </box-toolbar><box-body>
+                    <label text="No content" condition="!partyNoteList" style="text-grey text-caption"/>
                     <section-iterate name="NoteIterateSection" list="partyNoteList" entry="partyNote"><actions>
                         <entity-find-one entity-name="mantle.party.PersonWithUserAccount" value-field="paua">
                             <field-map field-name="userId" from="partyNote.userId"/></entity-find-one>
                     </actions><widgets>
-                        <label text="无内容" condition="!partyNoteList" style="text-grey"/>
-                        <label text="By ${paua?.firstName?:''} ${paua?.lastName?:''} (${paua?.username ?: partyNote.userId}) at ${ec.l10n.format(partyNote.noteDate, 'yyyy-MM-dd HH:mm')}" style="text-grey"/>
+                        <container style="rounded-borders q-card--bordered q-pa-md q-mb-sm">
+                        <label text="${paua?.firstName?:''} ${paua?.lastName?:''} (${paua?.username ?: partyNote.userId})"/>
+                        <label text=" at ${ec.l10n.format(partyNote.noteDate, 'yyyy-MM-dd HH:mm')}" style="text-grey text-caption"/>
                         <section name="UpdateNoteSection" condition="partyNote.userId == ec.user.userId || ec.user.isInGroup('ADMIN')"><widgets>
                             <container-dialog id="UpdateNoteContainer" button-text="" button-outline="false" button-flat="true" button-size="sm" icon="edit" type="secondary">
                                 <form-single name="UpdateNoteForm" transition="updatePartyNote" map="partyNote">
@@ -882,8 +884,45 @@ along with this software (see the LICENSE.md file). If not, see
                                 </form-single>
                             </container-dialog>
                         </widgets></section>
-                        <label text="${partyNote.noteText}" type="p"/>
+                        <label text="${partyNote.noteText}" type="p" style="text-caption"/></container>
                     </widgets></section-iterate>
+
+                    <!--<render-mode>
+                        <text type="qvt"><![CDATA[
+                        <q-list bordered class="rounded-borders">
+                          <q-item >
+                            <q-item-section>
+                              <q-item-label lines="1">John Doe
+                                <span class="text-caption text-grey">2021-04-27 20:45</span>
+                              </q-item-label>
+                              <q-item-label caption >
+                                I'll be in your neighborhood doing errands this
+                                weekend. Do you want to grab brunch?
+                              </q-item-label>
+                            </q-item-section>
+                            <q-item-section side top>
+                               <q-btn class="gt-xs" size="12px" flat dense round icon="edit" />
+                            </q-item-section>
+                          </q-item>
+
+                          <q-separator ></q-separator>
+
+                          <q-item >
+                            <q-item-section>
+                              <q-item-label>张威
+                              <span class="text-caption text-grey">2021-04-27 20:45</span></q-item-label>
+                              <q-item-label caption >
+                                不久前发布和预购的Surface Laptop 4正式发货，4月27日凌晨还将开启认证翻新机大促活动，Surface Pro 7翻新机折扣提高到最高35%，两个配置的Studio 2一体机将迎来六折优惠，Surface Pro X E/8/256 LTE 典雅黑的折扣率高达45%
+                              </q-item-label>
+                            </q-item-section>
+
+                            <q-item-section side top>
+                              <q-btn class="gt-xs" size="12px" flat dense round icon="edit" />
+                            </q-item-section>
+                          </q-item>
+                        </q-list>
+                    ]]></text>
+                    </render-mode>-->
                 </box-body></container-box>
             </widgets></section>
 

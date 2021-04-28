@@ -134,13 +134,14 @@ along with this software (see the LICENSE.md file). If not, see
             </box-body>
         </container-box>
 
-        <!--<section-include name="RolesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>-->
-        <section-include name="PartyIdentificationSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-        <section-include name="NotesSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-        <section-include name="ContactInfoSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
-        <!--<section-include name="PaymentMethodSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>-->
-        <!--<section-include name="FinancialAccountSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>-->
-        <section-include name="ContentSection" location="component://SimpleScreens/screen/SimpleScreens/Party/EditParty.xml"/>
+        <!--<section-include name="RolesSection" location="component://wesys/screen/common/Party/EditParty.xml"/>-->
+        <section-include name="PartyIdentificationSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+<!--        <section-include name="NotesSection" location="component://wesys/screen/common/Party/EditParty.xml"/>-->
+        <section-include name="NotesSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+        <section-include name="ContactInfoSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
+        <!--<section-include name="PaymentMethodSection" location="component://wesys/screen/common/Party/EditParty.xml"/>-->
+        <!--<section-include name="FinancialAccountSection" location="component://wesys/screen/common/Party/EditParty.xml"/>-->
+        <section-include name="ContentSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
 
     </widgets>
 </screen>
