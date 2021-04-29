@@ -26,9 +26,9 @@ along with this software (see the LICENSE.md file). If not, see
     <widgets>
 
         <container style="row  q-mb-md">
-            <label text="机会列表" style="text-h3" />
+            <label text="Sales Opportunity List" style="text-h3" />
             <container type="q-space"/>
-            <container-dialog id="NewRequestContainer" button-text="新建机会" button-outline="false" button-flat="false">
+            <container-dialog id="NewRequestContainer" button-text="New Sales Opportunity" button-outline="false" button-flat="false">
                 <form-single name="NewRequestForm" transition="createSalesOpportunity">
 
                     <field name="opportunityName"><default-field title="opportunityName"><text-line size="60"/></default-field></field>
@@ -36,7 +36,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <field name="nextStep"><default-field><text-area /></default-field></field>
                     <field name="estimatedCloseDate"><default-field title="Close Date"><date-time /></default-field></field>
                     <field name="opportunityStageId"><default-field title="Initial Stage"><drop-down allow-empty="true" /></default-field></field>
-                    <field name="Source"><default-field title="Source"><drop-down allow-empty="true" /></default-field></field>
+                    <field name="dataSourceId"><default-field title="Source"><drop-down allow-empty="true" /></default-field></field>
                     <field name="typeEnumId"><default-field title="Type"><drop-down allow-empty="true" /></default-field></field>
                     <field name="accountPartyId"><default-field title="Account"><drop-down allow-empty="true" /></default-field></field>
                     <field name="estimatedAmount"><default-field><text-line /></default-field></field>

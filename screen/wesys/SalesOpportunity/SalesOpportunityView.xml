@@ -13,14 +13,51 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-title="机会详情" default-menu-index="1">
+        default-menu-title="Sales Opportunity" default-menu-index="1" default-menu-include="false">
 
     <parameter name="salesOpportunityId" required="true"/>
 
     <actions>
-
+        <entity-find-one entity-name="mantle.sales.opportunity.SalesOpportunity" value-field="salesOpportunity"/>
     </actions>
     <widgets>
+
+        <form-single name="SalesOpportunityView" map="salesOpportunity">
+            <field name="opportunityName"><default-field title="opportunityName"><display/></default-field></field>
+            <field name="description"><default-field title="Description"><text-area read-only="true"/></default-field></field>
+            <field name="nextStep"><default-field><text-area read-only="true" /></default-field></field>
+            <field name="estimatedCloseDate"><default-field title="Close Date"><display /></default-field></field>
+            <field name="opportunityStageId"><default-field title="Initial Stage"><display/></default-field></field>
+            <field name="dataSourceId"><default-field title="Source"><display /></default-field></field>
+            <field name="typeEnumId"><default-field title="Type"><display /></default-field></field>
+            <field name="accountPartyId"><default-field title="Account"><display /></default-field></field>
+            <field name="estimatedAmount"><default-field><display /></default-field></field>
+            <field name="estimatedProbability"><default-field title="Probability(%)"><display /></default-field></field>
+            <field name="marketingCampaignId"><default-field><display /></default-field></field>
+            <field name="currencyUomId"><default-field><display/></default-field></field>
+            <field-layout>
+                <field-col-row>
+                    <field-col md="3"><field-ref name="opportunityName"/></field-col>
+                    <field-col md="3"><field-ref name="opportunityStageId"/></field-col>
+                    <field-col md="3"><field-ref name="dataSourceId"/></field-col>
+                    <field-col md="3"><field-ref name="typeEnumId"/></field-col>
+                </field-col-row>
+                <field-col-row>
+                    <field-col md="3"><field-ref name="estimatedCloseDate"/></field-col>
+                    <field-col md="3"><field-ref name="estimatedAmount"/></field-col>
+                    <field-col md="3"><field-ref name="estimatedProbability"/></field-col>
+                    <field-col md="3"><field-ref name="currencyUomId"/></field-col>
+                </field-col-row>
+                <field-col-row>
+                    <field-col md="3"><field-ref name="marketingCampaignId"/></field-col>
+                    <field-col md="3"><field-ref name="accountPartyId"/></field-col>
+                    <field-col md="3"></field-col>
+                    <field-col md="3"></field-col>
+                </field-col-row>
+                <field-ref name="description"/>
+                <field-ref name="nextStep"/>
+            </field-layout>
+        </form-single>
 
     </widgets>
 </screen>

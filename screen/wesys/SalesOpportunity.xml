@@ -25,7 +25,7 @@ along with this software (see the LICENSE.md file). If not, see
     
     <widgets>
 
-        <link url="FindSalesOpportunity" text="返回机会列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="salesOpportunity"/>
+        <link url="FindSalesOpportunity" text="Return Sales Opportunity List" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="salesOpportunity"/>
 
         <label text="${salesOpportunity.salesOpportunityId}:${salesOpportunity.opportunityName}" text-map="salesOpportunity" type="div" condition="salesOpportunity" style="row q-mb-md text-h3"/>
 
