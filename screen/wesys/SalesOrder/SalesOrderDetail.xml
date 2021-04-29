@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-title="订单详情" default-menu-index="1">
+        default-menu-title="Sales Order" default-menu-index="1">
 
     <parameter name="orderId" required="true"/>
 
@@ -193,7 +193,7 @@ along with this software (see the LICENSE.md file). If not, see
 
             <container-box>
                 <box-header>
-                    <label text="订单头" style="text-subtitle1"/>
+                    <label text="Order Header" style="text-subtitle1"/>
                     <label text=" Web Order (ecommerce)" condition="orderHeader?.salesChannelEnumId == 'ScWeb'" style="text-subtitle1  text-grey"/>
                     <label text=" Recurring Order: ${recurCronDescription}" condition="recurCronDescription" style="text-subtitle1 text-grey"/>
                 </box-header>

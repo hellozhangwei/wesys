@@ -23,7 +23,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
 
-        <link url="FindRequest" text="返回审批列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="request"/>
+        <link url="FindRequest" text="Return to Request List" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="request"/>
         <label text="${request.requestId}:${request.requestName}" text-map="request" type="div" condition="request" style="row q-mb-md text-h3"/>
         <subscreens-panel id="RequestPanel" type="tab"/>
     </widgets>

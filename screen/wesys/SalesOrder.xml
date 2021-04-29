@@ -17,16 +17,16 @@ along with this software (see the LICENSE.md file). If not, see
 
     <subscreens default-item="SalesOrderFind">
         <subscreens-item name="OrderIssuedInvoiced" menu-index="3"
-                         location="component://SimpleScreens/screen/SimpleScreens/Accounting/Reports/OrderIssuedInvoiced.xml" menu-title="成交记录"/>
+                         location="component://SimpleScreens/screen/SimpleScreens/Accounting/Reports/OrderIssuedInvoiced.xml" menu-title="Issued and Invoiced"/>
         <subscreens-item name="SalesAnalysis" menu-index="4"
-                         location="component://SimpleScreens/screen/SimpleScreens/Accounting/Reports/SalesAnalysis.xml" menu-title="销售分析"/>
+                         location="component://SimpleScreens/screen/SimpleScreens/Accounting/Reports/SalesAnalysis.xml" menu-title="Sales Analysis"/>
         <subscreens-item name="SalesSummary" menu-index="5"
-                         location="component://SimpleScreens/screen/SimpleScreens/Accounting/Reports/SalesSummary.xml" menu-title="销售统计"/>
+                         location="component://SimpleScreens/screen/SimpleScreens/Accounting/Reports/SalesSummary.xml" menu-title="Sales Summary"/>
     </subscreens>
 
     <widgets>
-        <link url="SalesOrderFind" text="返回销售订单列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="orderId"/>
-        <label text="销售订单: ${orderId}" type="div" condition="orderId" style="row q-mb-md text-h3"/>
+        <link url="SalesOrderFind" text="Return Sales Order List" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="orderId"/>
+        <label text="Sales Order: ${orderId}" type="div" condition="orderId" style="row q-mb-md text-h3"/>
         <subscreens-panel id="OrderPanel" type="popup"/>
     </widgets>
 </screen>
