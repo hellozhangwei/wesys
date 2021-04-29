@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false">
+        default-menu-include="false" default-menu-title="Inventory Asset List">
 
     <transition name="assetDetail"><default-response url="../AssetDetail"/></transition>
     <transition name="editProduct"><default-response url="//${appRoot}/Catalog/Product/EditProduct"/></transition>
@@ -42,7 +42,7 @@ along with this software (see the LICENSE.md file). If not, see
     <widgets>
 
         <container style="row q-mb-md q-gutter-xs">
-            <label text="库存资产列表" style="text-h3" />
+            <label text="Inventory Asset List" style="text-h3" />
             <container type="q-space"/>
             <container-dialog id="ReceiveAssetDialog" button-text="Receive Non-serialized Inventory Direct" width="800" button-flat="false">
                 <label text="NOTE: only receive inventory here if there is no Purchase Order and no Incoming Shipment for the inventory." type="p" style="text-warning"/>

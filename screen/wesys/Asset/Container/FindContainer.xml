@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" default-menu-title="Containers">
+        default-menu-include="false" default-menu-title="Container List">
 
     <transition name="createContainer"><service-call name="create#mantle.product.asset.Container"/>
         <default-response url="../EditContainer"/></transition>
@@ -33,7 +33,7 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
         <container style="row q-mb-md">
-            <label text="返回容器列表" style="text-h3" />
+            <label text="Container List" style="text-h3" />
             <container type="q-space"/>
             <container-dialog id="CreateContainerDialog" button-text="Create Container" button-flat="false">
                 <form-single name="CreateContainerForm" transition="createContainer">

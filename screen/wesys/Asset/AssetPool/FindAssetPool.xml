@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" default-menu-title="Pools">
+        default-menu-include="false" default-menu-title="Pool List">
 
     <transition name="createAssetPool"><service-call name="create#mantle.product.asset.AssetPool"/>
         <default-response url="../EditAssetPool"/></transition>
@@ -25,23 +25,27 @@ along with this software (see the LICENSE.md file). If not, see
     <transition-include name="searchPartyList" location="component://SimpleScreens/template/party/PartyForms.xml"/>
 
     <widgets>
-        <container-dialog id="CreateAssetPoolDialog" button-text="Create Pool">
-            <form-single name="CreateAssetPoolForm" transition="createAssetPool">
-                <field name="pseudoId"><default-field><text-line size="20"/></default-field></field>
-                <field name="description"><default-field><text-line size="40"/></default-field></field>
-                <field name="ownerPartyId"><default-field title="Owned By Org"><drop-down>
-                    <option key="_NA_" text="N/A"/>
-                    <entity-options key="${partyId}" text="PartyNameTemplate">
-                        <entity-find entity-name="mantle.party.PartyDetailAndRole">
-                            <econdition field-name="roleTypeId" value="OrgInternal"/>
-                            <econdition field-name="disabled" value="N" or-null="true"/>
-                            <order-by field-name="organizationName"/>
-                        </entity-find>
-                    </entity-options>
-                </drop-down></default-field></field>
-                <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
-            </form-single>
-        </container-dialog>
+        <container style="row q-mb-md">
+            <label text="Pool List" style="text-h3" />
+            <container type="q-space"/>
+            <container-dialog id="CreateAssetPoolDialog" button-text="Create Pool" button-flat="false">
+                <form-single name="CreateAssetPoolForm" transition="createAssetPool">
+                    <field name="pseudoId"><default-field><text-line size="20"/></default-field></field>
+                    <field name="description"><default-field><text-line size="40"/></default-field></field>
+                    <field name="ownerPartyId"><default-field title="Owned By Org"><drop-down>
+                        <option key="_NA_" text="N/A"/>
+                        <entity-options key="${partyId}" text="PartyNameTemplate">
+                            <entity-find entity-name="mantle.party.PartyDetailAndRole">
+                                <econdition field-name="roleTypeId" value="OrgInternal"/>
+                                <econdition field-name="disabled" value="N" or-null="true"/>
+                                <order-by field-name="organizationName"/>
+                            </entity-find>
+                        </entity-options>
+                    </drop-down></default-field></field>
+                    <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
+                </form-single>
+            </container-dialog>
+        </container>
 
         <form-list name="AssetPoolList" list="assetPoolList" skip-form="true" header-dialog="true">
             <entity-find entity-name="mantle.product.asset.AssetPoolDetail" list="assetPoolList">
