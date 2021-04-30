@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        default-menu-title="DashboardTitle" default-menu-index="1" menu-image="o_dashboard" menu-image-type="icon">
+
+    <widgets>
+
+        <label text="&amp;nbsp;" type="p" encode="false"/>
+
+        <container-row style="diagram-sequence"><row-col sm="4">
+            <container style="diagram-sequence-actor"><link text="客户" url="../Customer" link-type="anchor"/></container>
+
+            <container style="diagram-sequence-item">
+                <container><link text="市场" url="../Marketing" link-type="anchor"/></container>
+                <container style="fa left" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <container style="diagram-sequence-item">
+                <!-- TODO: constrain better -->
+                <container><link text="客户申请" url="../Request" link-type="anchor"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <container style="diagram-sequence-item">
+                <link text="销售订单" url="../Order/FindOrder" link-type="anchor" parameter-map="[orderType:'Sales']"/>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <container style="diagram-sequence-item">
+                <container><link text="销售运单" url="../Shipment/FindShipment" link-type="anchor" parameter-map="[parentShipmentType:'ShpTpOutgoing']"/></container>
+                <container><link text="拣货打包" url="../Shipping" link-type="anchor"/></container>
+                <container style="fa left" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <!-- All invoice types:
+            <moqui.basic.Enumeration description="Sales/Purchase" enumId="InvoiceSales" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Return" enumId="InvoiceReturn" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Payroll Employee" enumId="InvoicePayroll" enumTypeId="InvoiceType" relatedEnumId="PtPayrollPayment"/>
+            <moqui.basic.Enumeration description="Payroll Other" enumId="InvoicePayrollOther" enumTypeId="InvoiceType" relatedEnumId="PtPayrollOtherPayment"/>
+            <moqui.basic.Enumeration description="Tax" enumId="InvoiceTax" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Garnishment" enumId="InvoiceGarnishment" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Commission" enumId="InvoiceCommission" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Credit Memo" enumId="InvoiceCreditMemo" enumTypeId="InvoiceType"/>
+            <moqui.basic.Enumeration description="Template" enumId="InvoiceTemplate" enumTypeId="InvoiceType"/>
+            -->
+            <container style="diagram-sequence-item">
+                <link text="应收发票" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Receivable']"/>
+                <container style="fa left" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="客户付款凭证" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Payable',invoiceTypeEnumId:'InvoiceCreditMemo']"/>
+                <container style="fa right" type="i"/>
+            </container>
+            <!-- All payment types:
+            <moqui.basic.Enumeration description="Disbursement" enumId="PtDisbursement" enumTypeId="PaymentType"/>
+            <moqui.basic.Enumeration description="Refund" enumId="PtRefund" enumTypeId="PaymentType"/>
+            <!- - Payment meant to be applied to an invoice - ->
+            <moqui.basic.Enumeration description="Invoice Payment" enumId="PtInvoicePayment" enumTypeId="PaymentType"/>
+            <moqui.basic.Enumeration description="Pre Payment - Expense" enumId="PtPrePayment" parentEnumId="PtInvoicePayment" enumTypeId="PaymentType"/>
+            <moqui.basic.Enumeration description="Pre Payment - Inventory" enumId="PtPrePaymentInventory" parentEnumId="PtInvoicePayment" enumTypeId="PaymentType"/>
+            <!- - Payment for deposit to or withdrawal from a FinancialAccount, never applied to an invoice - ->
+            <moqui.basic.Enumeration description="Financial Account Transaction" enumId="PtFinancialAccount" enumTypeId="PaymentType"/>
+            <moqui.basic.Enumeration description="Order Payment Preference" enumId="PtOrderPref" enumTypeId="PaymentType"/>
+            <!- - Payment of payroll invoices - ->
+            <moqui.basic.Enumeration description="Payroll Employee Payment" enumId="PtPayrollPayment" enumTypeId="PaymentType" parentEnumId="PtInvoicePayment"/>
+            <moqui.basic.Enumeration description="Payroll Other Payment" enumId="PtPayrollOtherPayment" enumTypeId="PaymentType" parentEnumId="PtInvoicePayment"/>
+            -->
+            <container style="diagram-sequence-item">
+                <link text="客户付款" url="../Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Incoming',paymentTypeEnumId:'PtInvoicePayment']"/>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="销售退货" url="../Return" link-type="anchor" parameter-map="[returnType:'Customer']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <container><link text="客户退货运单" url="../Shipment/FindShipment" link-type="anchor" parameter-map="[shipmentTypeEnumId:'ShpTpSalesReturn']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="冲销发票" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Payable',invoiceTypeEnumId:'InvoiceReturn']"/>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="客户退款" url="../Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Outgoing',paymentTypeEnumId:'PtRefund']"/>
+                <container style="fa left" type="i"/>
+            </container>
+
+        </row-col><row-col sm="4">
+
+            <container style="diagram-sequence-actor"><link text="内部" url="../Accounting" link-type="anchor"/></container>
+
+            <container style="diagram-sequence-item">
+                <container><link text="所有当事人" url="../Party" link-type="anchor"/></container>
+                <container><link text="员工" url="../Party/" link-type="anchor"/></container>
+                <!-- TODO: "Employees & Contractors" or maybe "Human Resources" (look up by Employee role on FindParty for now) -->
+            </container>
+
+            <container style="diagram-sequence-item">
+                <container><link text="申请" url="../Request" link-type="anchor"/></container>
+                <!-- maybe not, are mostly internal: <container style="fa left" type="i"/><container style="fa right" type="i"/> -->
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <link text="产品" url="../Catalog/Product" link-type="anchor"/>
+                <label text=" - "/>
+                <link text="类别" url="../Catalog" link-type="anchor"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container>
+                    <link text="资产" url="../Asset" link-type="anchor" style="text-strong"/>
+                    <label text=" &amp; "/>
+                    <link text="库存" url="../Asset/Asset/FindSummary" link-type="anchor" parameter-map="[assetTypeEnumId:'AstTpInventory']"/>
+                </container>
+                <container><link text="制造" url="../Manufacturing" link-type="anchor"/></container>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="项目" url="../Project" link-type="anchor"/></container>
+                <container style="fa left" type="i"/><container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <container><link text="任务" url="../Task" link-type="anchor"/></container>
+                <container style="fa left" type="i"/><container style="fa right" type="i"/>
+            </container>
+            <!-- TODO: Events? what would it go to? most events are context specific, ie for a Party, Facility, Asset, etc -->
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="仓库" url="../Facility" link-type="anchor"/></container>
+                <container><link text="商店" url="../ProductStore" link-type="anchor"/></container>
+            </container>
+            <container style="diagram-sequence-item">
+                <container>
+                    <label text="内容管理: "/>
+                    <link text="维基" url="../Wiki/WikiSpaces" link-type="anchor"/>
+                    <label text=" - "/>
+                    <link text="博客" url="../Wiki/WikiBlogs" link-type="anchor"/>
+                </container>
+                <link text="调查" url="../Survey" link-type="anchor"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <link text="财务" url="../Accounting" link-type="anchor" style="text-strong"/>
+                <label text=" - "/>
+                <link text="报表" url="../Accounting/Reports" link-type="anchor"/>
+            </container>
+        </row-col><row-col sm="4">
+            <container style="diagram-sequence-actor"><link text="供应商" url="../Supplier" link-type="anchor"/></container>
+
+            <label text="&amp;nbsp;" encode="false" type="p"/>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <container style="diagram-sequence-item">
+                <!-- TODO: constrain better -->
+                <container><link text="采购申请" url="../Request" link-type="anchor"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="采购订单" url="../Order/FindOrder" link-type="anchor" parameter-map="[orderType:'Purchase']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="采购运单" url="../Shipment/FindShipment" link-type="anchor" parameter-map="[parentShipmentType:'ShpTpIncoming']"/></container>
+                <container style="fa left" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <link text="应付发票" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Payable']"/>
+                <container style="fa left" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="供应商付款凭证" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Receivable',invoiceTypeEnumId:'InvoiceCreditMemo']"/>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="供应商付款" url="../Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Outgoing',paymentTypeEnumId:'PtInvoicePayment']"/>
+                <container style="fa right" type="i"/>
+            </container>
+
+            <label text="&amp;nbsp;" encode="false" type="div"/>
+
+            <container style="diagram-sequence-item">
+                <container><link text="采购退货" url="../Return" link-type="anchor" parameter-map="[returnType:'Supplier']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <container><link text="供应商退货运单" url="../Shipment/FindShipment" link-type="anchor" parameter-map="[shipmentTypeEnumId:'ShpTpPurchaseReturn']"/></container>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="冲销发票" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Receivable',invoiceTypeEnumId:'InvoiceReturn']"/>
+                <container style="fa right" type="i"/>
+            </container>
+            <container style="diagram-sequence-item">
+                <link text="供应商退款" url="../Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Incoming',paymentTypeEnumId:'PtRefund']"/>
+                <container style="fa left" type="i"/>
+            </container>
+
+        </row-col></container-row>
+    </widgets>
+</screen>

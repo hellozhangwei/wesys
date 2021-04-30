@@ -15,227 +15,297 @@ along with this software (see the LICENSE.md file). If not, see
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
         default-menu-title="DashboardTitle" default-menu-index="1" menu-image="o_dashboard" menu-image-type="icon">
 
+
+    <transition name="search"><default-response url="../Search"/></transition>
+    <transition name="quickLookup"><default-response url="../QuickLookup"/></transition>
+
     <widgets>
+        <!--<render-mode><text type="qvt"><![CDATA[
 
-        <label text="&amp;nbsp;" type="p" encode="false"/>
+            <div class="row shadow-2 rounded-borders">
+                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12 ">
+                    <q-card class="no-shadow q-pa-sm">
+                        <q-item class="q-pb-none q-pt-xs">
+                            <q-item-section>
+                                <q-item-label class="text-h4" style="font-weight: 500;letter-spacing: 3px;color: #0dceec;">900</q-item-label>
+                                <q-item-label :class="!$q.dark.isActive? 'text-grey-7':'text-white'" style="letter-spacing: 1px;">Orders Placed</q-item-label>
+                            </q-item-section>
+                            <q-item-section side>
+                                <q-icon name="o_shopping_cart" style="color: #0dceec;" size="60px"></q-icon>
+                            </q-item-section>
+                        </q-item>
+                    </q-card>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12 " style="border-left: 1px solid #efefef;"
+                     v-bind:class="{'border-top': $q.platform.is.mobile}">
+                    <q-card class="no-shadow q-pa-sm">
+                        <q-item class="q-pb-none q-pt-xs">
+                            <q-item-section>
+                                <q-item-label class="text-h4" style="font-weight: 500;letter-spacing: 3px;color: #fe434f;">1050</q-item-label>
+                                <q-item-label :class="!$q.dark.isActive? 'text-grey-7':'text-white'" style="letter-spacing: 1px;">Orders Approved</q-item-label>
+                            </q-item-section>
 
-        <container-row style="diagram-sequence"><row-col sm="4">
-            <container style="diagram-sequence-actor"><link text="客户" url="../Customer" link-type="anchor"/></container>
+                            <q-item-section side>
+                                <q-icon name="o_account_balance_wallet" style="color: #fe434f;" size="60px"></q-icon>
+                            </q-item-section>
+                        </q-item>
+                    </q-card>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12 " style="border-left: 1px solid #efefef;"
+                     v-bind:class="{'border-top': $q.platform.is.mobile}">
+                    <q-card class="no-shadow q-pa-sm">
+                        <q-item class="q-pb-none q-pt-xs">
+                            <q-item-section>
+                                <q-item-label class="text-h4" style="font-weight: 500;letter-spacing: 3px;color: #15ca20;">80 %</q-item-label>
+                                <q-item-label :class="!$q.dark.isActive? 'text-grey-7':'text-white'" style="letter-spacing: 1px;">Orders Hold</q-item-label>
+                            </q-item-section>
 
-            <container style="diagram-sequence-item">
-                <container><link text="市场" url="../Marketing" link-type="anchor"/></container>
-                <container style="fa left" type="i"/>
-            </container>
+                            <q-item-section side>
+                                <q-icon name="account_balance" style="color: #15ca20;" size="60px"></q-icon>
+                            </q-item-section>
+                        </q-item>
+                    </q-card>
+                </div>
+                <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12 " style="border-left: 1px solid #efefef;"
+                     v-bind:class="{'border-top': $q.platform.is.mobile}">
+                    <q-card class="no-shadow q-pa-sm">
+                        <q-item class="q-pb-none q-pt-xs">
+                            <q-item-section>
+                                <q-item-label class="text-h4" style="font-weight: 500;letter-spacing: 3px;color: #ff9700;">720</q-item-label>
+                                <q-item-label :class="!$q.dark.isActive? 'text-grey-7':'text-white'" style="letter-spacing: 1px;">Request Placed</q-item-label>
+                            </q-item-section>
 
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-            <container style="diagram-sequence-item">
-                <!-- TODO: constrain better -->
-                <container><link text="客户申请" url="../Request" link-type="anchor"/></container>
-                <container style="fa right" type="i"/>
-            </container>
+                            <q-item-section side>
+                                <q-icon name="people" style="color: #ff9700;" size="60px"></q-icon>
+                            </q-item-section>
+                        </q-item>
+                    </q-card>
+                </div>
+            </div>
+            ]]></text></render-mode>-->
+        <container-row><row-col md="6" style="text-center">
+            <form-single name="SearchOptions" transition="search" extends="component://SimpleScreens/screen/SimpleScreens/Search.xml#SearchOptions">
+                <field name="queryString"><default-field tooltip=""><text-line size="25"/></default-field></field>
+                <field-layout><field-row-big justify="center"><field-ref name="documentType"/><field-ref name="queryString"/>
+                    <field-ref name="submitButton"/></field-row-big></field-layout>
+            </form-single>
+        </row-col><row-col md="6" style="text-center">
+            <form-single name="QuickLookupForm" transition="quickLookup" focus-field=""
+                         extends="component://SimpleScreens/screen/SimpleScreens/QuickLookup.xml#QuickLookupForm">
+                <field-layout><field-row-big justify="center"><field-ref name="lookupId"/><field-ref name="submitButton"/></field-row-big></field-layout>
+            </form-single>
+        </row-col></container-row>
 
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-            <container style="diagram-sequence-item">
-                <link text="销售订单" url="../Order/FindOrder" link-type="anchor" parameter-map="[orderType:'Sales']"/>
-                <container style="fa right" type="i"/>
-            </container>
+        <section name="QuickInfoSection"><actions>
+            <entity-find entity-name="mantle.party.PartyRole" list="orgPartyRoles">
+                <econdition field-name="roleTypeId" value="OrgInternal"/></entity-find>
+            <set field="orgIntPartyIds" from="orgPartyRoles*.partyId"/>
 
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-            <container style="diagram-sequence-item">
-                <container><link text="销售运单" url="../Shipment/FindShipment" link-type="anchor" parameter-map="[parentShipmentType:'ShpTpOutgoing']"/></container>
-                <container><link text="拣货打包" url="../Shipping" link-type="anchor"/></container>
-                <container style="fa left" type="i"/>
-            </container>
+            <entity-find-count entity-name="mantle.order.OrderPart" count-field="orderPlacedCount">
+                <econdition field-name="statusId" operator="in" from="['OrderPlaced', 'OrderProcessing']"/>
+                <econdition field-name="vendorPartyId" operator="in" from="orgIntPartyIds"/>
+            </entity-find-count>
+            <entity-find-count entity-name="mantle.order.OrderPart" count-field="orderApprovedCount">
+                <econdition field-name="statusId" operator="in" from="['OrderApproved', 'OrderSent']"/>
+                <econdition field-name="vendorPartyId" operator="in" from="orgIntPartyIds"/>
+            </entity-find-count>
+            <entity-find-count entity-name="mantle.order.OrderPart" count-field="orderHeldCount">
+                <econdition field-name="statusId" value="OrderHold"/>
+                <econdition field-name="vendorPartyId" operator="in" from="orgIntPartyIds"/>
+            </entity-find-count>
 
-            <label text="&amp;nbsp;" encode="false" type="div"/>
+            <entity-find-count entity-name="mantle.request.RequestAndParty" count-field="requestSubmittedCount">
+                <econdition field-name="statusId" value="ReqSubmitted"/>
+                <econdition field-name="roleTypeId" value="Customer"/>
+            </entity-find-count>
+            <entity-find-count entity-name="mantle.request.RequestAndParty" count-field="requestInProgressCount">
+                <econdition field-name="statusId" operator="in" from="['ReqReviewed', 'ReqInProgress']"/>
+                <econdition field-name="roleTypeId" value="Customer"/>
+            </entity-find-count>
+        </actions><widgets>
+            <container-row><row-col sm="0" md="1"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="5" md="4" style="text-center">
+                <label text="Sales Orders" type="h4"/>
+                <container style="row q-gutter-x-sm">
 
-            <!-- All invoice types:
-            <moqui.basic.Enumeration description="Sales/Purchase" enumId="InvoiceSales" enumTypeId="InvoiceType"/>
-            <moqui.basic.Enumeration description="Return" enumId="InvoiceReturn" enumTypeId="InvoiceType"/>
-            <moqui.basic.Enumeration description="Payroll Employee" enumId="InvoicePayroll" enumTypeId="InvoiceType" relatedEnumId="PtPayrollPayment"/>
-            <moqui.basic.Enumeration description="Payroll Other" enumId="InvoicePayrollOther" enumTypeId="InvoiceType" relatedEnumId="PtPayrollOtherPayment"/>
-            <moqui.basic.Enumeration description="Tax" enumId="InvoiceTax" enumTypeId="InvoiceType"/>
-            <moqui.basic.Enumeration description="Garnishment" enumId="InvoiceGarnishment" enumTypeId="InvoiceType"/>
-            <moqui.basic.Enumeration description="Commission" enumId="InvoiceCommission" enumTypeId="InvoiceType"/>
-            <moqui.basic.Enumeration description="Credit Memo" enumId="InvoiceCreditMemo" enumTypeId="InvoiceType"/>
-            <moqui.basic.Enumeration description="Template" enumId="InvoiceTemplate" enumTypeId="InvoiceType"/>
-            -->
-            <container style="diagram-sequence-item">
-                <link text="应收发票" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Receivable']"/>
-                <container style="fa left" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <link text="客户付款凭证" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Payable',invoiceTypeEnumId:'InvoiceCreditMemo']"/>
-                <container style="fa right" type="i"/>
-            </container>
-            <!-- All payment types:
-            <moqui.basic.Enumeration description="Disbursement" enumId="PtDisbursement" enumTypeId="PaymentType"/>
-            <moqui.basic.Enumeration description="Refund" enumId="PtRefund" enumTypeId="PaymentType"/>
-            <!- - Payment meant to be applied to an invoice - ->
-            <moqui.basic.Enumeration description="Invoice Payment" enumId="PtInvoicePayment" enumTypeId="PaymentType"/>
-            <moqui.basic.Enumeration description="Pre Payment - Expense" enumId="PtPrePayment" parentEnumId="PtInvoicePayment" enumTypeId="PaymentType"/>
-            <moqui.basic.Enumeration description="Pre Payment - Inventory" enumId="PtPrePaymentInventory" parentEnumId="PtInvoicePayment" enumTypeId="PaymentType"/>
-            <!- - Payment for deposit to or withdrawal from a FinancialAccount, never applied to an invoice - ->
-            <moqui.basic.Enumeration description="Financial Account Transaction" enumId="PtFinancialAccount" enumTypeId="PaymentType"/>
-            <moqui.basic.Enumeration description="Order Payment Preference" enumId="PtOrderPref" enumTypeId="PaymentType"/>
-            <!- - Payment of payroll invoices - ->
-            <moqui.basic.Enumeration description="Payroll Employee Payment" enumId="PtPayrollPayment" enumTypeId="PaymentType" parentEnumId="PtInvoicePayment"/>
-            <moqui.basic.Enumeration description="Payroll Other Payment" enumId="PtPayrollOtherPayment" enumTypeId="PaymentType" parentEnumId="PtInvoicePayment"/>
-            -->
-            <container style="diagram-sequence-item">
-                <link text="客户付款" url="../Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Incoming',paymentTypeEnumId:'PtInvoicePayment']"/>
-                <container style="fa right" type="i"/>
-            </container>
-
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-
-            <container style="diagram-sequence-item">
-                <container><link text="销售退货" url="../Return" link-type="anchor" parameter-map="[returnType:'Customer']"/></container>
-                <container style="fa right" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <container><link text="客户退货运单" url="../Shipment/FindShipment" link-type="anchor" parameter-map="[shipmentTypeEnumId:'ShpTpSalesReturn']"/></container>
-                <container style="fa right" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <link text="冲销发票" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Payable',invoiceTypeEnumId:'InvoiceReturn']"/>
-                <container style="fa right" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <link text="客户退款" url="../Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Outgoing',paymentTypeEnumId:'PtRefund']"/>
-                <container style="fa left" type="i"/>
-            </container>
-
-        </row-col><row-col sm="4">
-
-            <container style="diagram-sequence-actor"><link text="内部" url="../Accounting" link-type="anchor"/></container>
-
-            <container style="diagram-sequence-item">
-                <container><link text="所有当事人" url="../Party" link-type="anchor"/></container>
-                <container><link text="员工" url="../Party/" link-type="anchor"/></container>
-                <!-- TODO: "Employees & Contractors" or maybe "Human Resources" (look up by Employee role on FindParty for now) -->
-            </container>
-
-            <container style="diagram-sequence-item">
-                <container><link text="申请" url="../Request" link-type="anchor"/></container>
-                <!-- maybe not, are mostly internal: <container style="fa left" type="i"/><container style="fa right" type="i"/> -->
-            </container>
-
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-
-            <container style="diagram-sequence-item">
-                <link text="产品" url="../Catalog/Product" link-type="anchor"/>
-                <label text=" - "/>
-                <link text="类别" url="../Catalog" link-type="anchor"/>
-            </container>
-
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-
-            <container style="diagram-sequence-item">
-                <container>
-                    <link text="资产" url="../Asset" link-type="anchor" style="text-strong"/>
-                    <label text=" &amp; "/>
-                    <link text="库存" url="../Asset/Asset/FindSummary" link-type="anchor" parameter-map="[assetTypeEnumId:'AstTpInventory']"/>
+                    <!--<container style="col q-my-auto"><link url="../SalesOrder" parameter-map="[orderType:'Sales', statusId:'OrderPlaced,OrderProcessing', statusId_op:'in']"
+                            text="Placed" badge="${orderPlacedCount}" button-outline="true" button-flat="false" btn-size="md"/></container>
+                    <container style="col q-my-auto"><link url="../SalesOrder" parameter-map="[orderType:'Sales', statusId:'OrderApproved,OrderSent', statusId_op:'in']"
+                            text="Approved" badge="${orderApprovedCount}" btn-type="default"/></container>
+                    <container style="col q-my-auto"><link url="../SalesOrder" parameter-map="[orderType:'Sales', statusId:'OrderHold']"
+                            text="Held" badge="${orderHeldCount}" btn-type="default"/></container>-->
+                    <render-mode><text type="qvt"><![CDATA[
+                        <q-btn class="col" no-caps outline text-color="primary" label="Placed" to="/zapps/SalesOrder">
+                            <q-badge color="primary" floating>${orderPlacedCount}</q-badge>
+                        </q-btn>
+                        <q-btn  class="col" no-caps outline text-color="primary" label="Approved" to="/zapps/SalesOrder">
+                            <q-badge color="primary" floating>${orderApprovedCount}</q-badge>
+                        </q-btn>
+                        <q-btn  class="col" no-caps outline text-color="primary" label="Hold" to="/zapps/SalesOrder">
+                            <q-badge color="primary" floating>${orderHeldCount}</q-badge>
+                        </q-btn>
+                    ]]></text></render-mode>
                 </container>
-                <container><link text="制造" url="../Manufacturing" link-type="anchor"/></container>
-            </container>
-
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-
-            <container style="diagram-sequence-item">
-                <container><link text="项目" url="../Project" link-type="anchor"/></container>
-                <container style="fa left" type="i"/><container style="fa right" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <container><link text="任务" url="../Task" link-type="anchor"/></container>
-                <container style="fa left" type="i"/><container style="fa right" type="i"/>
-            </container>
-            <!-- TODO: Events? what would it go to? most events are context specific, ie for a Party, Facility, Asset, etc -->
-
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-
-            <container style="diagram-sequence-item">
-                <container><link text="仓库" url="../Facility" link-type="anchor"/></container>
-                <container><link text="商店" url="../ProductStore" link-type="anchor"/></container>
-            </container>
-            <container style="diagram-sequence-item">
-                <container>
-                    <label text="内容管理: "/>
-                    <link text="维基" url="../Wiki/WikiSpaces" link-type="anchor"/>
-                    <label text=" - "/>
-                    <link text="博客" url="../Wiki/WikiBlogs" link-type="anchor"/>
+            </row-col><row-col sm="2"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="5" md="4" style="text-center">
+                <label text="Requests" type="h4"/>
+                <container style="row q-gutter-x-sm">
+                    <!-- <container style="col q-my-auto"><link url="../Request" parameter-map="[statusId:'ReqSubmitted']"
+                             text="Submitted" badge="${requestSubmittedCount}" btn-type="default"/></container>
+                     <container style="col q-my-auto"><link url="../Request" parameter-map="[statusId:'ReqReviewed,ReqInProgress', statusId_op:'in']"
+                             text="In Progress" badge="${requestInProgressCount}" btn-type="default"/></container>-->
+                    <render-mode><text type="qvt"><![CDATA[
+                    <q-btn class="col" no-caps outline text-color="primary" label="Placed" to="/zapps/Request">
+                        <q-badge color="primary" floating>${requestSubmittedCount}</q-badge>
+                    </q-btn>
+                    <q-btn  class="col" no-caps outline text-color="primary" label="Approved" to="/zapps/Request">
+                        <q-badge color="primary" floating>${requestInProgressCount}</q-badge>
+                    </q-btn>
+                ]]></text></render-mode>
                 </container>
-                <link text="调查" url="../Survey" link-type="anchor"/>
-            </container>
+            </row-col><row-col sm="0" md="1"><label text="&amp;nbsp;" encode="false"/></row-col></container-row>
+        </widgets></section>
 
-            <label text="&amp;nbsp;" encode="false" type="div"/>
+        <container-row><row-col sm="1"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="4" style="text-center">
+            <label text="Operate" type="h4"/>
+            <container-row><row-col sm="6" style="q-gutter-y-sm">
+                <render-mode>
+                    <text type="qvt"><![CDATA[
+                            <q-btn to="/zapps/Supplier" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                                <q-img src="/ssstatic/images/Supplier.png" spinner-color="white" style="width:40px"/>
+                                <div class="text-primary text-subtitle1">Suppliers</div>
+                            </q-btn>
 
-            <container style="diagram-sequence-item">
-                <link text="财务" url="../Accounting" link-type="anchor" style="text-strong"/>
-                <label text=" - "/>
-                <link text="报表" url="../Accounting/Reports" link-type="anchor"/>
-            </container>
-        </row-col><row-col sm="4">
-            <container style="diagram-sequence-actor"><link text="供应商" url="../Supplier" link-type="anchor"/></container>
+                            <q-btn to="/zapps/PurchaseOrder"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                                <q-img src="/ssstatic/images/Purchasing.png" spinner-color="white" style="width:40px"/>
+                                <div class="text-primary text-subtitle1">Purchase Orders</div>
+                            </q-btn>
+                            <q-btn to="/zapps/Shipment?parentShipmentType=ShpTpIncoming"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                                <q-img src="/ssstatic/images/Receiving.png" spinner-color="white" style="width:40px"/>
+                                <div class="text-primary text-subtitle1">Incoming Shipments</div>
+                            </q-btn>
+                        ]]>
+                    </text>
+                </render-mode>
+            </row-col><row-col sm="6" style="q-gutter-y-sm">
+                <render-mode><text type="qvt"><![CDATA[
+                <q-btn to="/zapps/Customer" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                    <q-img src="/ssstatic/images/Customer.png" spinner-color="white" style="width:40px"/>
+                    <div class="text-primary text-subtitle1">Customers</div>
+                </q-btn>
+                <q-btn to="/zapps/Request"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                    <q-img src="/ssstatic/images/Request.png" spinner-color="white" style="width:40px"/>
+                    <div class="text-primary text-subtitle1">Requests</div>
+                </q-btn>
+                <q-btn to="/zapps/SalesOrder"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                    <q-img src="/ssstatic/images/Sales.png" spinner-color="white" style="width:40px"/>
+                    <div class="text-primary text-subtitle1">Sales Orders</div>
+                </q-btn>
+                ]]>
+                </text>
+                </render-mode>
 
-            <label text="&amp;nbsp;" encode="false" type="p"/>
+            </row-col></container-row>
+            <label text="&amp;nbsp;" type="p" encode="false"/>
+            <container-row><row-col sm="6" style="q-gutter-y-sm">
+                <render-mode><text type="qvt"><![CDATA[
+                    <q-btn to="/zapps/Asset" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Inventory.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Inventory Assets</div>
+                    </q-btn>
+                    <q-btn to="/zapps/Return"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Return.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Returns</div>
+                    </q-btn>
+                    ]]>
+                </text>
+                </render-mode>
 
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-            <container style="diagram-sequence-item">
-                <!-- TODO: constrain better -->
-                <container><link text="采购申请" url="../Request" link-type="anchor"/></container>
-                <container style="fa right" type="i"/>
-            </container>
 
-            <label text="&amp;nbsp;" encode="false" type="div"/>
+            </row-col><row-col sm="6" style="q-gutter-y-sm">
+                <render-mode><text type="qvt"><![CDATA[
+                    <q-btn to="/zapps/Shipping" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Picking.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Shipping</div>
+                    </q-btn>
+                    <q-btn to="/zapps/Shipment"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Shipping.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Outgoing Shipments</div>
+                    </q-btn>
+                    ]]>
+                </text>
+                </render-mode>
 
-            <container style="diagram-sequence-item">
-                <container><link text="采购订单" url="../Order/FindOrder" link-type="anchor" parameter-map="[orderType:'Purchase']"/></container>
-                <container style="fa right" type="i"/>
-            </container>
+            </row-col></container-row>
+        </row-col><row-col sm="2"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="4" style="text-center">
+            <label text="Manage" type="h4"/>
+            <container-row><row-col sm="6" style="q-gutter-y-sm">
+                <render-mode><text type="qvt"><![CDATA[
+                    <q-btn to="/zapps/Catalog"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Catalog.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Catalog</div>
+                    </q-btn>
+                    <q-btn to="/zapps/Catalog/Product" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Product.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Products</div>
+                    </q-btn>
+                    <q-btn to="/zapps/ProductStore" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Store.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Stores</div>
+                    </q-btn>
+                    ]]>
+                </text></render-mode>
 
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-            <label text="&amp;nbsp;" encode="false" type="div"/>
+            </row-col><row-col sm="6" style="q-gutter-y-sm">
+                <render-mode><text type="qvt"><![CDATA[
+                    <q-btn to="/zapps/Wiki/WikiSpaces" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Wiki.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Wiki/Content</div>
+                    </q-btn>
+                    <q-btn to="/zapps/Wiki/WikiBlogs" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Blog.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Wiki Blogs</div>
+                    </q-btn>
+                    <q-btn to="/zapps/Survey" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Survey.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Survey</div>
+                    </q-btn>
+                    ]]>
+                </text></render-mode>
+            </row-col></container-row>
+            <label text="&amp;nbsp;" type="p" encode="false"/>
+            <container-row><row-col sm="6" style="q-gutter-y-sm">
 
-            <container style="diagram-sequence-item">
-                <container><link text="采购运单" url="../Shipment/FindShipment" link-type="anchor" parameter-map="[parentShipmentType:'ShpTpIncoming']"/></container>
-                <container style="fa left" type="i"/>
-            </container>
 
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-
-            <container style="diagram-sequence-item">
-                <link text="应付发票" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Payable']"/>
-                <container style="fa left" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <link text="供应商付款凭证" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Receivable',invoiceTypeEnumId:'InvoiceCreditMemo']"/>
-                <container style="fa right" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <link text="供应商付款" url="../Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Outgoing',paymentTypeEnumId:'PtInvoicePayment']"/>
-                <container style="fa right" type="i"/>
-            </container>
-
-            <label text="&amp;nbsp;" encode="false" type="div"/>
-
-            <container style="diagram-sequence-item">
-                <container><link text="采购退货" url="../Return" link-type="anchor" parameter-map="[returnType:'Supplier']"/></container>
-                <container style="fa right" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <container><link text="供应商退货运单" url="../Shipment/FindShipment" link-type="anchor" parameter-map="[shipmentTypeEnumId:'ShpTpPurchaseReturn']"/></container>
-                <container style="fa right" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <link text="冲销发票" url="../Accounting/Invoice/FindInvoice" link-type="anchor" parameter-map="[invoiceType:'Receivable',invoiceTypeEnumId:'InvoiceReturn']"/>
-                <container style="fa right" type="i"/>
-            </container>
-            <container style="diagram-sequence-item">
-                <link text="供应商退款" url="../Accounting/Payment/FindPayment" link-type="anchor" parameter-map="[paymentType:'Incoming',paymentTypeEnumId:'PtRefund']"/>
-                <container style="fa left" type="i"/>
-            </container>
-
+                <render-mode><text type="qvt"><![CDATA[
+                    <q-btn to="/zapps/Manufacturing" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Manufacturing.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Manufacturing</div>
+                    </q-btn>
+                    <q-btn to="/zapps/Asset" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Asset.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Asset</div>
+                    </q-btn>
+                    <q-btn to="/zapps/Facility" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Facility.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Facility</div>
+                    </q-btn>
+                ]]></text></render-mode>
+            </row-col><row-col sm="6" style="q-gutter-y-sm">
+                <render-mode><text type="qvt"><![CDATA[
+                    <q-btn to="/zapps/Party" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Parties.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Parties</div>
+                    </q-btn>
+                    <q-btn to="/zapps/Accounting" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Accounting.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Accounting</div>
+                    </q-btn>
+                    <q-btn to="/zapps/Accounting/Reports" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                        <q-img src="/ssstatic/images/Report.png" spinner-color="white" style="width:40px"/>
+                        <div class="text-primary text-subtitle1">Reports</div>
+                    </q-btn>
+                    ]]></text></render-mode>
+            </row-col></container-row>
+            <label text="&amp;nbsp;" type="p" encode="false"/>
         </row-col></container-row>
     </widgets>
 </screen>
