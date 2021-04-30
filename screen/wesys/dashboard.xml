@@ -124,7 +124,7 @@ along with this software (see the LICENSE.md file). If not, see
             </entity-find-count>
         </actions><widgets>
             <container-row><row-col sm="0" md="1"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="5" md="4" style="text-center">
-                <label text="Sales Orders" type="h4"/>
+                <label text="Sales Orders" type="h4" style="q-ma-lg"/>
                 <container style="row q-gutter-x-sm">
 
                     <!--<container style="col q-my-auto"><link url="../SalesOrder" parameter-map="[orderType:'Sales', statusId:'OrderPlaced,OrderProcessing', statusId_op:'in']"
@@ -146,7 +146,7 @@ along with this software (see the LICENSE.md file). If not, see
                     ]]></text></render-mode>
                 </container>
             </row-col><row-col sm="2"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="5" md="4" style="text-center">
-                <label text="Requests" type="h4"/>
+                <label text="Requests" type="h4" style="q-ma-lg"/>
                 <container style="row q-gutter-x-sm">
                     <!-- <container style="col q-my-auto"><link url="../Request" parameter-map="[statusId:'ReqSubmitted']"
                              text="Submitted" badge="${requestSubmittedCount}" btn-type="default"/></container>
@@ -165,7 +165,7 @@ along with this software (see the LICENSE.md file). If not, see
         </widgets></section>
 
         <container-row><row-col sm="1"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="4" style="text-center">
-            <label text="Operate" type="h4"/>
+            <label text="Operate" type="h4" style="q-ma-lg"/>
             <container-row><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode>
                     <text type="qvt"><![CDATA[
@@ -236,7 +236,7 @@ along with this software (see the LICENSE.md file). If not, see
 
             </row-col></container-row>
         </row-col><row-col sm="2"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="4" style="text-center">
-            <label text="Manage" type="h4"/>
+            <label text="Manage" type="h4" style="q-ma-lg"/>
             <container-row><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Catalog"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
