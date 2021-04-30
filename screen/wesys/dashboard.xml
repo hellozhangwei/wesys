@@ -178,9 +178,9 @@ along with this software (see the LICENSE.md file). If not, see
                                 <q-img src="/ssstatic/images/Purchasing.png" spinner-color="white" style="width:30px"/>
                                 <div class="text-primary text-subtitle1">Purchase Orders</div>
                             </q-btn>
-                            <q-btn to="/zapps/Shipment?parentShipmentType=ShpTpIncoming"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                                <q-img src="/ssstatic/images/Receiving.png" spinner-color="white" style="width:30px"/>
-                                <span class="text-primary text-subtitle1">Incoming Shipments</span>
+                            <q-btn to="/zapps/Asset" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                                <q-img src="/ssstatic/images/Inventory.png" spinner-color="white" style="width:30px"/>
+                                <div class="text-primary text-subtitle1">Inventory Assets</div>
                             </q-btn>
                         ]]>
                     </text>
@@ -207,14 +207,14 @@ along with this software (see the LICENSE.md file). If not, see
             <label text="&amp;nbsp;" type="p" encode="false"/>
             <container-row><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
-                    <q-btn to="/zapps/Asset" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Inventory.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Inventory Assets</div>
-                    </q-btn>
                     <q-btn to="/zapps/Return"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Return.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Returns</div>
                     </q-btn>
+                    <q-btn to="/zapps/Shipment?parentShipmentType=ShpTpIncoming"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                                <q-img src="/ssstatic/images/Receiving.png" spinner-color="white" style="width:30px"/>
+                                <span class="text-primary text-subtitle1">Incoming Shipments</span>
+                            </q-btn>
                     ]]>
                 </text>
                 </render-mode>
