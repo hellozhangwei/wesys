@@ -170,17 +170,17 @@ along with this software (see the LICENSE.md file). If not, see
                 <render-mode>
                     <text type="qvt"><![CDATA[
                             <q-btn to="/zapps/Supplier" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                                <q-img src="/ssstatic/images/Supplier.png" spinner-color="white" style="width:40px"/>
+                                <q-img src="/ssstatic/images/Supplier.png" spinner-color="white" style="width:30px"/>
                                 <div class="text-primary text-subtitle1">Suppliers</div>
                             </q-btn>
 
                             <q-btn to="/zapps/PurchaseOrder"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                                <q-img src="/ssstatic/images/Purchasing.png" spinner-color="white" style="width:40px"/>
+                                <q-img src="/ssstatic/images/Purchasing.png" spinner-color="white" style="width:30px"/>
                                 <div class="text-primary text-subtitle1">Purchase Orders</div>
                             </q-btn>
                             <q-btn to="/zapps/Shipment?parentShipmentType=ShpTpIncoming"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                                <q-img src="/ssstatic/images/Receiving.png" spinner-color="white" style="width:40px"/>
-                                <div class="text-primary text-subtitle1">Incoming Shipments</div>
+                                <q-img src="/ssstatic/images/Receiving.png" spinner-color="white" style="width:30px"/>
+                                <span class="text-primary text-subtitle1">Incoming Shipments</span>
                             </q-btn>
                         ]]>
                     </text>
@@ -188,15 +188,15 @@ along with this software (see the LICENSE.md file). If not, see
             </row-col><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
                 <q-btn to="/zapps/Customer" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                    <q-img src="/ssstatic/images/Customer.png" spinner-color="white" style="width:40px"/>
+                    <q-img src="/ssstatic/images/Customer.png" spinner-color="white" style="width:30px"/>
                     <div class="text-primary text-subtitle1">Customers</div>
                 </q-btn>
                 <q-btn to="/zapps/Request"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                    <q-img src="/ssstatic/images/Request.png" spinner-color="white" style="width:40px"/>
+                    <q-img src="/ssstatic/images/Request.png" spinner-color="white" style="width:30px"/>
                     <div class="text-primary text-subtitle1">Requests</div>
                 </q-btn>
                 <q-btn to="/zapps/SalesOrder"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                    <q-img src="/ssstatic/images/Sales.png" spinner-color="white" style="width:40px"/>
+                    <q-img src="/ssstatic/images/Sales.png" spinner-color="white" style="width:30px"/>
                     <div class="text-primary text-subtitle1">Sales Orders</div>
                 </q-btn>
                 ]]>
@@ -208,11 +208,11 @@ along with this software (see the LICENSE.md file). If not, see
             <container-row><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Asset" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Inventory.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Inventory.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Inventory Assets</div>
                     </q-btn>
                     <q-btn to="/zapps/Return"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Return.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Return.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Returns</div>
                     </q-btn>
                     ]]>
@@ -223,11 +223,11 @@ along with this software (see the LICENSE.md file). If not, see
             </row-col><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Shipping" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Picking.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Picking.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Shipping</div>
                     </q-btn>
                     <q-btn to="/zapps/Shipment"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Shipping.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Shipping.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Outgoing Shipments</div>
                     </q-btn>
                     ]]>
@@ -240,15 +240,15 @@ along with this software (see the LICENSE.md file). If not, see
             <container-row><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Catalog"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Catalog.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Catalog.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Catalog</div>
                     </q-btn>
                     <q-btn to="/zapps/Catalog/Product" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Product.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Product.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Products</div>
                     </q-btn>
                     <q-btn to="/zapps/ProductStore" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Store.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Store.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Stores</div>
                     </q-btn>
                     ]]>
@@ -257,15 +257,15 @@ along with this software (see the LICENSE.md file). If not, see
             </row-col><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Wiki/WikiSpaces" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Wiki.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Wiki.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Wiki/Content</div>
                     </q-btn>
                     <q-btn to="/zapps/Wiki/WikiBlogs" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Blog.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Blog.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Wiki Blogs</div>
                     </q-btn>
                     <q-btn to="/zapps/Survey" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Survey.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Survey.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Survey</div>
                     </q-btn>
                     ]]>
@@ -277,30 +277,30 @@ along with this software (see the LICENSE.md file). If not, see
 
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Manufacturing" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Manufacturing.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Manufacturing.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Manufacturing</div>
                     </q-btn>
                     <q-btn to="/zapps/Asset" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Asset.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Asset.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Asset</div>
                     </q-btn>
                     <q-btn to="/zapps/Facility" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Facility.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Facility.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Facility</div>
                     </q-btn>
                 ]]></text></render-mode>
             </row-col><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Party" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Parties.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Parties.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Parties</div>
                     </q-btn>
                     <q-btn to="/zapps/Accounting" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Accounting.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Accounting.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Accounting</div>
                     </q-btn>
                     <q-btn to="/zapps/Accounting/Reports" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
-                        <q-img src="/ssstatic/images/Report.png" spinner-color="white" style="width:40px"/>
+                        <q-img src="/ssstatic/images/Report.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">Reports</div>
                     </q-btn>
                     ]]></text></render-mode>
