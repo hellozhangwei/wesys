@@ -134,13 +134,13 @@ along with this software (see the LICENSE.md file). If not, see
                     <container style="col q-my-auto"><link url="../SalesOrder" parameter-map="[orderType:'Sales', statusId:'OrderHold']"
                             text="Held" badge="${orderHeldCount}" btn-type="default"/></container>-->
                     <render-mode><text type="qvt"><![CDATA[
-                        <q-btn class="col" no-caps outline text-color="primary" label="Placed" to="/zapps/SalesOrder">
+                        <q-btn class="col" no-caps outline text-color="primary" label="${ec.getL10n().localize("DashboardPlaced")}" to="/zapps/SalesOrder">
                             <q-badge color="primary" floating>${orderPlacedCount}</q-badge>
                         </q-btn>
-                        <q-btn  class="col" no-caps outline text-color="primary" label="Approved" to="/zapps/SalesOrder">
+                        <q-btn  class="col" no-caps outline text-color="primary" label="${ec.getL10n().localize("DashboardApproved")}" to="/zapps/SalesOrder">
                             <q-badge color="primary" floating>${orderApprovedCount}</q-badge>
                         </q-btn>
-                        <q-btn  class="col" no-caps outline text-color="primary" label="Hold" to="/zapps/SalesOrder">
+                        <q-btn  class="col" no-caps outline text-color="primary" label="${ec.getL10n().localize("DashboardHold")}" to="/zapps/SalesOrder">
                             <q-badge color="primary" floating>${orderHeldCount}</q-badge>
                         </q-btn>
                     ]]></text></render-mode>
@@ -153,10 +153,10 @@ along with this software (see the LICENSE.md file). If not, see
                      <container style="col q-my-auto"><link url="../Request" parameter-map="[statusId:'ReqReviewed,ReqInProgress', statusId_op:'in']"
                              text="In Progress" badge="${requestInProgressCount}" btn-type="default"/></container>-->
                     <render-mode><text type="qvt"><![CDATA[
-                    <q-btn class="col" no-caps outline text-color="primary" label="Submitted" to="/zapps/Request">
+                    <q-btn class="col" no-caps outline text-color="primary" label="${ec.getL10n().localize("DashboardSubmitted")}" to="/zapps/Request">
                         <q-badge color="primary" floating>${requestSubmittedCount}</q-badge>
                     </q-btn>
-                    <q-btn  class="col" no-caps outline text-color="primary" label="In Progress" to="/zapps/Request">
+                    <q-btn  class="col" no-caps outline text-color="primary" label="${ec.getL10n().localize("DashboardInProgress")}" to="/zapps/Request">
                         <q-badge color="primary" floating>${requestInProgressCount}</q-badge>
                     </q-btn>
                 ]]></text></render-mode>
@@ -169,35 +169,37 @@ along with this software (see the LICENSE.md file). If not, see
             <container-row><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode>
                     <text type="qvt"><![CDATA[
-                            <q-btn to="/zapps/Supplier" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                            <q-btn to="/zapps/Supplier" no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                                 <q-img src="/ssstatic/images/Supplier.png" spinner-color="white" style="width:30px"/>
-                                <div class="text-primary text-subtitle1">Suppliers</div>
+                                <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardSuppliers")}</div>
                             </q-btn>
 
-                            <q-btn to="/zapps/PurchaseOrder"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                            <q-btn to="/zapps/PurchaseOrder"  no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                                 <q-img src="/ssstatic/images/Purchasing.png" spinner-color="white" style="width:30px"/>
-                                <div class="text-primary text-subtitle1">Purchase Orders</div>
+                                <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardPurchaseOrders")}</div>
                             </q-btn>
-                            <q-btn to="/zapps/Asset" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
+                            <q-btn to="/zapps/Asset" no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                                 <q-img src="/ssstatic/images/Inventory.png" spinner-color="white" style="width:30px"/>
-                                <div class="text-primary text-subtitle1">Inventory Assets</div>
+                                <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardInventoryAssets")}</div>
                             </q-btn>
                         ]]>
                     </text>
                 </render-mode>
+                <!--<link url="../Supplier" btn-type="grey-5" link-type="anchor-button" style="q-px-md q-py-xs full-width"
+                      button-flat="false" button-outline="true" button-size="lg" icon="/ssstatic/images/Supplier.png"/>-->
             </row-col><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
                 <q-btn to="/zapps/Customer" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                     <q-img src="/ssstatic/images/Customer.png" spinner-color="white" style="width:30px"/>
-                    <div class="text-primary text-subtitle1">Customers</div>
+                    <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardCustomers")}</div>
                 </q-btn>
                 <q-btn to="/zapps/Request"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                     <q-img src="/ssstatic/images/Request.png" spinner-color="white" style="width:30px"/>
-                    <div class="text-primary text-subtitle1">Requests</div>
+                    <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardRequests")}</div>
                 </q-btn>
                 <q-btn to="/zapps/SalesOrder"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                     <q-img src="/ssstatic/images/Sales.png" spinner-color="white" style="width:30px"/>
-                    <div class="text-primary text-subtitle1">Sales Orders</div>
+                    <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardSalesOrders")}</div>
                 </q-btn>
                 ]]>
                 </text>
@@ -209,11 +211,11 @@ along with this software (see the LICENSE.md file). If not, see
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Return"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Return.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Returns</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardReturns")}</div>
                     </q-btn>
                     <q-btn to="/zapps/Shipment?parentShipmentType=ShpTpIncoming"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                                 <q-img src="/ssstatic/images/Receiving.png" spinner-color="white" style="width:30px"/>
-                                <span class="text-primary text-subtitle1">Incoming Shipments</span>
+                                <span class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardIncomingShipment")}</span>
                             </q-btn>
                     ]]>
                 </text>
@@ -224,11 +226,11 @@ along with this software (see the LICENSE.md file). If not, see
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Shipping" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Picking.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Shipping</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardShipping")}</div>
                     </q-btn>
                     <q-btn to="/zapps/Shipment"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Shipping.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Outgoing Shipments</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardOutgoingShipment")}</div>
                     </q-btn>
                     ]]>
                 </text>
@@ -241,15 +243,15 @@ along with this software (see the LICENSE.md file). If not, see
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Catalog"  no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Catalog.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Catalog</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardCatalog")}</div>
                     </q-btn>
                     <q-btn to="/zapps/Catalog/Product" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Product.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Products</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardProducts")}</div>
                     </q-btn>
                     <q-btn to="/zapps/ProductStore" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Store.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Stores</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardStores")}</div>
                     </q-btn>
                     ]]>
                 </text></render-mode>
@@ -258,15 +260,15 @@ along with this software (see the LICENSE.md file). If not, see
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Wiki/WikiSpaces" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Wiki.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Wiki/Content</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardWikiContent")}</div>
                     </q-btn>
                     <q-btn to="/zapps/Wiki/WikiBlogs" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Blog.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Wiki Blogs</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardWikiBlogs")}</div>
                     </q-btn>
                     <q-btn to="/zapps/Survey" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Survey.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Survey</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardSurvey")}</div>
                     </q-btn>
                     ]]>
                 </text></render-mode>
@@ -278,30 +280,30 @@ along with this software (see the LICENSE.md file). If not, see
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Manufacturing" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Manufacturing.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Manufacturing</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardManufacturing")}</div>
                     </q-btn>
                     <q-btn to="/zapps/Asset" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Asset.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Asset</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardAsset")}</div>
                     </q-btn>
                     <q-btn to="/zapps/Facility" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Facility.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Facility</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardFacility")}</div>
                     </q-btn>
                 ]]></text></render-mode>
             </row-col><row-col sm="6" style="q-gutter-y-sm">
                 <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Party" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Parties.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Parties</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardParties")}</div>
                     </q-btn>
                     <q-btn to="/zapps/Accounting" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Accounting.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Accounting</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardAccounting")}</div>
                     </q-btn>
                     <q-btn to="/zapps/Accounting/Reports" no-caps stack outline class="q-px-md q-py-xs" size="lg" color="grey-5" style="width:100%">
                         <q-img src="/ssstatic/images/Report.png" spinner-color="white" style="width:30px"/>
-                        <div class="text-primary text-subtitle1">Reports</div>
+                        <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardReports")}</div>
                     </q-btn>
                     ]]></text></render-mode>
             </row-col></container-row>
