@@ -153,10 +153,10 @@ along with this software (see the LICENSE.md file). If not, see
                      <container style="col q-my-auto"><link url="../Request" parameter-map="[statusId:'ReqReviewed,ReqInProgress', statusId_op:'in']"
                              text="In Progress" badge="${requestInProgressCount}" btn-type="default"/></container>-->
                     <render-mode><text type="qvt"><![CDATA[
-                    <q-btn class="col" no-caps outline text-color="primary" label="Placed" to="/zapps/Request">
+                    <q-btn class="col" no-caps outline text-color="primary" label="Submitted" to="/zapps/Request">
                         <q-badge color="primary" floating>${requestSubmittedCount}</q-badge>
                     </q-btn>
-                    <q-btn  class="col" no-caps outline text-color="primary" label="Approved" to="/zapps/Request">
+                    <q-btn  class="col" no-caps outline text-color="primary" label="In Progress" to="/zapps/Request">
                         <q-badge color="primary" floating>${requestInProgressCount}</q-badge>
                     </q-btn>
                 ]]></text></render-mode>
