@@ -1,4 +1,4 @@
-# moqui-zsys
+# Install wesys
 
 Install moqui framework and mantle artifacts
 
