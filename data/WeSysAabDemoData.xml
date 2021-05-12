@@ -19,7 +19,7 @@ along with this software (see the LICENSE.md file). If not, see
            passwordHint="framework name, lowercase" locale="zh_CN" timeZone="Asia/Shanghai"
            emailAddress="wadmin@test.com">
         <groups userGroupId="MoquiWeSysAdmin"/>
-    </users>
+    </users><!--password is 1234556-->
 
     <mantle.product.category.ProductCategory productCategoryId="JD"
                                              productCategoryTypeEnumId="PctCatalog" categoryName="家用电器"/>
@@ -35,5 +35,25 @@ along with this software (see the LICENSE.md file). If not, see
                                              productCategoryTypeEnumId="PctCatalog" categoryName="食品饮料"/>
     <mantle.product.category.ProductCategory productCategoryId="BOOK"
                                              productCategoryTypeEnumId="PctCatalog" categoryName="图书"/>
+
+    <artifactGroups artifactGroupId="WeSysCustomer" description="WE SYS Customer">
+        <artifacts artifactName="component://wesys/screen/wesys/Customer.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+    </artifactGroups>
+
+    <artifactGroups artifactGroupId="WeSysDashboard" description="WE SYS Customer">
+        <artifacts artifactName="component://wesys/screen/wesys/dashboard.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+    </artifactGroups>
+
+    <userGroups userGroupId="WesysCustomerView" description="Customer View Group">
+        <authz artifactAuthzId="WE-SYS-CUSTOMER-VIEW" artifactGroupId="WeSysCustomer" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW"/>
+        <authz artifactAuthzId="WE-SYS-DASHBOARD-VIEW" artifactGroupId="WeSysDashboard" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW"/>
+    </userGroups>
+
+    <users userId="customer.view" username="customer.view" userFullName="Customer View"
+           currentPassword="d7f2fbb12347ccbd9dbac536243a062a561719ae3fc03644ff2e8b8eb82dda2a" passwordHashType="SHA-256" passwordSalt="xvhiTg8O"
+           passwordHint="framework name, lowercase" locale="zh_CN" timeZone="Asia/Shanghai"
+           emailAddress="customer.view@test.com">
+        <groups userGroupId="WesysCustomerView"/>
+    </users>
 
 </entity-facade-xml>
