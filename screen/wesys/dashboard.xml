@@ -167,7 +167,7 @@ along with this software (see the LICENSE.md file). If not, see
         <container-row><row-col sm="1"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="4" style="text-center">
             <label text="Operate" type="h4" style="q-ma-lg"/>
             <container-row><row-col sm="6" style="q-gutter-y-sm">
-                <render-mode>
+                <!--<render-mode>
                     <text type="qvt"><![CDATA[
                             <q-btn to="/zapps/Supplier" no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                                 <q-img src="/ssstatic/images/Supplier.png" spinner-color="white" style="width:30px"/>
@@ -184,11 +184,19 @@ along with this software (see the LICENSE.md file). If not, see
                             </q-btn>
                         ]]>
                     </text>
-                </render-mode>
-                <!--<link url="../Supplier" btn-type="grey-5" link-type="anchor-button" style="q-px-md q-py-xs full-width"
-                      button-flat="false" button-outline="true" button-size="lg" icon="/ssstatic/images/Supplier.png"/>-->
+                </render-mode>-->
+
+                <link url="../Supplier" text="DashboardSuppliers" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Supplier.png"/>
+
+                <link url="../PurchaseOrder" text="DashboardPurchaseOrders" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Purchasing.png"/>
+
+                <link url="../Asset" text="DashboardInventoryAssets" link-type="anchor-button" style="q-pa-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Inventory.png"/>
+
             </row-col><row-col sm="6" style="q-gutter-y-sm">
-                <render-mode><text type="qvt"><![CDATA[
+                <!--<render-mode><text type="qvt"><![CDATA[
                 <q-btn to="/zapps/Customer" no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                     <q-img src="/ssstatic/images/Customer.png" spinner-color="white" style="width:30px"/>
                     <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardCustomers")}</div>
@@ -203,7 +211,16 @@ along with this software (see the LICENSE.md file). If not, see
                 </q-btn>
                 ]]>
                 </text>
-                </render-mode>
+                </render-mode>-->
+
+                <link url="../Customer" text="DashboardCustomers" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Customer.png"/>
+
+                <link url="../Request" text="DashboardRequests" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Request.png"/>
+
+                <link url="../SalesOrder" text="DashboardSalesOrders" link-type="anchor-button" style="q-pa-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Sales.png"/>
 
             </row-col></container-row>
             <label text="&amp;nbsp;" type="p" encode="false"/>
