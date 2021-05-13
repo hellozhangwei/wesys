@@ -48,3 +48,6 @@ Create elasticsearch user for Linux
 * su elasticsearch
 * ./elasticsearch -d
 
+Install kibana
+https://artifacts.elastic.co/downloads/kibana/kibana-oss-7.8.0-darwin-x86_64.tar.gz
+
