@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" default-menu-title="分类列表">
+        default-menu-include="false" default-menu-title="Category List">
 
     <transition name="findCategory"><default-response url="."/></transition>
     <transition name="editParty"><default-response url="//${appRoot}/Party/EditParty"/></transition>
@@ -23,16 +23,16 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
         <container style="row q-mb-md">
-        <label text="分类列表" style="text-h3" />
+        <label text="Category List" style="text-h3" />
         <container type="q-space"/>
-            <container-dialog id="NewCategoryDialog" button-text="新建分类" button-outline="false" button-flat="false">
+            <container-dialog id="NewCategoryDialog" button-text="New Category" button-outline="false" button-flat="false">
                 <form-single name="NewCategoryForm" transition="createCategory">
-                    <field name="categoryName"><default-field title="分类名称"><text-line/></default-field></field>
-                    <field name="productCategoryTypeEnumId"><default-field title="分类类型">
+                    <field name="categoryName"><default-field title="Category Name"><text-line/></default-field></field>
+                    <field name="productCategoryTypeEnumId"><default-field title="Category Type">
                         <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
                             <set field="enumTypeId" value="ProductCategoryType"/></widget-template-include>
                     </default-field></field>
-                    <field name="ownerPartyId"><default-field title="所有者">
+                    <field name="ownerPartyId"><default-field title="Owner">
                         <drop-down>
                             <option key="_NA_" text="N/A"/>
                             <entity-options key="${partyId}" text="PartyNameTemplate">
@@ -44,7 +44,7 @@ along with this software (see the LICENSE.md file). If not, see
                             </entity-options>
                         </drop-down>
                     </default-field></field>
-                    <field name="submitButton"><default-field title="创建" container-style="row justify-end"><submit/></default-field></field>
+                    <field name="submitButton"><default-field title="Create" container-style="row justify-end"><submit/></default-field></field>
                 </form-single>
             </container-dialog>
         </container>
@@ -57,22 +57,22 @@ along with this software (see the LICENSE.md file). If not, see
             </entity-find>
 
             <field name="pseudoId">
-                <header-field title="分类ID" show-order-by="case-insensitive"><text-find size="15" hide-options="true"/></header-field>
+                <header-field title="Category ID" show-order-by="case-insensitive"><text-find size="15" hide-options="true"/></header-field>
                 <default-field><link url="../CategoryView" text="${pseudoId}" link-type="anchor"/></default-field>
             </field>
             <field name="categoryName">
-                <header-field title="分类名称" show-order-by="case-insensitive"><text-find size="15" hide-options="true"/></header-field>
+                <header-field title="Category Name" show-order-by="case-insensitive"><text-find size="15" hide-options="true"/></header-field>
                 <default-field><link url="../CategoryView" text="${categoryName}" link-type="anchor"/></default-field>
             </field>
             <field name="productCategoryTypeEnumId">
-                <header-field title="分类类型" show-order-by="true">
+                <header-field title="Category Type" show-order-by="true">
                     <widget-template-include location="component://webroot/template/screen/BasicWidgetTemplates.xml#enumDropDown">
                         <set field="enumTypeId" value="ProductCategoryType"/><set field="allowEmpty" value="true"/></widget-template-include>
                 </header-field>
                 <default-field><display-entity entity-name="moqui.basic.Enumeration"/></default-field>
             </field>
             <field name="ownerPartyId">
-                <header-field title="所有者"><drop-down allow-empty="true">
+                <header-field title="Owner"><drop-down allow-empty="true">
                     <entity-options key="${partyId}" text="PartyNameTemplate">
                         <entity-find entity-name="mantle.party.PartyDetailAndRole">
                             <econdition field-name="roleTypeId" value="OrgInternal"/>
@@ -86,12 +86,12 @@ along with this software (see the LICENSE.md file). If not, see
                         link-type="anchor" parameter-map="[partyId:ownerPartyId]"/></default-field>
             </field>
             <field name="productCount">
-                <default-field title="产品数"><display text="${category.products.size()}"/></default-field>
+                <default-field title="Product Count"><display text="${category.products.size()}"/></default-field>
             </field>
             <field name="childrenCount">
-                <default-field title="子分类数"><display text="${category.children.size()}"/></default-field>
+                <default-field title="Children"><display text="${category.children.size()}"/></default-field>
             </field>
-            <field name="submitButton"><header-field title="查找"><submit type="secondary"/></header-field>
+            <field name="submitButton"><header-field title="Find"><submit type="secondary"/></header-field>
                 <default-field><display text=" "/></default-field></field>
         </form-list>
     </widgets>
