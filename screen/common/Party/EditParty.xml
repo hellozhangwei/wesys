@@ -375,7 +375,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field name="roleTypeId"><default-field title="Role">
                             <display-entity entity-name="mantle.party.RoleType"/>
                         </default-field></field>
-                        <field name="submitButton"><default-field title=""><submit icon="fa fa-trash" confirmation="Delete role?"/></default-field></field>
+                        <field name="submitButton"><default-field title=""><submit icon="fa fa-trash" confirmation="Delete role?" button-flat="true"  button-size="sm"/></default-field></field>
                     </form-list>
                 </box-body-nopad></container-box>
             </widgets></section>
@@ -419,7 +419,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <econdition field-name="partyId"/></entity-find>
                     <set field="partyIdTypeEnumIds" from="partyIdentificationList.partyIdTypeEnumId"/>
             </actions><widgets>
-                <container-box initial="closed"><box-header title="Identification"/><box-toolbar>
+                <container-box initial="open"><box-header title="Identification"/><box-toolbar>
                     <container-dialog id="AddIdentificationDialog" button-text="Add Identification" title="Add Party Identification" type="secondary">
                         <form-single name="AddIdentificationForm" transition="createPartyIdentification">
                             <field name="partyId"><default-field><hidden/></default-field></field>
@@ -447,9 +447,9 @@ along with this software (see the LICENSE.md file). If not, see
                         </default-field></field>
                         <field name="idValue"><default-field><text-line size="20"/></default-field></field>
                         <field name="expireDate"><default-field><date-time type="date"/></default-field></field>
-                        <field name="submitButton"><default-field title="Update"><submit button-flat="true" type="info"/></default-field></field>
+                        <field name="submitButton"><default-field title=" "><submit button-flat="true" type="info" icon="edit" button-size="sm"/></default-field></field>
                         <field name="removeButton"><default-field title="">
-                            <link url="deletePartyIdentification" text=" " icon="fa fa-trash" confirmation="Delete this ID?" btn-type="info"/>
+                            <link url="deletePartyIdentification" text=" " icon="fa fa-trash" confirmation="Delete this ID?" button-flat="true" btn-type="info"/>
                         </default-field></field>
                     </form-list>
                 </box-body-nopad></container-box>
@@ -459,7 +459,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <entity-find entity-name="mantle.party.PartySetting" list="settingList">
                     <econdition field-name="partyId"/><order-by field-name="partySettingTypeId"/></entity-find>
             </actions><widgets>
-                <container-box initial="closed"><box-header title="Settings"/><box-toolbar>
+                <container-box initial="open"><box-header title="Settings"/><box-toolbar>
 
                     <button-menu text="Operation" btn-type="secondary">
                         <container-dialog id="AddSettingDialog" button-text="Select Setting" button-outline="false" button-flat="true" type="secondary">
