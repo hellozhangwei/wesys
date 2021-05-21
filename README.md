@@ -5,17 +5,16 @@ Install moqui framework and mantle artifacts
 1. git clone https://github.com/moqui/moqui-framework.git
 2. cd moqui-framwork
 3. gradlew getComponentSet -PcomponentSet=demo
-4. Change def elasticSearchVersion = '7.4.2' to def elasticSearchVersion = '7.8.0' in build.gralde in line 28
-6. gradlew downloadElasticSearch
-7. Install elasticsearch-analysis-ik-7.8.0 
+4. gradlew downloadElasticSearch
+5. Install elasticsearch-analysis-ik-7.10.2.0 
    
-   a) Download https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.8.0/elasticsearch-analysis-ik-7.8.0.zip
+   a) Download https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.10.2/elasticsearch-analysis-ik-7.10.2.zip
       
    b) mkdir moqui-framework/runtime/elasticsearch/plugins
 
-   c) unzip elasticsearch-analysis-ik-7.8.0.zip -d elasticsearch-analysis-ik-7.8.0
+   c) unzip elasticsearch-analysis-ik-7.10.2.zip -d elasticsearch-analysis-ik-7.10.2
    
-   d) mv elasticsearch-analysis-ik-7.8.0 moqui-framework/runtime/elasticsearch/plugins
+   d) mv elasticsearch-analysis-ik-7.10.2 moqui-framework/runtime/elasticsearch/plugins
 
 8. Create elasticsearch user
 9. Add
@@ -49,5 +48,5 @@ Create elasticsearch user for Linux
 * ./elasticsearch -d
 
 Install kibana
-https://artifacts.elastic.co/downloads/kibana/kibana-oss-7.8.0-darwin-x86_64.tar.gz
+https://artifacts.elastic.co/downloads/kibana/kibana-oss-7.10.2-darwin-x86_64.tar.gz
 
