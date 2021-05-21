@@ -603,7 +603,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field name="userGroupId"><default-field title="Group">
                             <display-entity entity-name="moqui.security.UserGroup"/>
                         </default-field></field>
-                        <field name="submitButton" align="right"><default-field title=""><submit icon="fa fa-trash" confirmation="Remove from Group?"/></default-field></field>
+                        <field name="submitButton" align="right"><default-field title=""><submit icon="fa fa-trash" button-flat="true" button-size="sm" confirmation="Remove from Group?"/></default-field></field>
                     </form-list>
                 </box-body></container-box>
                 <container-box><box-header title="Internal Organization Relationships"/><box-toolbar>
@@ -651,7 +651,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <field name="fromDate"><default-field><display/></default-field></field>
                         <field name="thruDate" from="ec.user.nowTimestamp"><default-field><hidden/></default-field></field>
 
-                        <field name="submitButton" align="right"><default-field title=""><submit icon="fa fa-trash" confirmation="Remove from Organization?"/></default-field></field>
+                        <field name="submitButton" align="right"><default-field title=""><submit icon="fa fa-trash" button-flat="true" button-size="sm" confirmation="Remove from Organization?"/></default-field></field>
                     </form-list>
                 </box-body></container-box>
             </widgets></section>

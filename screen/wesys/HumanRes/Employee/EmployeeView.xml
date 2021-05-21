@@ -52,6 +52,11 @@ along with this software (see the LICENSE.md file). If not, see
         <default-response url="."/></transition>
     <transition name="resetPassword"><service-call name="org.moqui.impl.UserServices.reset#Password"/>
         <default-response url="."/></transition>
+    <transition name="createUserGroupMember"><service-call name="create#moqui.security.UserGroupMember"/>
+        <default-response url="."/></transition>
+    <transition name="updateUserGroupMember"><service-call name="update#moqui.security.UserGroupMember"/>
+        <default-response url="."/></transition>
+
 
     <transition name="createPartyRelationship"><service-call name="create#mantle.party.PartyRelationship"/>
         <default-response url="."/></transition>
@@ -179,6 +184,8 @@ along with this software (see the LICENSE.md file). If not, see
             </box-body>
         </container-box>
 
+
+        <section-include name="UserAuthzSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
         <section-include name="PartyIdentificationSection" location="component://wesys/screen/common/Party/EditParty.xml"/>
         <section name="RolesSection"><actions>
             <entity-find entity-name="mantle.party.PartyRole" list="partyRoleList">
