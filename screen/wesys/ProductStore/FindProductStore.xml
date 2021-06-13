@@ -13,7 +13,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        default-menu-include="false" default-menu-title="店铺列表">
+        default-menu-include="false" default-menu-title="Store List">
 
     <transition name="editParty"><default-response url="//${appRoot}/Party/EditParty"/></transition>
     <transition name="editStore"><default-response url="../EditProductStore"/></transition>
@@ -27,9 +27,9 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
         <container style="row  q-mb-md">
-            <label text="店铺列表" style="text-h3" />
+            <label text="Store List" style="text-h3" />
             <container type="q-space"/>
-            <container-dialog id="NewStoreDialog" button-text="新建店铺" button-outline="false" button-flat="false">
+            <container-dialog id="NewStoreDialog" button-text="New Store" button-outline="false" button-flat="false">
                 <form-single name="NewStoreForm" transition="createStore">
                     <field name="productStoreId"><default-field title="ID"><text-line size="20"/></default-field></field>
                     <field name="storeName"><default-field title="Name"><text-line size="40"/></default-field></field>
@@ -50,15 +50,15 @@ along with this software (see the LICENSE.md file). If not, see
         <form-list name="StoresForm" list="storeList" skip-form="true" header-dialog="true" select-columns="true"
                    saved-finds="true" show-csv-button="true">
             <field name="productStoreId">
-                <header-field title="店铺ID" show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
+                <header-field title="Store ID" show-order-by="case-insensitive"><text-find size="10" hide-options="true"/></header-field>
                 <default-field><link url="editStore" text="${productStoreId}" link-type="anchor"/></default-field>
             </field>
             <field name="storeName">
-                <header-field title="店铺名称" show-order-by="case-insensitive"><text-find size="25" hide-options="true"/></header-field>
+                <header-field title="Store Name" show-order-by="case-insensitive"><text-find size="25" hide-options="true"/></header-field>
                 <default-field><link url="editStore" text="${storeName}" link-type="anchor"/></default-field>
             </field>
             <field name="organizationPartyId">
-                <header-field title="所属组织" show-order-by="case-insensitive"><text-find size="25" hide-options="true"/></header-field>
+                <header-field title="Owner" show-order-by="case-insensitive"><text-find size="25" hide-options="true"/></header-field>
                 <default-field><link url="editParty" text="PartyNameTemplate" entity-name="mantle.party.PartyDetail" parameter-map="[partyId:organizationPartyId]" link-type="anchor"/></default-field>
             </field>
             <field name="submitButton">
