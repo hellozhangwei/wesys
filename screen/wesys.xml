@@ -53,6 +53,7 @@ along with this software (see the LICENSE.md file). If not, see
         <subscreens-item name="Shipping" location="component://SimpleScreens/screen/SimpleScreens/Shipping.xml" menu-index="13" menu-title="ShippingTitle"/>
 <!--        <subscreens-item name="Accounting" location="component://SimpleScreens/screen/SimpleScreens/Accounting.xml" menu-index="14" menu-title="AccountingTitle"/>-->
         <subscreens-item name="system" location="component://tools/screen/System.xml" menu-index="15" menu-title="SystemTitle"/>
+        <subscreens-item name="Party" location="component://SimpleScreens/screen/SimpleScreens/Party.xml" menu-index="10"/>
 
         <!--<subscreens-item name="ProductStore" location="component://SimpleScreens/screen/SimpleScreens/ProductStore.xml" menu-index="10"/>-->
         <!--<subscreens-item name="Gateway" location="component://SimpleScreens/screen/SimpleScreens/Gateway.xml" menu-include="false"/>-->
