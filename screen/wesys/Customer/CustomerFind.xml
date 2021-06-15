@@ -151,7 +151,7 @@ along with this software (see the LICENSE.md file). If not, see
         </container>
 
         <form-list name="CustomerListForm" list="documentList" skip-form="true" header-dialog="true" saved-finds="true"
-                   show-xlsx-button="true" show-csv-button="true" show-page-size="true">
+                   show-xlsx-button="true" show-csv-button="true" show-pdf-button="true" show-text-button="true" show-page-size="true">
             <field name="pseudoId">
                 <header-field title="Customer ID" show-order-by="true"><text-line size="20"/></header-field>
                 <default-field><link url="editCustomer" text="${pseudoId}" link-type="anchor"/></default-field>
