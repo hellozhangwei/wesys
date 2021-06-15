@@ -420,7 +420,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <set field="partyIdTypeEnumIds" from="partyIdentificationList.partyIdTypeEnumId"/>
             </actions><widgets>
                 <container-box initial="open"><box-header title="Identification"/><box-toolbar>
-                    <container-dialog id="AddIdentificationDialog" button-text="Add Identification" title="Add Party Identification" type="secondary">
+                    <container-dialog id="AddIdentificationDialog" button-text="Add Identification" title="Add Party Identification" button-flat="true" type="secondary">
                         <form-single name="AddIdentificationForm" transition="createPartyIdentification">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="partyIdTypeEnumId"><default-field title="Party ID Type">
@@ -828,7 +828,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="partyId"/><order-by field-name="-noteDate"/></entity-find>
             </actions><widgets>
                 <container-box id="NoteListBox" initial="closed"><box-header title="Notes"/><box-toolbar>
-                    <container-dialog id="NewNoteDialog" button-text="Add Note" type="secondary" button-size="sm" button-style="no-border-radius">
+                    <container-dialog id="NewNoteDialog" button-text="Add Note" type="secondary" button-flat="true" button-style="no-border-radius">
                         <form-single name="NewNoteForm" transition="createPartyNote">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="noteText"><default-field title="Note"><text-area cols="60" rows="6"/></default-field></field>

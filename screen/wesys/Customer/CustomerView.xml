@@ -175,7 +175,7 @@ along with this software (see the LICENSE.md file). If not, see
                                 button-style="no-border-radius" button-outline="false" button-flat="true" button-size="sm" type="secondary"/>
                 <vertical-separator/>
                 <section name="ConvertPartySection" condition="party?.partyTypeEnumId == 'PtyOrganization'"><widgets>
-                    <container-dialog id="ConvertToPersonSection" button-text="Convert To Person" type="secondary">
+                    <container-dialog id="ConvertToPersonSection" button-text="Convert To Person" type="secondary" button-flat="true">
                         <form-single name="ConvertToPersonForm" map="party" transition="convertPartyToPerson">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="firstName" from="party.organizationName.contains(' ') ? party.organizationName.substring(0, party.organizationName.lastIndexOf(' ')) : party.organizationName">
@@ -188,7 +188,7 @@ along with this software (see the LICENSE.md file). If not, see
                         </form-single>
                     </container-dialog>
                 </widgets><fail-widgets>
-                    <container-dialog id="ConvertToOrganizationSection" button-text="Convert To Organization" type="secondary">
+                    <container-dialog id="ConvertToOrganizationSection" button-text="Convert To Organization" type="secondary" button-flat="true">
                         <form-single name="ConvertToOrganizationForm" map="party" transition="convertPartyToOrganization">
                             <field name="partyId"><default-field><hidden/></default-field></field>
                             <field name="organizationName"><default-field>
