@@ -56,4 +56,19 @@ along with this software (see the LICENSE.md file). If not, see
         <groups userGroupId="WesysCustomerView"/>
     </users>
 
+
+    <moqui.screen.form.FormListFind formListFindId="" formConfigId=""
+                                    description="Sales Account" orderByField=""
+                                    formLocation="component://wesys/screen/wesys/Customer/CustomerFind.xml.form_list$CustomerListForm">
+        <fields fieldName="roleTypeId" fieldOperator="equals" fieldValue="Account"/>
+        <userGroups userGroupId="ALL_USERS"/>
+    </moqui.screen.form.FormListFind>
+
+    <moqui.screen.form.FormListFind formListFindId="" formConfigId=""
+                                    description="Sales Contact" orderByField=""
+                                    formLocation="component://wesys/screen/wesys/Customer/CustomerFind.xml.form_list$CustomerListForm">
+        <fields fieldName="roleTypeId" fieldOperator="equals" fieldValue="Contact"/>
+        <userGroups userGroupId="ALL_USERS"/>
+    </moqui.screen.form.FormListFind>
+
 </entity-facade-xml>
