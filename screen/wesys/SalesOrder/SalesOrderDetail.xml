@@ -921,7 +921,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <section name="AddItemsSection" condition="orderPartInfo.partEditable"><widgets>
 
 
-                        <container-dialog id="AddProductItemContainer" button-text="Add Product Item" type="secondary">
+                        <container-dialog id="AddProductItemContainer" button-text="Add Product Item" type="secondary" button-flat="true">
                             <form-single name="AddProductItemForm" transition="addProductItem" focus-field="productId">
                                 <field name="orderId"><default-field><hidden/></default-field></field>
                                 <field name="orderPartSeqId" from="orderPartInfo.orderPart.orderPartSeqId"><default-field><hidden/></default-field></field>
