@@ -225,7 +225,7 @@ along with this software (see the LICENSE.md file). If not, see
             </row-col></container-row>
             <label text="&amp;nbsp;" type="p" encode="false"/>
             <container-row><row-col sm="6" style="q-gutter-y-sm">
-                <render-mode><text type="qvt"><![CDATA[
+                <!--<render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Return"  no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                         <q-img src="/ssstatic/images/Return.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardReturns")}</div>
@@ -236,11 +236,15 @@ along with this software (see the LICENSE.md file). If not, see
                     </q-btn>
                     ]]>
                 </text>
-                </render-mode>
+                </render-mode>-->
+                <link url="../Return" text="DashboardReturns" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Return.png"/>
 
+                <link url="../Shipment?parentShipmentType=ShpTpIncoming" text="DashboardIncomingShipment" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Receiving.png"/>
 
             </row-col><row-col sm="6" style="q-gutter-y-sm">
-                <render-mode><text type="qvt"><![CDATA[
+                <!--<render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Shipping" no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                         <q-img src="/ssstatic/images/Picking.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardShipping")}</div>
@@ -251,13 +255,17 @@ along with this software (see the LICENSE.md file). If not, see
                     </q-btn>
                     ]]>
                 </text>
-                </render-mode>
+                </render-mode>-->
+                <link url="../Shipping" text="DashboardShipping" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Picking.png"/>
+                <link url="../Shipment" text="DashboardOutgoingShipment" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Shipping.png"/>
 
             </row-col></container-row>
         </row-col><row-col sm="2"><label text="&amp;nbsp;" encode="false"/></row-col><row-col sm="4" style="text-center">
             <label text="Manage" type="h4" style="q-ma-lg"/>
             <container-row><row-col sm="6" style="q-gutter-y-sm">
-                <render-mode><text type="qvt"><![CDATA[
+                <!--<render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Catalog"  no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                         <q-img src="/ssstatic/images/Catalog.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardCatalog")}</div>
@@ -271,10 +279,16 @@ along with this software (see the LICENSE.md file). If not, see
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardStores")}</div>
                     </q-btn>
                     ]]>
-                </text></render-mode>
+                </text></render-mode>-->
+                <link url="../Catalog" text="DashboardCatalog" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Catalog.png"/>
+                <link url="../Catalog/Product" text="DashboardProducts" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Product.png"/>
+                <link url="../ProductStore" text="DashboardStores" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Store.png"/>
 
             </row-col><row-col sm="6" style="q-gutter-y-sm">
-                <render-mode><text type="qvt"><![CDATA[
+               <!-- <render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Wiki/WikiSpaces" no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                         <q-img src="/ssstatic/images/Wiki.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardWikiContent")}</div>
@@ -288,13 +302,17 @@ along with this software (see the LICENSE.md file). If not, see
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardSurvey")}</div>
                     </q-btn>
                     ]]>
-                </text></render-mode>
+                </text></render-mode>-->
+                <link url="../Wiki/WikiSpaces" text="DashboardWikiContent" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Wiki.png"/>
+                <link url="../Wiki/WikiBlogs" text="DashboardWikiBlogs" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Blog.png"/>
+                <link url="../Survey" text="DashboardSurvey" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Survey.png"/>
             </row-col></container-row>
             <label text="&amp;nbsp;" type="p" encode="false"/>
             <container-row><row-col sm="6" style="q-gutter-y-sm">
-
-
-                <render-mode><text type="qvt"><![CDATA[
+                <!--<render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Manufacturing" no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                         <q-img src="/ssstatic/images/Manufacturing.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardManufacturing")}</div>
@@ -307,9 +325,15 @@ along with this software (see the LICENSE.md file). If not, see
                         <q-img src="/ssstatic/images/Facility.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardFacility")}</div>
                     </q-btn>
-                ]]></text></render-mode>
+                ]]></text></render-mode>-->
+                <link url="../Manufacturing" text="DashboardManufacturing" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Manufacturing.png"/>
+                <link url="../Asset" text="DashboardAsset" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Asset.png"/>
+                <link url="../Facility" text="DashboardFacility" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Facility.png"/>
             </row-col><row-col sm="6" style="q-gutter-y-sm">
-                <render-mode><text type="qvt"><![CDATA[
+                <!--<render-mode><text type="qvt"><![CDATA[
                     <q-btn to="/zapps/Party" no-caps stack outline class="q-px-md q-py-xs full-width" size="lg" color="grey-5">
                         <q-img src="/ssstatic/images/Parties.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardParties")}</div>
@@ -322,7 +346,13 @@ along with this software (see the LICENSE.md file). If not, see
                         <q-img src="/ssstatic/images/Report.png" spinner-color="white" style="width:30px"/>
                         <div class="text-primary text-subtitle1">${ec.getL10n().localize("DashboardReports")}</div>
                     </q-btn>
-                    ]]></text></render-mode>
+                    ]]></text></render-mode>-->
+                <link url="../Party" text="DashboardParties" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Parties.png"/>
+                <link url="../Accounting" text="DashboardAccounting" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Accounting.png"/>
+                <link url="../Accounting/Reports" text="DashboardReports" link-type="anchor-button" style="q-pa-sm q-mb-sm full-width"
+                      button-outline="true" button-stack="true" button-size="12px" icon="/ssstatic/images/Report.png"/>
             </row-col></container-row>
             <label text="&amp;nbsp;" type="p" encode="false"/>
         </row-col></container-row>
