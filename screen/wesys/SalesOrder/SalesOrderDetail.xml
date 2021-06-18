@@ -1305,17 +1305,11 @@ along with this software (see the LICENSE.md file). If not, see
                             <default-field title="Parent Item"><display text="${parentItemSeqId ? 'Parent ' + parentItemSeqId : ''}"/></default-field>
                         </field>-->
 
-                        <!-- <field name="itemTypeEnumId">
-                           conditional-field condition="orderPartInfo.partEditable" title="Type">
-                               <drop-down no-current-selected-key="ItemInventory">
-                                   <entity-options key="${enumId}" text="${description}"><entity-find entity-name="moqui.basic.Enumeration">
-                                       <econdition field-name="enumTypeId" value="ItemType"/><order-by field-name="description"/>
-                                   </entity-find></entity-options></drop-down>
-                           </conditional-field>
-                            <default-field title="Type" container-style="${isProductItemType ? 'text-info' : (itemTypeEnumId == 'ItemDiscount' ? 'text-success' : (itemTypeEnumId in ['ItemSalesTax','ItemVatTax'] ? 'text-warning' : ''))}">
+                        <field name="itemTypeEnumId">
+                            <default-field title="Item Type" container-style="${isProductItemType ? 'text-info' : (itemTypeEnumId == 'ItemDiscount' ? 'text-success' : (itemTypeEnumId in ['ItemSalesTax','ItemVatTax'] ? 'text-warning' : ''))}">
                                <display-entity entity-name="moqui.basic.Enumeration" text="${description}${isPromo ? ' (Promotion)' : ''}"/>
                             </default-field>
-                        </field>-->
+                        </field>
                         <!--<field name="productId">
                             <conditional-field condition="isProductItemType &amp;&amp; orderPartInfo.partEditable">
                                 <drop-down><dynamic-options transition="getProductList" server-search="true" min-length="0"/></drop-down>
