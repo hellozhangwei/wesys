@@ -13,13 +13,129 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <entity-facade-xml type="demo">
+    <parties partyId="WeiZhang" partyTypeEnumId="PtyPerson">
+        <person firstName="Wei" middleName="" lastName="Zhang"/>
+        <roles roleTypeId="Employee"/>
+        <fromRelationships relationshipTypeEnumId="PrtEmployee" fromRoleTypeId="Employee" toPartyId="ORG_ZIZI_RETAIL" toRoleTypeId="OrgInternal"/>
+        <mantle.party.contact.ContactMech contactMechTypeEnumId="CmtEmailAddress" infoString="wei.zhang@moqui.org">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="EmailPrimary"/></mantle.party.contact.ContactMech>
+        <users userId="wadmin" username="wadmin" userFullName="Wei Zhang"
+               currentPassword="d7f2fbb12347ccbd9dbac536243a062a561719ae3fc03644ff2e8b8eb82dda2a" passwordHashType="SHA-256" passwordSalt="xvhiTg8O"
+               passwordHint="framework name, lowercase" locale="zh_CN" timeZone="Asia/Shanghai"
+               emailAddress="wei.zhang@test.com">
+            <groups userGroupId="WeSysAdmin"/>
+        </users><!--password is 1234556-->
+    </parties>
 
-    <users userId="wadmin" username="wadmin" userFullName="W Admin"
-           currentPassword="d7f2fbb12347ccbd9dbac536243a062a561719ae3fc03644ff2e8b8eb82dda2a" passwordHashType="SHA-256" passwordSalt="xvhiTg8O"
-           passwordHint="framework name, lowercase" locale="zh_CN" timeZone="Asia/Shanghai"
-           emailAddress="wadmin@test.com">
-        <groups userGroupId="MoquiWeSysAdmin"/>
-    </users><!--password is 1234556-->
+    <parties partyId="WeiAccounting" partyTypeEnumId="PtyPerson">
+        <person firstName="Wei" middleName="" lastName="Accounting"/>
+        <roles roleTypeId="Employee"/><roles roleTypeId="Accountant"/>
+        <fromRelationships relationshipTypeEnumId="PrtEmployee" fromRoleTypeId="Employee" toPartyId="ORG_ZIZI_RETAIL" toRoleTypeId="OrgInternal"/>
+        <mantle.party.contact.ContactMech contactMechTypeEnumId="CmtEmailAddress" infoString="wei.accounting@moqui.org">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="EmailPrimary"/></mantle.party.contact.ContactMech>
+        <users userId="WeiAccounting" username="wei.accounting" userFullName="Wei Accounting"
+               currentPassword="16ac58bbfa332c1c55bd98b53e60720bfa90d394" passwordHashType="SHA"
+               passwordHint="framework name, lowercase" currencyUomId="USD" locale="en_US" timeZone="US/Pacific"
+               emailAddress="wei.accounting@moqui.org">
+            <groups userGroupId="WesysAdminAccounting"/>
+        </users>
+    </parties>
+    <parties partyId="WeiCatalog" partyTypeEnumId="PtyPerson">
+        <person firstName="Wei" middleName="" lastName="Catalog"/>
+        <roles roleTypeId="Employee"/>
+        <fromRelationships relationshipTypeEnumId="PrtEmployee" fromRoleTypeId="Employee" toPartyId="ORG_ZIZI_RETAIL" toRoleTypeId="OrgInternal"/>
+        <mantle.party.contact.ContactMech contactMechTypeEnumId="CmtEmailAddress" infoString="wei.catalog@moqui.org">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="EmailPrimary"/></mantle.party.contact.ContactMech>
+        <users userId="WeiCatalog" username="wei.catalog" userFullName="Wei Catalog"
+               currentPassword="16ac58bbfa332c1c55bd98b53e60720bfa90d394" passwordHashType="SHA"
+               passwordHint="framework name, lowercase" currencyUomId="USD" locale="en_US" timeZone="US/Pacific"
+               emailAddress="wei.catalog@moqui.org">
+            <groups userGroupId="WesysAdminCatalogContent"/>
+        </users>
+    </parties>
+
+    <parties partyId="WeiPurchasing" partyTypeEnumId="PtyPerson">
+        <person firstName="Wei" middleName="" lastName="Purchasing"/>
+        <roles roleTypeId="Employee"/>
+        <fromRelationships relationshipTypeEnumId="PrtEmployee" fromRoleTypeId="Employee" toPartyId="ORG_ZIZI_RETAIL" toRoleTypeId="OrgInternal"/>
+        <mantle.party.contact.ContactMech contactMechTypeEnumId="CmtEmailAddress" infoString="wei.purchasing@moqui.org">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="EmailPrimary"/></mantle.party.contact.ContactMech>
+        <users userId="WeiPurchasing" username="wei.purchasing" userFullName="Wei Purchasing"
+               currentPassword="16ac58bbfa332c1c55bd98b53e60720bfa90d394" passwordHashType="SHA"
+               passwordHint="framework name, lowercase" currencyUomId="USD" locale="en_US" timeZone="US/Pacific"
+               emailAddress="wei.purchasing@moqui.org">
+            <groups userGroupId="WesysAdminPurchasing"/>
+        </users>
+    </parties>
+    <parties partyId="WeiSales" partyTypeEnumId="PtyPerson">
+        <person firstName="Wei" middleName="" lastName="Sales"/>
+        <roles roleTypeId="Employee"/>
+        <fromRelationships relationshipTypeEnumId="PrtEmployee" fromRoleTypeId="Employee" toPartyId="ORG_ZIZI_RETAIL" toRoleTypeId="OrgInternal"/>
+        <mantle.party.contact.ContactMech contactMechTypeEnumId="CmtEmailAddress" infoString="wei.sales@moqui.org">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="EmailPrimary"/></mantle.party.contact.ContactMech>
+        <users userId="WeiSales" username="wei.sales" userFullName="Wei Sales"
+               currentPassword="16ac58bbfa332c1c55bd98b53e60720bfa90d394" passwordHashType="SHA"
+               passwordHint="framework name, lowercase" currencyUomId="USD" locale="en_US" timeZone="US/Pacific"
+               emailAddress="wei.sales@moqui.org">
+            <groups userGroupId="WesysAdminSales"/>
+        </users>
+    </parties>
+    <parties partyId="WeiSalesSup" partyTypeEnumId="PtyPerson">
+        <person firstName="Wei" middleName="" lastName="Sales Supervisor"/>
+        <roles roleTypeId="Employee"/>
+        <fromRelationships relationshipTypeEnumId="PrtEmployee" fromRoleTypeId="Employee" toPartyId="ORG_ZIZI_RETAIL" toRoleTypeId="OrgInternal"/>
+        <mantle.party.contact.ContactMech contactMechTypeEnumId="CmtEmailAddress" infoString="wei.sales.sup@moqui.org">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="EmailPrimary"/></mantle.party.contact.ContactMech>
+        <users userId="WeiSalesSup" username="wei.sales.sup" userFullName="Wei Sales Supervisor"
+               currentPassword="16ac58bbfa332c1c55bd98b53e60720bfa90d394" passwordHashType="SHA"
+               passwordHint="framework name, lowercase" currencyUomId="USD" locale="en_US" timeZone="US/Pacific"
+               emailAddress="wei.sales.sup@moqui.org">
+            <groups userGroupId="WesysAdminSalesSup"/>
+        </users>
+    </parties>
+
+    <parties partyId="WeiWarehouse" partyTypeEnumId="PtyPerson">
+        <person firstName="Wei" middleName="" lastName="Warehouse"/>
+        <roles roleTypeId="Employee"/>
+        <fromRelationships relationshipTypeEnumId="PrtEmployee" fromRoleTypeId="Employee" toPartyId="ORG_ZIZI_RETAIL" toRoleTypeId="OrgInternal"/>
+        <mantle.party.contact.ContactMech contactMechTypeEnumId="CmtEmailAddress" infoString="wei.warehouse@moqui.org">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="EmailPrimary"/></mantle.party.contact.ContactMech>
+        <users userId="WeiWarehouse" username="wei.warehouse" userFullName="Wei Warehouse"
+               currentPassword="16ac58bbfa332c1c55bd98b53e60720bfa90d394" passwordHashType="SHA"
+               passwordHint="framework name, lowercase" currencyUomId="USD" locale="en_US" timeZone="US/Pacific"
+               emailAddress="wei.warehouse@moqui.org">
+            <groups userGroupId="WesysAdminWarehouse"/>
+        </users>
+    </parties>
+
+    <!-- demo POPC Admin app users - in user org limited groups -->
+
+    <parties partyId="WeiWhClerical" partyTypeEnumId="PtyPerson">
+        <person firstName="Wei" middleName="" lastName="WhClerical"/>
+        <roles roleTypeId="Employee"/>
+        <fromRelationships relationshipTypeEnumId="PrtEmployee" fromRoleTypeId="Employee" toPartyId="ORG_ZIZI_RETAIL" toRoleTypeId="OrgInternal"/>
+        <mantle.party.contact.ContactMech contactMechTypeEnumId="CmtEmailAddress" infoString="wei.wh.clerical@moqui.org">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="EmailPrimary"/></mantle.party.contact.ContactMech>
+        <users userId="WeiWhClerical" username="wei.wh.clerical" userFullName="Wei WhClerical"
+               currentPassword="16ac58bbfa332c1c55bd98b53e60720bfa90d394" passwordHashType="SHA"
+               passwordHint="framework name, lowercase" currencyUomId="USD" locale="en_US" timeZone="US/Pacific"
+               emailAddress="wei.wh.clerical@moqui.org">
+            <groups userGroupId="WesysWhClericalLtd"/>
+        </users>
+    </parties>
+    <parties partyId="WeiWhGeneral" partyTypeEnumId="PtyPerson">
+        <person firstName="Wei" middleName="" lastName="WhGeneral"/>
+        <roles roleTypeId="Employee"/>
+        <fromRelationships relationshipTypeEnumId="PrtEmployee" fromRoleTypeId="Employee" toPartyId="ORG_ZIZI_RETAIL" toRoleTypeId="OrgInternal"/>
+        <mantle.party.contact.ContactMech contactMechTypeEnumId="CmtEmailAddress" infoString="wei.wh.general@moqui.org">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="EmailPrimary"/></mantle.party.contact.ContactMech>
+        <users userId="WeiWhGeneral" username="wei.wh.general" userFullName="Wei WhGeneral"
+               currentPassword="16ac58bbfa332c1c55bd98b53e60720bfa90d394" passwordHashType="SHA"
+               passwordHint="framework name, lowercase" currencyUomId="USD" locale="en_US" timeZone="US/Pacific"
+               emailAddress="wei.wh.general@moqui.org">
+            <groups userGroupId="WesysWhGeneralLtd"/>
+        </users>
+    </parties>
 
     <mantle.product.category.ProductCategory productCategoryId="JD"
                                              productCategoryTypeEnumId="PctCatalog" categoryName="家用电器"/>
@@ -36,6 +152,7 @@ along with this software (see the LICENSE.md file). If not, see
     <mantle.product.category.ProductCategory productCategoryId="BOOK"
                                              productCategoryTypeEnumId="PctCatalog" categoryName="图书"/>
 
+    <!--
     <artifactGroups artifactGroupId="WeSysCustomer" description="WE SYS Customer">
         <artifacts artifactName="component://wesys/screen/wesys/Customer.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
     </artifactGroups>
@@ -55,6 +172,7 @@ along with this software (see the LICENSE.md file). If not, see
            emailAddress="customer.view@test.com">
         <groups userGroupId="WesysCustomerView"/>
     </users>
+    -->
 
 
     <moqui.screen.form.FormListFind formListFindId="" formConfigId=""

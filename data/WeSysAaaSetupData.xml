@@ -14,17 +14,259 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <entity-facade-xml type="seed-initial">
 
-    <moqui.basic.Enumeration description="Moqui WE-SYS App" enumId="UgtMoquiWeSys" enumTypeId="UserGroupType"/>
+    <moqui.basic.Enumeration description="WE SYS APP" enumId="UgtWesysAdmin" enumTypeId="UserGroupType"/>
 
-    <userGroups userGroupId="MoquiWeSysAdmin" description="Moqui WeSys Administrators" groupTypeEnumId="UgtMoquiWeSys">
+    <userGroups userGroupId="WeSysAdmin" description="WeSys Administrators" groupTypeEnumId="UgtWesysAdmin">
     </userGroups>
 
-    <artifactGroups artifactGroupId="MoquiWeSysAll" description="WE-SYS ERP (via root screen)">
+    <artifactGroups artifactGroupId="WESYS_ADMIN" description="WE-SYS Admin (via root screen)">
         <artifacts artifactName="component://wesys/screen/wesys.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
-        <authz artifactAuthzId="MOQUI_WESYS_ADMIN" userGroupId="ADMIN"  authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
-        <authz artifactAuthzId="MOQUI_WESYS_MWESYS_ADMIN" userGroupId="MoquiWeSysAdmin" authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="MOQUI_WESYS_ADMIN" userGroupId="ADMIN"  authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/>
+        </authz>
+        <authz artifactAuthzId="MOQUI_WESYS_MWESYS_ADMIN" userGroupId="WeSysAdmin" authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/>
+        </authz>
     </artifactGroups>
 
+    <!--Root screen (no inherit) and dashboard group, for all WE SYS user groups-->
+    <artifactGroups artifactGroupId="WesysAdminApp" description="WE-SYS ERP App Access">
+        <artifacts artifactName="component://wesys/screen/wesys.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="N"/>
+        <artifacts artifactName="component://wesys/screen/wesys/dashboard.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+        <artifacts artifactName="component://wesys/screen/wesys/QuickLookup.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+        <artifacts artifactName="component://wesys/screen/wesys/Search.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+    </artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminAccounting" description="WESYS Accounting">
+        <artifacts artifactName="component://wesys/screen/wesys/Accounting.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminAgreement" description="WESYS Accounting">
+        <artifacts artifactName="component://wesys/screen/wesys/Agreement.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminAsset" description="WESYS Asset">
+        <artifacts artifactName="component://wesys/screen/wesys/Asset.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminCatalog" description="WESYS Catalog">
+        <artifacts artifactName="component://wesys/screen/wesys/Catalog.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminCustomer" description="WESYS Customer">
+        <artifacts artifactName="component://wesys/screen/wesys/Customer.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminFacility" description="WESYS Facility">
+        <artifacts artifactName="component://wesys/screen/wesys/Facility.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminHumanRes" description="WESYS Human Res">
+        <artifacts artifactName="component://wesys/screen/wesys/HumanRes.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminManufacturing" description="WESYS Manufacturing">
+        <artifacts artifactName="component://wesys/screen/wesys/Manufacturing.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminMarketing" description="WESYS Marketing">
+        <artifacts artifactName="component://wesys/screen/wesys/MarketingCampaign.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminStore" description="WESYS Stores">
+        <artifacts artifactName="component://wesys/screen/wesys/ProductStore.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminPurchaseOrder" description="WESYS Purchase Order">
+        <artifacts artifactName="component://wesys/screen/wesys/PurchaseOrder.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminRequest" description="WESYS Request">
+        <artifacts artifactName="component://wesys/screen/wesys/Request.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminSalesOpportunity" description="WESYS Sales Opportunity">
+        <artifacts artifactName="component://wesys/screen/wesys/SalesOpportunity.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminSalesOrder" description="WESYS Sales Order">
+        <artifacts artifactName="component://wesys/screen/wesys/SalesOrder.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminShipment" description="WESYS Shipment">
+        <artifacts artifactName="component://wesys/screen/wesys/Shipment.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminSupplier" description="WESYS Supplier">
+        <artifacts artifactName="component://wesys/screen/wesys/Supplier.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminParty" description="WESYS Party">
+        <artifacts artifactName="component://wesys/screen/wesys/Party.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminReturn" description="WESYS Return">
+        <artifacts artifactName="component://wesys/screen/wesys/Return.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysAdminShipping" description="WESYS Shipping">
+        <artifacts artifactName="component://wesys/screen/wesys/Shipping.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/></artifactGroups>
+
+    <artifactGroups artifactGroupId="WesysMyAccount" description="Wesys My Account">
+        <artifacts artifactName="component://wesys/screen/wesys/MyAccount.xml" artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+        <authz artifactAuthzId="WesysMyAccount_1" userGroupId="MY_ACCOUNT_USERS" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="WesysMyAccount_2" userGroupId="ADMIN" authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
+    </artifactGroups>
+    
+    <userGroups userGroupId="WesysAdminAccounting" description="Wesys Accounting" groupTypeEnumId="UgtWesysAdmin">
+        <authz artifactAuthzId="WESYS_MY_ACCOUNT_PCACC" artifactGroupId="WesysMyAccount" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="WESYS_ACC_APP" artifactGroupId="WesysAdminApp" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_ACC_ACC" artifactGroupId="WesysAdminAccounting" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_ACC_AST" artifactGroupId="WesysAdminAsset" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_ACC_PTY" artifactGroupId="WesysAdminParty" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_ACC_PURCH_ORD" artifactGroupId="WesysAdminSalesOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_ACC_SALES_ORD" artifactGroupId="WesysAdminPurchaseOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_ACC_RET" artifactGroupId="WesysAdminReturn" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_ACC_SHP" artifactGroupId="WesysAdminShipment" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <!-- maybe? add if wanted for all accountants: <permissions userPermissionId="INVOICE_APPROVE" fromDate="0"/> -->
+    </userGroups>
+
+    <userGroups userGroupId="WesysAdminCatalogContent" description="Wesys Catalog and Content" groupTypeEnumId="UgtWesysAdmin">
+        <authz artifactAuthzId="WESYS_MY_ACCOUNT_PCCAT" artifactGroupId="WesysMyAccount" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="WESYS_CATCON_APP" artifactGroupId="WesysAdminApp" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_CATCON_CAT" artifactGroupId="WesysAdminCatalog" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+    </userGroups>
+
+    <userGroups userGroupId="WesysAdminPurchasing" description="Wesys Purchasing" groupTypeEnumId="UgtWesysAdmin">
+        <authz artifactAuthzId="WESYS_MY_ACCOUNT_PCPU" artifactGroupId="WesysMyAccount" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="WESYS_PURCH_APP" artifactGroupId="WesysAdminApp" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURCH_ORD" artifactGroupId="WesysAdminPurchaseOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURCH_RET" artifactGroupId="WesysAdminReturn" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURCH_SUP" artifactGroupId="WesysAdminSupplier" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURCH_AST" artifactGroupId="WesysAdminAsset" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURCH_CAT" artifactGroupId="WesysAdminCatalog" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURCH_SHP" artifactGroupId="WesysAdminShipment" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+    </userGroups>
+    <userGroups userGroupId="WesysAdminPurchasingSup" description="Wesys Purchasing Supervisors" groupTypeEnumId="UgtWesysAdmin">
+        <authz artifactAuthzId="WESYS_MY_ACCOUNT_PCPUSUP" artifactGroupId="WesysMyAccount" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="WESYS_PURSUP_APP" artifactGroupId="WesysAdminApp" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURSUP_ORD" artifactGroupId="WesysAdminPurchaseOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURSUP_RET" artifactGroupId="WesysAdminReturn" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURSUP_SUP" artifactGroupId="WesysAdminSupplier" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURSUP_AST" artifactGroupId="WesysAdminAsset" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURSUP_CAT" artifactGroupId="WesysAdminCatalog" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_PURSUP_SHP" artifactGroupId="WesysAdminShipment" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <permissions userPermissionId="INVOICE_APPROVE" fromDate="0"/>
+        <permissions userPermissionId="ORDER_APPROVE" fromDate="0"/>
+    </userGroups>
+
+    <userGroups userGroupId="WesysAdminSales" description="Wesys Sales" groupTypeEnumId="UgtWesysAdmin">
+        <authz artifactAuthzId="WESYS_MY_ACCOUNT_PCSL" artifactGroupId="WesysMyAccount" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="WESYS_SALES_APP" artifactGroupId="WesysAdminApp" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALES_ORD" artifactGroupId="WesysAdminSalesOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALES_RET" artifactGroupId="WesysAdminReturn" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALES_REQ" artifactGroupId="WesysAdminRequest" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALES_CUS" artifactGroupId="WesysAdminCustomer" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALES_AST" artifactGroupId="WesysAdminAsset" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALES_CAT" artifactGroupId="WesysAdminCatalog" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALES_SHP" artifactGroupId="WesysAdminShipment" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+    </userGroups>
+    
+    <userGroups userGroupId="WesysAdminSalesSup" description="Wesys Sales Supervisors" groupTypeEnumId="UgtWesysAdmin">
+        <authz artifactAuthzId="WESYS_MY_ACCOUNT_PCSLSUP" artifactGroupId="WesysMyAccount" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="WESYS_SALSUP_APP" artifactGroupId="WesysAdminApp" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALSUP_ORD" artifactGroupId="WesysAdminSalesOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALSUP_RET" artifactGroupId="WesysAdminReturn" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALSUP_REQ" artifactGroupId="WesysAdminRequest" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALSUP_CUS" artifactGroupId="WesysAdminCustomer" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALSUP_AST" artifactGroupId="WesysAdminAsset" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALSUP_CAT" artifactGroupId="WesysAdminCatalog" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SALSUP_SHP" artifactGroupId="WesysAdminShipment" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <permissions userPermissionId="ORDER_APPROVE" fromDate="0"/>
+        <permissions userPermissionId="CARD_NUMBER_EDIT" fromDate="0"/>
+    </userGroups>
+
+    <userGroups userGroupId="WesysAdminWarehouse" description="Wesys Warehouse" groupTypeEnumId="UgtWesysAdmin">
+        <authz artifactAuthzId="WESYS_MY_ACCOUNT_PCWH" artifactGroupId="WesysMyAccount" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL"/>
+        <authz artifactAuthzId="WESYS_SHIP_APP" artifactGroupId="WesysAdminApp" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_AST" artifactGroupId="WesysAdminAsset" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_SHP" artifactGroupId="WesysAdminShipment" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_SHNG" artifactGroupId="WesysAdminShipping" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_REQ" artifactGroupId="WesysAdminRequest" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_PURCH_ORD" artifactGroupId="WesysAdminSalesOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_SALES_ORD" artifactGroupId="WesysAdminPurchaseOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_RET" artifactGroupId="WesysAdminReturn" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_CAT" artifactGroupId="WesysAdminCatalog" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_CUS" artifactGroupId="WesysAdminCustomer" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_SHIP_SUP" artifactGroupId="WesysAdminSupplier" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_ACTIVE_ORG"/></authz>
+    </userGroups>
+
+    <!-- ========== User Org Limited Groups ========== -->
+
+    <userGroups userGroupId="WesysWhClericalLtd" description="Wesys Warehouse Clerical - Org Ltd" groupTypeEnumId="UgtWesysAdmin">
+        <authz artifactAuthzId="WESYS_WHCL_MY_ACCOUNT" artifactGroupId="WesysMyAccount" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_APP" artifactGroupId="WesysAdminApp" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_AST" artifactGroupId="WesysAdminAsset" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_SHP" artifactGroupId="WesysAdminShipment" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_SHNG" artifactGroupId="WesysAdminShipping" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_PURCH_ORD" artifactGroupId="WesysAdminSalesOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_SALES_ORD" artifactGroupId="WesysAdminPurchaseOrder" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_RET" artifactGroupId="WesysAdminReturn" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_CAT" artifactGroupId="WesysAdminCatalog" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_CUS" artifactGroupId="WesysAdminCustomer" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <authz artifactAuthzId="WESYS_WHCL_SUP" artifactGroupId="WesysAdminSupplier" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_VIEW">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+    </userGroups>
+    
+    <userGroups userGroupId="WesysWhGeneralLtd" description="Wesys Warehouse General - Org Ltd" groupTypeEnumId="UgtWesysAdmin">
+        <authz artifactAuthzId="WESYS_WHGN_MY_ACCOUNT" artifactGroupId="WesysMyAccount" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL">
+            <filters entityFilterSetId="MANTLE_USER_ORG"/></authz>
+        <!--todo HH Warehouse-->
+    </userGroups>
+    
     <moqui.basic.StatusItem description="In-Draft" sequenceNum="1" statusId="AgreementInDraft" statusTypeId="Agreement"/>
     <moqui.basic.StatusItem description="In-Progress" sequenceNum="2" statusId="AgreementInProgress" statusTypeId="Agreement"/>
     <moqui.basic.StatusItem description="Approved" sequenceNum="12" statusId="AgreementApproved" statusTypeId="Agreement"/>
