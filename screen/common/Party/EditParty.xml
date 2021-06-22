@@ -1021,7 +1021,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <dynamic-dialog id="UpdateEmailInfo" button-text="Update" transition="UpdateContactInfo"
                                         parameter-map="[partyId:partyId, emailContactMechId:contactInfo.emailContactMechId,
                                         emailContactMechPurposeId:contactInfo.emailContactMechPurposeId]"/>
-                        <container-dialog id="EmailPurposeDialog" button-text="Purpose">
+                        <container-dialog id="EmailPurposeDialog" button-text="Purpose" button-flat="true">
                             <form-single name="EmailPurposeForm" transition="storePartyContactMech">
                                 <field name="partyId"><default-field><hidden/></default-field></field>
                                 <field name="contactMechId" from="contactInfo.emailContactMechId">
@@ -1055,7 +1055,7 @@ along with this software (see the LICENSE.md file). If not, see
                             <dynamic-dialog id="UpdateWebInfo" button-text="Update" transition="UpdateContactInfo"
                                             parameter-map="[partyId:partyId, webContactMechId:contactInfo.webContactMechId,
                                         webContactMechPurposeId:contactInfo.webContactMechPurposeId]"/>
-                            <container-dialog id="WebPurposeDialog" button-text="Purpose">
+                            <container-dialog id="WebPurposeDialog" button-text="Purpose" button-flat="true">
                                 <form-single name="WebPurposeForm" transition="storePartyContactMech">
                                     <field name="partyId"><default-field><hidden/></default-field></field>
                                     <field name="contactMechId" from="contactInfo.webContactMechId">
@@ -1102,7 +1102,7 @@ along with this software (see the LICENSE.md file). If not, see
                                     <field name="submitButton"><default-field title="Update"><submit/></default-field></field>
                                 </form-single>
                             </container-dialog>
-                            <container-dialog id="OtherPurposeDialog" button-text="Purpose">
+                            <container-dialog id="OtherPurposeDialog" button-text="Purpose" button-flat="true">
                                 <form-single name="OtherPurposeForm" transition="storePartyContactMech">
                                     <field name="partyId"><default-field><hidden/></default-field></field>
                                     <field name="contactMechId" from="otherPcmi.contactMechId">
@@ -1151,7 +1151,7 @@ along with this software (see the LICENSE.md file). If not, see
                         </row-col><row-col lg="6"><dynamic-dialog id="UpdatePostalInfo" button-text="Update" transition="UpdateContactInfo" width="840"
                                                                   parameter-map="[partyId:partyId, postalContactMechId:contactInfo.postalContactMechId,
                                         postalContactMechPurposeId:contactInfo.postalContactMechPurposeId]"/>
-                            <container-dialog id="PostalPurposeDialog" button-text="Purpose">
+                            <container-dialog id="PostalPurposeDialog" button-text="Purpose" button-flat="true">
                                 <form-single name="PostalPurposeForm" transition="storePartyContactMech">
                                     <field name="partyId"><default-field><hidden/></default-field></field>
                                     <field name="contactMechId" from="contactInfo.postalContactMechId">
