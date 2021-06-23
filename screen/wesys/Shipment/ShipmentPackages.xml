@@ -191,7 +191,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </actions><widgets>
                     <container style="q-my-sm">
                     <container-box collapsable="false" bordered="true" type="bg-green-2"><box-header title="Package ${shipmentPackage.shipmentPackageSeqId}"/><box-toolbar>
-                        <container-dialog id="UpdatePackageDialog" button-text="Update Package">
+                        <container-dialog id="UpdatePackageDialog" button-text="Update Package" button-flat="true">
                             <form-single name="UpdatePackageForm" map="packageAndRouteSeg" transition="updatePackageAndRouteSeg">
                                 <field name="shipmentId"><default-field><hidden/></default-field></field>
                                 <field name="shipmentPackageSeqId"><default-field><hidden/></default-field></field>
@@ -228,7 +228,7 @@ along with this software (see the LICENSE.md file). If not, see
                                 condition="shippingGatewayConfigId &amp;&amp; !hasLabel &amp;&amp; (destContactMechValid || isIncoming)"
                                 parameter-map="[shipmentId:shipmentId, shipmentPackageSeqId:shipmentPackage.shipmentPackageSeqId,
                                     shipmentRouteSegmentSeqId:packageRouteSeg.shipmentRouteSegmentSeqId]"/>
-                        <container-dialog id="RequestPkgLabelDialog" button-text="Get Label" type="warning"
+                        <container-dialog id="RequestPkgLabelDialog" button-text="Get Label" type="warning" button-flat="true"
                                 condition="shippingGatewayConfigId &amp;&amp; !hasLabel &amp;&amp; !destContactMechValid">
                             <label text="Warning: destination address is incomplete or invalid according to address validation." style="text-warning"/>
                             <link url="requestShipmentLabels" text="Get Label Anyway"
