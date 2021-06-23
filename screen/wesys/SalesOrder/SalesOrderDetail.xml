@@ -229,12 +229,12 @@ along with this software (see the LICENSE.md file). If not, see
                     <link url="holdOrder" text="Hold" confirmation="Really hold order?"
                           condition="orderHeader.statusId in ['OrderPlaced', 'OrderProcessing', 'OrderApproved']" link-type="hidden-form-link" button-outline="false" button-flat="true"/>
                     <vertical-separator condition="orderHeader.statusId in ['OrderPlaced', 'OrderProcessing', 'OrderApproved']"/>
-                    <!--<link url="requestOrder" text="Quote Requested" link-type="hidden-form-link" confirmation="Set order as quote requested by customer?"
+                    <link url="requestOrder" text="Quote Requested" link-type="hidden-form-link" confirmation="Set order as quote requested by customer?"
                           condition="orderHeader.statusId == 'OrderOpen'"/>
                     <link url="proposeOrder" text="Propose Quote" link-type="hidden-form-link" confirmation="Propose quote to customer?"
                           condition="orderHeader.statusId in ['OrderOpen', 'OrderRequested']"/>
                     <link url="rejectOrder" text="Reject Quote Request" link-type="hidden-form-link" confirmation="Reject quote request and reject order?"
-                          condition="orderHeader.statusId == 'OrderRequested'"/>-->
+                          condition="orderHeader.statusId == 'OrderRequested'"/>
 
                     <container-dialog id="CloseOrderDialog" button-text="Close Order" type="warning"
                                       condition="orderHeader.statusId in ['OrderOpen', 'OrderPlaced', 'OrderProcessing', 'OrderApproved', 'OrderHold']" button-size="sm" button-outline="false" button-flat="true">
