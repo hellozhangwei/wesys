@@ -15,6 +15,8 @@ along with this software (see the LICENSE.md file). If not, see
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
         default-menu-title="WE SYS" menu-image="fa fa-shopping-cart" menu-image-type="icon">
 
+    <macro-template type="qvt" location="component://moqui-zapps/template/screen-macro/DefaultScreenMacros.qvt.ftl"/>
+
     <always-actions>
         <set field="appRoot" value="wesys"/>
 
@@ -54,6 +56,7 @@ along with this software (see the LICENSE.md file). If not, see
 <!--        <subscreens-item name="Accounting" location="component://SimpleScreens/screen/SimpleScreens/Accounting.xml" menu-index="14" menu-title="AccountingTitle"/>-->
         <subscreens-item name="system" location="component://tools/screen/System.xml" menu-index="15" menu-title="SystemTitle"/>
         <subscreens-item name="Party" location="component://SimpleScreens/screen/SimpleScreens/Party.xml" menu-index="10"/>
+        <subscreens-item name="Task" location="component://SimpleScreens/screen/SimpleScreens/Task.xml" menu-index="10"/>
 
         <!--<subscreens-item name="ProductStore" location="component://SimpleScreens/screen/SimpleScreens/ProductStore.xml" menu-index="10"/>-->
         <!--<subscreens-item name="Gateway" location="component://SimpleScreens/screen/SimpleScreens/Gateway.xml" menu-include="false"/>-->
