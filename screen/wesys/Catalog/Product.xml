@@ -25,7 +25,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     <widgets>
 
-        <link url="ProductFind" text="返回产品列表" icon="fa fa-angle-double-left" link-type="anchor" style="q-mb-md block text-grey" condition="product"/>
+        <link url="ProductFind" text="Return to Product List" icon="fa fa-angle-double-left" btn-type="grey" link-type="anchor-button" style="q-mb-md" condition="product" button-flat="true"/>
 
         <label text="ProductNameTemplate" text-map="product" type="div" condition="product" style="row q-mb-md text-h3"/>
         <subscreens-panel id="ProductPanel" type="tab"/>
