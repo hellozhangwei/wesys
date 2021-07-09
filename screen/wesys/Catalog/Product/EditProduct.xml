@@ -88,7 +88,7 @@ along with this software (see the LICENSE.md file). If not, see
         <container-box>
             <box-header title="基本信息"/>
             <box-toolbar>
-                <container-dialog id="EditProductDialog" button-text="编辑" type="secondary">
+                <container-dialog id="EditProductDialog" button-text="编辑" type="secondary" button-flat="true">
                     <form-single name="EditProductForm" map="product" transition="updateProduct">
                         <field name="productId"><default-field><hidden/></default-field></field>
                         <field name="pseudoId"><default-field title="ID"><text-line size="40"/></default-field></field>
@@ -178,7 +178,7 @@ along with this software (see the LICENSE.md file). If not, see
 
                     </form-single>
                 </container-dialog>
-                <container-dialog id="CloneProductDialog" button-text="Clone Product" type="secondary">
+                <container-dialog id="CloneProductDialog" button-text="Clone Product" type="secondary" button-flat="true">
                     <form-single name="CloneProductForm" transition="cloneProduct">
                         <field name="productId"><default-field><hidden/></default-field></field>
                         <field name="baseProductId" from="productId"><default-field><hidden/></default-field></field>
@@ -257,7 +257,7 @@ along with this software (see the LICENSE.md file). If not, see
             </box-body>
         </container-box>
         <container-box initial="closed"><box-header title="Identification"/><box-toolbar>
-            <container-dialog id="AddIdentificationDialog" button-text="Add Identification" type="secondary">
+            <container-dialog id="AddIdentificationDialog" button-text="Add Identification" type="secondary" button-flat="true">
                 <form-single name="AddIdentificationForm" transition="createProductIdentification">
                     <field name="productId"><default-field><hidden/></default-field></field>
                     <field name="productIdTypeEnumId"><default-field title="ID Type">
@@ -286,7 +286,7 @@ along with this software (see the LICENSE.md file). If not, see
         </box-body></container-box>
 
         <container-box initial="closed"><box-header title="Features"/><box-toolbar>
-            <container-dialog id="NewFeatureDialog" button-text="Apply New Feature" type="secondary">
+            <container-dialog id="NewFeatureDialog" button-text="Apply New Feature" type="secondary" button-flat="true">
                 <form-single name="NewFeatureForm" transition="createProductFeature">
                     <field name="productId"><default-field><hidden/></default-field></field>
                     <field name="productFeatureTypeEnumId"><default-field title="Feature Type">
@@ -306,7 +306,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <field name="submitButton"><default-field title="Create"><submit/></default-field></field>
                 </form-single>
             </container-dialog>
-            <container-dialog id="AddFeatureDialog" button-text="Apply Feature" type="secondary">
+            <container-dialog id="AddFeatureDialog" button-text="Apply Feature" type="secondary" button-flat="true">
                 <form-single name="AddFeatureForm" transition="applyProductFeatures">
                     <field name="productId"><default-field><hidden/></default-field></field>
                     <field name="productFeatureTypeEnumId"><default-field title="Type">
@@ -356,7 +356,7 @@ along with this software (see the LICENSE.md file). If not, see
         </box-body-nopad></container-box>
 
         <container-box initial="closed"><box-header title="Dimensions"/><box-toolbar>
-            <container-dialog id="AddDimensionDialog" button-text="Add Dimension" type="secondary">
+            <container-dialog id="AddDimensionDialog" button-text="Add Dimension" type="secondary" button-flat="true">
                 <form-single name="AddDimensionForm" transition="createProductDimension">
                     <field name="productId"><default-field><hidden/></default-field></field>
                     <field name="dimensionTypeId"><default-field title="Type">
@@ -398,7 +398,7 @@ along with this software (see the LICENSE.md file). If not, see
 
         <section name="FacilityLocationSection" condition="isInventory"><widgets>
         <container-box initial="closed"><box-header title="Facility Locations"/><box-toolbar>
-            <container-dialog id="AddLocationDialog" button-text="Add Location" type="secondary">
+            <container-dialog id="AddLocationDialog" button-text="Add Location" type="secondary" button-flat="true">
                 <form-single name="CreateProductLocation" transition="createProductLocation">
                     <field name="productId"><default-field><hidden/></default-field></field>
 
