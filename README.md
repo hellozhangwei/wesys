@@ -1,6 +1,7 @@
-# Install wesys
+# Install JDK 11
+https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
 
-Install moqui framework and mantle artifacts
+# Install moqui framework and mantle artifacts
 
 1. git clone https://github.com/moqui/moqui-framework.git
 2. cd moqui-framwork
@@ -29,14 +30,16 @@ Install moqui framework and mantle artifacts
 10. gradlew run
 11. Open http://localhost:8080/qapps
 
-Install wesys and moqui-zapps
+# Install wesys and moqui-zapps
 
 1. cd moqui-framework/runtime/component
 2. git clone https://github.com/zhangwei1979/moqui-zapps.git
 3. git clone https://github.com/zhangwei1979/wesys.git
-4. gradlew load
-5. gradlew run
-6. Open http://localhost:8080/zapps
+4. git clone https://github.com/zhangwei1979/moqui-login.git
+5. git clone https://github.com/shendepu/moqui-captcha.git
+6. gradlew load
+7. gradlew run
+8. Open http://localhost:8080/zapps
 
 Create elasticsearch user for Linux
 
