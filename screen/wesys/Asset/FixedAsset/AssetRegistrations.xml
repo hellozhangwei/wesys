@@ -25,7 +25,7 @@ along with this software (see the LICENSE.md file). If not, see
     <transition-include name="searchPartyList" location="component://SimpleScreens/template/party/PartyForms.xml"/>
 
     <widgets>
-        <container-dialog id="NewRegistrationDialog" button-text="New Registration">
+        <container-dialog id="NewRegistrationDialog" button-text="New Registration" type="secondary" button-flat="true">
             <form-single name="NewRegistrationForm" transition="createAssetRegistration">
                 <field name="assetId"><default-field><hidden/></default-field></field>
                 <field name="fromDate"><default-field><date-time type="date"/></default-field></field>

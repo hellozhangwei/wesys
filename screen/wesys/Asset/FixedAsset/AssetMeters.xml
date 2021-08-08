@@ -26,7 +26,7 @@ along with this software (see the LICENSE.md file). If not, see
         <entity-find-one entity-name="mantle.product.asset.Asset" value-field="asset"/>
     </actions>
     <widgets>
-        <container-dialog id="NewMeterDialog" button-text="New Meter Reading">
+        <container-dialog id="NewMeterDialog" button-text="New Meter Reading" type="secondary" button-flat="true">
             <form-single name="NewMeterForm" transition="createAssetMeter">
                 <field name="assetId"><default-field><hidden/></default-field></field>
 

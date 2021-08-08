@@ -30,7 +30,7 @@ along with this software (see the LICENSE.md file). If not, see
         <entity-find-one entity-name="mantle.product.asset.Asset" value-field="asset"/>
     </actions>
     <widgets>
-        <container-dialog id="NewEventContainer" button-text="New Event">
+        <container-dialog id="NewEventContainer" button-text="New Event" type="secondary" button-flat="true">
             <form-single name="NewEventForm" transition="createEvent">
                 <field name="assetId"><default-field><hidden/></default-field></field>
                 <field name="workEffortName"><default-field title="Name"><text-line size="40"/></default-field></field>
