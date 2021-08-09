@@ -699,7 +699,7 @@ along with this software (see the LICENSE.md file). If not, see
             <container-box><box-header title="Packages##Shipment"/><box-toolbar>
                 <link url="createShipmentAutoPackages" text="Auto Packages" condition="shippingGatewayConfig?.getAutoPackageInfoName"
                     parameter-map="[resetExisting:true]" confirmation="Remove existing packages and create new based on auto-package data?"/>
-                <link url="createPackage" text="Add Package" btn-type="secondary"/>
+                <link url="createPackage" text="Add Package" btn-type="secondary" button-flat="true"/>
             </box-toolbar><box-body>
                 <label text="Showing ${pageSize} of ${shipmentPackageList.size()} Packages" type="strong" style="text-danger"
                         condition="shipmentPackageList.size() &gt; (pageSize as Integer)"/>

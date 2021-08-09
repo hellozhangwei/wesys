@@ -188,7 +188,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <box-header title="${ec.resource.expand('ProductNameTemplate', '', sid)} (Qty ${ec.l10n.format(sid.quantity ?: 0, '#.##')})"/>
                         <box-toolbar>
                         <section name="PackItemSection" condition="allowPack"><widgets>
-                            <container-dialog id="PackItemContainer" button-text="Pack/Issue Item" type="success">
+                            <container-dialog id="PackItemContainer" button-text="Pack/Issue Item" type="success" button-flat="true">
                                 <form-single name="PackItemForm" transition="packItem" map="sid" pass-through-parameters="true">
                                     <field name="shipmentId"><default-field><hidden/></default-field></field>
 
@@ -225,8 +225,8 @@ along with this software (see the LICENSE.md file). If not, see
                         <box-body>
                         <container-row style="items-center">
                             <row-col lg="4">
-                                <label condition="isOutgoing || isTransfer" text="Packed/Issued: ${ec.l10n.format(sid.quantityTotal ?: 0, '#.##')}, Remaining: ${ec.l10n.format(quantityPackRemaining, '#.##')}  (Unit: ${productUom?.description ?: 'N/A'})" type="div"/>
-                                <label condition="isIncoming || isTransfer" text="Receive Accepted: ${ec.l10n.format(sid.quantityAcceptedTotal ?: 0, '#.##')}, Rejected: ${ec.l10n.format(sid.quantityRejectedTotal ?: 0, '#.##')}, Remaining: ${ec.l10n.format(quantityRecRemaining, '#.##')}  (Unit: ${productUom?.description ?: 'N/A'})" type="div"/>
+                                <label condition="isOutgoing || isTransfer" text="${ec.l10n.localize('Packed/Issued')}: ${ec.l10n.format(sid.quantityTotal ?: 0, '#.##')}, ${ec.l10n.localize('Remaining')}: ${ec.l10n.format(quantityPackRemaining, '#.##')}  (${ec.l10n.localize('Unit')}: ${productUom?.description ?: 'N/A'})" type="div"/>
+                                <label condition="isIncoming || isTransfer" text="${ec.l10n.localize('Receive Accepted')}: ${ec.l10n.format(sid.quantityAcceptedTotal ?: 0, '#.##')}, ${ec.l10n.localize('Rejected')}: ${ec.l10n.format(sid.quantityRejectedTotal ?: 0, '#.##')}, ${ec.l10n.localize('Remaining')}: ${ec.l10n.format(quantityRecRemaining, '#.##')}  (${ec.l10n.localize('Unit')}: ${productUom?.description ?: 'N/A'})" type="div"/>
                             </row-col>
                             <row-col lg="3">
                                 <section name="ShipItemUpdateSection" condition="allowUpdate"><widgets>
@@ -240,7 +240,7 @@ along with this software (see the LICENSE.md file). If not, see
                                         <field name="pageIndex"><default-field><hidden/></default-field></field>
 
                                         <field name="quantity"><default-field title=""><text-line size="6"/></default-field></field>
-                                        <field name="submitButton"><default-field title="Update Quantity"><submit/></default-field></field>
+                                        <field name="submitButton"><default-field title="Update Quantity"><submit button-flat="true"/></default-field></field>
                                         <field-layout><field-row-big><field-ref name="quantity"/><field-ref name="submitButton"/></field-row-big></field-layout>
                                     </form-single>
                                 </widgets></section>
@@ -262,7 +262,7 @@ along with this software (see the LICENSE.md file). If not, see
                                         </drop-down></default-field></field>
                                         <field name="quantity" from="quantityNotInPackage"><default-field title="Quantity">
                                             <text-line size="6"/></default-field></field>
-                                        <field name="submitButton"><default-field title="Add to Package"><submit/></default-field></field>
+                                        <field name="submitButton"><default-field title="Add to Package"><submit button-flat="true"/></default-field></field>
                                         <field-layout><field-row-big><field-ref name="shipmentPackageSeqId"/>
                                             <field-ref name="quantity"/><field-ref name="submitButton"/></field-row-big></field-layout>
                                     </form-single>

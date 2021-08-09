@@ -523,10 +523,10 @@ along with this software (see the LICENSE.md file). If not, see
             </actions><widgets>
                 <container-box initial="closed"><box-header title="User Account"/><box-toolbar>
                     <link url="systemUserAccount" text="Account Detail" parameter-map="[userId:userAccount.userId]" link-type="hidden-form-link" style="q-pa-xs"/>
-                    <link url="enableUserAccount" text="Enable Account" parameter-map="[userId:userAccount.userId]" condition="userAccount.disabled == 'Y'" link-type="hidden-form-link" style="q-pa-xs text-secondary"/>
-                    <link url="disableUserAccount" text="Disable Account" parameter-map="[userId:userAccount.userId]" condition="userAccount.disabled != 'Y'" link-type="hidden-form-link" style="q-pa-xs text-secondary"/>
+                    <link url="enableUserAccount" text="Enable Account" parameter-map="[userId:userAccount.userId]" condition="userAccount.disabled == 'Y'" link-type="hidden-form-link" style="text-secondary" button-flat="true"/>
+                    <link url="disableUserAccount" text="Disable Account" parameter-map="[userId:userAccount.userId]" condition="userAccount.disabled != 'Y'" link-type="hidden-form-link" style="text-secondary" button-flat="true"/>
                     <link url="resetPassword" text="Reset Password" parameter-map="[userId:userAccount.userId]" condition="userAccount.emailAddress"
-                            confirmation="Generate reset password and send by email to ${userAccount.emailAddress}?" link-type="hidden-form-link" style="q-pa-xs text-secondary"/>
+                            confirmation="Generate reset password and send by email to ${userAccount.emailAddress}?" link-type="hidden-form-link" style="text-secondary" button-flat="true"/>
                 </box-toolbar><box-body>
                     <form-single name="UpdateUserAccount" map="userAccount" transition="updateUserAccount">
                         <field name="partyId"><default-field><hidden/></default-field></field>
@@ -983,7 +983,7 @@ along with this software (see the LICENSE.md file). If not, see
                         <dynamic-dialog id="UpdatePhoneInfo" button-text="Update" transition="UpdateContactInfo"
                                         parameter-map="[partyId:partyId, telecomContactMechId:contactInfo.telecomContactMechId,
                                         telecomContactMechPurposeId:contactInfo.telecomContactMechPurposeId]"/>
-                        <container-dialog id="PhonePurposeDialog" button-text="Purpose">
+                        <container-dialog id="PhonePurposeDialog" button-text="Purpose" button-flat="true">
                             <form-single name="PhonePurposeForm" transition="storePartyContactMech">
                                 <field name="partyId"><default-field><hidden/></default-field></field>
                                 <field name="contactMechId" from="contactInfo.telecomContactMechId">
