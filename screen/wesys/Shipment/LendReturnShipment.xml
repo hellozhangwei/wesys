@@ -47,7 +47,7 @@ along with this software (see the LICENSE.md file). If not, see
     </actions>
     <widgets>
         <container style="row q-mb-md q-gutter-xs">
-            <label text="Land Return Shipment List" style="text-h3" />
+            <label text="Lend Return Shipment List" style="text-h3" />
             <container type="q-space"/>
 
             <container-dialog id="NewTransferShipmentDialog" button-text="New Lend Return Shipment" button-outline="false"  button-flat="false">
