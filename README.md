@@ -53,3 +53,23 @@ Create elasticsearch user for Linux
 Install kibana
 https://artifacts.elastic.co/downloads/kibana/kibana-oss-7.10.2-darwin-x86_64.tar.gz
 
+#Deployment in Docker
+1. apt install unzip
+2. Install JDK
+3. git clone https://github.com/moqui/moqui-framework.git
+4. cd moqui-framework
+5. ./gradlew getRuntime
+6. ./gradlew getComponent -Pcomponent=PopCommerce
+7. ./gradlew getComponent -Pcomponent=moqui-hazelcast
+8. ./gradlew getComponent -Pcomponent=example
+9. ./gradlew getComponent -Pcomponent=moqui-zh_CN-addon
+10. ./gradlew downloadElasticsearch
+11. git clone https://github.com/zhangwei1979/wesys.git
+12. git clone https://github.com/zhangwei1979/moqui-zapps.git
+13. git clone https://github.com/zhangwei1979/moqui-login.git
+14. git clone https://github.com/shendepu/moqui-captcha.git
+15. groupadd -r elasticsearch
+16. useradd --no-log-init -r -d /opt/moqui-framework/runtime/elasticsearch -g elasticsearch elasticsearch
+17. chown -R elasticsearch:elasticsearch /opt/moqui-framework/runtime/elasticsearch
+18. ./gradlew addRuntime 
+19. ./docker/simple/docker-build.sh
