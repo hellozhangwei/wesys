@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        menu-image-type="icon" menu-image="qr_code_scanner" default-menu-title="Shipment Scan">
+
+    <transition-include name="getProductList" location="component://SimpleScreens/template/product/ProductTransitions.xml"/>
+
+    <transition name="addItem">
+        <actions>
+                <if condition="shipmentId">
+                    <service-call name="mantle.shipment.ShipmentServices.create#ShipmentItem" in-map="context" out-map="context"/>
+                    <else>
+                        <set field="shipmentTypeEnumId" value="ShpTpOutgoing"/>
+                        <service-call name="mantle.shipment.ShipmentServices.create#Shipment" in-map="context" out-map="context"/>
+                        <service-call name="mantle.shipment.ShipmentServices.create#ShipmentItem" in-map="context" out-map="context"/>
+                    </else>
+                </if>
+        </actions>
+        <default-response url="." parameter-map="[shipmentId:shipmentId]"/>
+    </transition>
+
+    <transition name="updateItem">
+        <actions>
+            <service-call name="mantle.shipment.ShipmentServices.update#ShipmentItem" in-map="context"/>
+        </actions>
+        <default-response url="." parameter-map="[shipmentId:shipmentId]"/>
+    </transition>
+
+    <transition name="deleteItem">
+        <actions>
+
+            <entity-delete-by-condition entity-name="mantle.shipment.ShipmentItemSource">
+                <econdition field-name="shipmentId"/>
+                <econdition field-name="productId"/>
+            </entity-delete-by-condition>
+            <entity-delete-by-condition entity-name="mantle.shipment.ShipmentItem">
+                <econdition field-name="shipmentId"/>
+                <econdition field-name="productId"/>
+            </entity-delete-by-condition>
+
+            <entity-find-count entity-name="mantle.shipment.ShipmentItem" count-field="itemNumber">
+                <econdition field-name="shipmentId"/>
+            </entity-find-count>
+            <if condition="itemNumber &lt;=0">
+                <entity-delete-by-condition entity-name="mantle.shipment.ShipmentRouteSegment">
+                    <econdition field-name="shipmentId"/>
+                </entity-delete-by-condition>
+                <entity-delete-by-condition entity-name="mantle.shipment.Shipment">
+                    <econdition field-name="shipmentId"/>
+                </entity-delete-by-condition>
+                <set field="shipmentId" value=""/>
+            </if>
+
+        </actions>
+
+        <default-response url="." parameter-map="[shipmentId:shipmentId]"/>
+    </transition>
+
+    <actions>
+
+        <if condition="shipmentId">
+            <service-call name="mantle.shipment.ShipmentInfoServices.get#ShipmentDisplayInfo" in-map="[shipmentId:shipmentId]" out-map="context"/>
+        </if>
+
+    </actions>
+    <widgets>
+        <form-single name="SearchOptions" transition="addItem" focus-field="productId">
+
+            <field name="shipmentId"><default-field>
+                <hidden/>
+            </default-field></field>
+            <field name="quantity"><default-field>
+                <hidden default-value="1"/>
+            </default-field></field>
+            <field name="productId">
+                <default-field title="" >
+                    <drop-down ><dynamic-options transition="getProductList" server-search="true" min-length="0" /></drop-down>
+                </default-field>
+            </field>
+
+            <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
+            <field-layout>
+                <field-row-big>
+                    <field-ref name="productId"/>
+                    <field-ref name="submitButton"/>
+                </field-row-big>
+            </field-layout>
+        </form-single>
+
+
+        <form-list name="ShipmentItemsForm" list="shipmentItemDetailList" transition="updateItem">
+
+            <field name="shipmentId"><default-field><hidden/></default-field></field>
+            <field name="productId"><default-field><display/></default-field></field>
+            <field name="productName"><default-field><display/></default-field></field>
+            <field name="quantity"><default-field title="Quantity"><text-line size="6"/></default-field></field>
+            <field name="updateButton"><default-field title="Update"><submit text="Update" type="secondary" button-flat="true"/></default-field></field>
+            <field name="deleteButton" align="right"><default-field title="Delete">
+                <link url="deleteItem" icon="fa fa-trash"
+                      parameter-map="[shipmentId:shipmentId, productId:productId]"
+                      confirmation="Are you sure you want to remove this item?" btn-type="secondary" button-flat="true"/>
+            </default-field></field>
+        </form-list>
+    </widgets>
+</screen>
