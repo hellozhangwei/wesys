@@ -76,7 +76,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     </actions>
     <widgets>
-        <form-single name="SearchOptions" transition="addItem">
+        <form-single name="ScanForm" transition="addItem">
 
             <field name="shipmentId"><default-field><hidden/></default-field></field>
             <field name="quantity"><default-field><hidden default-value="1"/></default-field></field>
@@ -88,10 +88,10 @@ along with this software (see the LICENSE.md file). If not, see
 
             <field name="submitButton"><default-field title="Add"><submit/></default-field></field>
             <field-layout>
-                <field-row-big>
-                    <field-ref name="productId"/>
-                    <field-ref name="submitButton"/>
-                </field-row-big>
+                <field-col-row>
+                    <field-col md="4"><field-ref name="productId"/></field-col>
+                    <field-col md="1"><field-ref name="submitButton"/></field-col>
+                </field-col-row>
             </field-layout>
         </form-single>
 
