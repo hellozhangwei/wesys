@@ -76,17 +76,13 @@ along with this software (see the LICENSE.md file). If not, see
 
     </actions>
     <widgets>
-        <form-single name="SearchOptions" transition="addItem" focus-field="productId">
+        <form-single name="SearchOptions" transition="addItem">
 
-            <field name="shipmentId"><default-field>
-                <hidden/>
-            </default-field></field>
-            <field name="quantity"><default-field>
-                <hidden default-value="1"/>
-            </default-field></field>
+            <field name="shipmentId"><default-field><hidden/></default-field></field>
+            <field name="quantity"><default-field><hidden default-value="1"/></default-field></field>
             <field name="productId">
                 <default-field title="" >
-                    <drop-down ><dynamic-options transition="getProductList" server-search="true" min-length="0" /></drop-down>
+                    <drop-down autofocus="true"><dynamic-options transition="getProductList" server-search="true" min-length="0" /></drop-down>
                 </default-field>
             </field>
 
