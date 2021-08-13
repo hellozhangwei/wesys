@@ -102,67 +102,55 @@ along with this software (see the LICENSE.md file). If not, see
             </field-layout>
         </form-single>
 
-
-        <container style="row justify-end bg-grey-2 q-mb-md q-pa-sm">
-
-        </container>
-
-        <section name="ShipmentSection">
-            <condition><expression>shipment</expression></condition>
-            <widgets>
-                <container style="q-card--bordered rounded-borders">
-                    <form-single name="EditShipment" transition="updateShipment" map="shipment">
-                        <field name="shipmentId"><default-field><hidden/></default-field></field>
-
-                        <field name="shipmentTypeEnumId"><default-field title="Type">
-                            <drop-down><list-options list="outgoingTypeOut.enumerationList" key="${enumId}" text="${description}"/></drop-down>
-                        </default-field></field>
-
-                        <field name="toPartyId"><default-field><text-line/></default-field></field>
-
-                        <field name="originFacilityId"><default-field><text-line/></default-field></field>
-
-                        <field name="destinationFacilityId"><default-field><text-line/></default-field></field>
-
-                        <field name="actualStartDate"><default-field title="Actual Start"><date-time/></default-field></field>
-
-                        <field name="submitButton"><default-field title="Update"><submit type="secondary"/></default-field></field>
-                        <field name="ship">
-                            <default-field>
-                                <link url="shipShipment" text="出库" confirmation="确定出库" parameter-map="[shipmentId:shipmentId]" btn-type="secondary" button-size="md"/>
-                            </default-field>
-                        </field>
-                        <field-layout>
-                            <field-col-row>
-                                <field-col md="3"><field-ref name="actualStartDate"/></field-col>
-                                <field-col md="3"><field-ref name="shipmentTypeEnumId"/></field-col>
-                                <field-col md="3"><field-ref name="originFacilityId"/></field-col>
-                                <field-col md="3"><field-ref name="destinationFacilityId"/></field-col>
-                            </field-col-row>
-                            <field-col-row>
-                                <field-col md="10"></field-col>
-                                <field-col md="1"><field-ref name="ship"/></field-col>
-                                <field-col md="1">><field-ref name="submitButton"/></field-col>
-                            </field-col-row>
-                        </field-layout>
-                    </form-single>
+        <container-box type="bg-grey-2" collapsable="false">
+            <box-header title="出库单"/>
+            <box-toolbar>
+                <container style="q-gutter-x-sm">
+                    <link url="shipShipment" text="修改" parameter-map="[shipmentId:shipmentId]" btn-type="secondary" button-size="md"/>
+                    <link url="shipShipment" text="出库" confirmation="确定出库" parameter-map="[shipmentId:shipmentId]" btn-type="secondary" button-size="md"/>
                 </container>
-            </widgets>
-        </section>
+            </box-toolbar>
+            <box-body>
+                <form-single name="EditShipment" transition="updateShipment" map="shipment">
+                    <field name="shipmentId"><default-field><hidden/></default-field></field>
 
-        <form-list name="ShipmentItemsForm" list="shipmentItemDetailList" transition="updateItem">
+                    <field name="shipmentTypeEnumId"><default-field title="Type">
+                        <drop-down><list-options list="outgoingTypeOut.enumerationList" key="${enumId}" text="${description}"/></drop-down>
+                    </default-field></field>
 
-            <field name="shipmentId"><default-field><hidden/></default-field></field>
-            <field name="productId"><default-field><display/></default-field></field>
-            <field name="productName"><default-field><display/></default-field></field>
-            <field name="quantity"><default-field title="Quantity"><text-line size="6"/></default-field></field>
-            <field name="updateButton"><default-field title="Update"><submit text="Update" type="secondary" button-flat="true"/></default-field></field>
-            <field name="deleteButton" align="right"><default-field title="Delete">
-                <link url="deleteItem" icon="fa fa-trash"
-                      parameter-map="[shipmentId:shipmentId, productId:productId]"
-                      confirmation="Are you sure you want to remove this item?" btn-type="secondary" button-flat="true"/>
-            </default-field></field>
-        </form-list>
+                    <field name="toPartyId"><default-field><text-line/></default-field></field>
+
+                    <field name="originFacilityId"><default-field><text-line/></default-field></field>
+
+                    <field name="destinationFacilityId"><default-field><text-line/></default-field></field>
+
+                    <field name="actualStartDate"><default-field title="Actual Start"><date-time/></default-field></field>
+
+                    <field-layout>
+                        <field-col-row>
+                            <field-col md="3"><field-ref name="actualStartDate"/></field-col>
+                            <field-col md="3"><field-ref name="shipmentTypeEnumId"/></field-col>
+                            <field-col md="3"><field-ref name="originFacilityId"/></field-col>
+                            <field-col md="3"><field-ref name="destinationFacilityId"/></field-col>
+                        </field-col-row>
+
+                    </field-layout>
+                </form-single>
+                <form-list name="ShipmentItemsForm" list="shipmentItemDetailList" transition="updateItem">
+
+                    <field name="shipmentId"><default-field><hidden/></default-field></field>
+                    <field name="productId"><default-field><display/></default-field></field>
+                    <field name="productName"><default-field><display/></default-field></field>
+                    <field name="quantity"><default-field title="Quantity"><text-line size="6"/></default-field></field>
+                    <field name="updateButton"><default-field title="Update"><submit text="Update" type="secondary" button-flat="true"/></default-field></field>
+                    <field name="deleteButton" align="right"><default-field title="Delete">
+                        <link url="deleteItem" icon="fa fa-trash"
+                              parameter-map="[shipmentId:shipmentId, productId:productId]"
+                              confirmation="Are you sure you want to remove this item?" btn-type="secondary" button-flat="true"/>
+                    </default-field></field>
+                </form-list>
+            </box-body>
+        </container-box>
 
 
     </widgets>
