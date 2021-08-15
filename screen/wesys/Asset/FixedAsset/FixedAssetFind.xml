@@ -71,6 +71,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </form-single>
             </container-dialog>
 
+
             <!--<container-dialog id="NewSerialAssetDialog" button-text="Receive Serial Asset" button-flat="false">
                 <form-single name="CreateSerialAsset" transition="createSerialAsset">
                     <field name="assetName"><default-field><text-line size="40"/></default-field></field>
@@ -115,6 +116,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </form-single>
             </container-dialog>-->
         </container>
+        <label text="This form is for existing or third party equipment. Use the Asset screen after create for depreciation and other settings." style="text-grey" />
 
         <form-list name="ListAssets" list="assetList" skip-form="true" header-dialog="true" select-columns="true" saved-finds="true"
                 show-csv-button="true" show-xlsx-button="true">
