@@ -276,7 +276,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     <moqui.basic.Enumeration description="Consumable Shipment" enumId="ShpTpConsumable" parentEnumId="ShpTpOutgoing" enumTypeId="ShipmentType"/>
     <moqui.basic.Enumeration description="Lend Shipment" enumId="ShpTpLend" parentEnumId="ShpTpTransfer" enumTypeId="ShipmentType"/>
-    <moqui.basic.Enumeration description="Lend Shipment" enumId="ShpTpLendReturn" parentEnumId="ShpTpTransfer" enumTypeId="ShipmentType"/>
+    <moqui.basic.Enumeration description="Lend Return Shipment" enumId="ShpTpLendReturn" parentEnumId="ShpTpTransfer" enumTypeId="ShipmentType"/>
 
     <moqui.basic.Enumeration description="Rental Sales Shipment" parentEnumId="ShpTpOutgoing" enumId="ShpTpRentalSales" enumTypeId="ShipmentType"/>
     <moqui.basic.Enumeration description="Rental Sales Return" parentEnumId="ShpTpIncoming" enumId="ShpTpRentalSalesReturn" enumTypeId="ShipmentType"/>
