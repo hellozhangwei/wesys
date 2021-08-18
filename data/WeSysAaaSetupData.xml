@@ -279,7 +279,7 @@ along with this software (see the LICENSE.md file). If not, see
     <moqui.basic.Enumeration description="Lend Return Shipment" enumId="ShpTpLendReturn" parentEnumId="ShpTpTransfer" enumTypeId="ShipmentType"/>
 
     <moqui.basic.Enumeration description="Rental Sales Shipment" parentEnumId="ShpTpOutgoing" enumId="ShpTpRentalSales" enumTypeId="ShipmentType"/>
-    <moqui.basic.Enumeration description="Rental Sales Return" parentEnumId="ShpTpIncoming" enumId="ShpTpRentalSalesReturn" enumTypeId="ShipmentType"/>
+    <moqui.basic.Enumeration description="Rental Sales Return Shipment" parentEnumId="ShpTpIncoming" enumId="ShpTpRentalSalesReturn" enumTypeId="ShipmentType"/>
 
     <mantle.facility.Facility facilityId="WH_LEND_DEST" facilityTypeEnumId="FcTpWarehouse" assetAllowIssueOverQoh="Y" facilityName="Lend Dest Virtual Warehouse"/>
     <mantle.facility.Facility facilityId="WH_RENTAL_DEST" facilityTypeEnumId="FcTpWarehouse" assetAllowIssueOverQoh="Y" facilityName="Rental Dest Virtual Warehouse"/>
