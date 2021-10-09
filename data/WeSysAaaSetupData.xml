@@ -270,9 +270,11 @@ along with this software (see the LICENSE.md file). If not, see
     <moqui.basic.StatusItem description="In-Draft" sequenceNum="1" statusId="AgreementInDraft" statusTypeId="Agreement"/>
     <moqui.basic.StatusItem description="In-Progress" sequenceNum="2" statusId="AgreementInProgress" statusTypeId="Agreement"/>
     <moqui.basic.StatusItem description="Approved" sequenceNum="12" statusId="AgreementApproved" statusTypeId="Agreement"/>
+<!--
 
     <moqui.basic.Enumeration enumId="zapps_root_app" description="component://wesys/screen/wesys.xml"/>
     <moqui.basic.Enumeration enumId="zapps_root_app_path" description="/wesys"/>
+-->
 
     <moqui.basic.Enumeration description="Consumable Shipment" enumId="ShpTpConsumable" parentEnumId="ShpTpOutgoing" enumTypeId="ShipmentType"/>
     <moqui.basic.Enumeration description="Lend Shipment" enumId="ShpTpLend" parentEnumId="ShpTpTransfer" enumTypeId="ShipmentType"/>
