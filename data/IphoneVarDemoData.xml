@@ -1,0 +1,24 @@
+<entity-facade-xml type="demo">
+
+    <mantle.product.feature.ProductFeature productFeatureId="ColorSilver" productFeatureTypeEnumId="PftColor" description="星空银" abbrev="SV"/>
+    <mantle.product.feature.ProductFeature productFeatureId="ColorGold" productFeatureTypeEnumId="PftColor" description="土豪金" abbrev="GD"/>
+    <mantle.product.feature.ProductFeature productFeatureId="ColorBlue" productFeatureTypeEnumId="PftColor" description="远峰蓝" abbrev="BL"/>
+
+    <mantle.product.feature.ProductFeature productFeatureId="Capacity128G" productFeatureTypeEnumId="PftHardware" description="128G" abbrev="128G"/>
+    <mantle.product.feature.ProductFeature productFeatureId="Capacity256G" productFeatureTypeEnumId="PftHardware" description="256G" abbrev="256G"/>
+    <mantle.product.feature.ProductFeature productFeatureId="Capacity512G" productFeatureTypeEnumId="PftHardware" description="512G" abbrev="512G"/>
+
+
+    <mantle.product.Product productId="IPHONE13" productTypeEnumId="PtVirtual" assetTypeEnumId="" assetClassEnumId=""
+                            chargeShipping="Y" returnable="Y" productName="Apple iPhone 13" description="" ownerPartyId="ORG_ZIZI_RETAIL">
+        <features productFeatureId="ColorSilver" sequenceNum="1" applTypeEnumId="PfatSelectable" fromDate="1265184000000"/>
+        <features productFeatureId="ColorGold" sequenceNum="2" applTypeEnumId="PfatSelectable" fromDate="1265184000000"/>
+        <features productFeatureId="ColorBlue" sequenceNum="3" applTypeEnumId="PfatSelectable" fromDate="1265184000000"/>
+        <features productFeatureId="Capacity128G" sequenceNum="1" applTypeEnumId="PfatSelectable" fromDate="1265184000000"/>
+        <features productFeatureId="Capacity256G" sequenceNum="2" applTypeEnumId="PfatSelectable" fromDate="1265184000000"/>
+        <features productFeatureId="Capacity512G" sequenceNum="3" applTypeEnumId="PfatSelectable" fromDate="1265184000000"/>
+    </mantle.product.Product>
+    <!-- call a service to generate variants -->
+    <mantle.product.ProductServices.createVariantProducts productId="IPHONE13" productTypeEnumId="PtAsset"
+                                                          assetTypeEnumId="AstTpInventory" assetClassEnumId="AsClsInventoryFin" copyCategoryMembers="false"/>
+</entity-facade-xml>
